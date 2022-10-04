@@ -1,0 +1,10 @@
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\bin\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.deps.json
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\bin\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.dll
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\bin\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.pdb
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\obj\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.csproj.AssemblyReference.cache
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\obj\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\obj\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.AssemblyInfoInputs.cache
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\obj\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.AssemblyInfo.cs
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\obj\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.csproj.CoreCompileInputs.cache
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\obj\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.dll
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Infra.IoC\obj\Debug\netstandard2.1\DivinaHamburgueria.Infra.IoC.pdb

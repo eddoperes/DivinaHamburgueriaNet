@@ -1,0 +1,10 @@
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\bin\Debug\netstandard2.1\DivinaHamburgueria.Application.deps.json
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\bin\Debug\netstandard2.1\DivinaHamburgueria.Application.dll
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\bin\Debug\netstandard2.1\DivinaHamburgueria.Application.pdb
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\obj\Debug\netstandard2.1\DivinaHamburgueria.Application.csproj.AssemblyReference.cache
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\obj\Debug\netstandard2.1\DivinaHamburgueria.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\obj\Debug\netstandard2.1\DivinaHamburgueria.Application.AssemblyInfoInputs.cache
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\obj\Debug\netstandard2.1\DivinaHamburgueria.Application.AssemblyInfo.cs
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\obj\Debug\netstandard2.1\DivinaHamburgueria.Application.csproj.CoreCompileInputs.cache
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\obj\Debug\netstandard2.1\DivinaHamburgueria.Application.dll
+C:\Projetos\2022\DivinaHamburgueria\DivinaHamburgueria\DivinaHamburgueria.Application\obj\Debug\netstandard2.1\DivinaHamburgueria.Application.pdb
