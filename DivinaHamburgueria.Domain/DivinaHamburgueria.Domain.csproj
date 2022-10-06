@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Account\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Validation\" />
   </ItemGroup>

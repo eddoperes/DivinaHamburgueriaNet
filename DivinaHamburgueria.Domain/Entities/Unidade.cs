@@ -4,7 +4,12 @@ using System.Text;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
-    internal class ItemDoEstoque
+
+    public class Unidade: Entity
     {
+
+        public string Nome { get; private set; } = string.Empty;
+
     }
+
 }
