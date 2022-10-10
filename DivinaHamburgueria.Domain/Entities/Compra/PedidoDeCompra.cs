@@ -44,7 +44,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public DateTime DataPagamento { get; private set; }
 
-        public int Total { get; private set; }
+        public Decimal Total { get; private set; }
 
     }
 }

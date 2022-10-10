@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
-    public class PedidoSalao
+    public class PedidoSalao : Pedido
     {
 
         public enum EstadoPedidoSalao
@@ -14,7 +14,7 @@ namespace DivinaHamburgueria.Domain.Entities
             Entregue = 3
         }
 
-        public EstadoPedidoSalao Estado = EstadoPedidoSalao.Emitido;
+        public EstadoPedidoSalao Estado { get; private set; } = EstadoPedidoSalao.Emitido;
 
         public DateTime DataEmitido { get; private set; }
 

@@ -9,7 +9,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public ItemDoEstoque ItemDoEstoque { get; private set; }
 
-        public int Quantidade { get; private set; }
+        public float Quantidade { get; private set; }
 
     }
 }

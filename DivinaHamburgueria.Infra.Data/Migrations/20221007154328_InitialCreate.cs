@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,8 +54,8 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
                     DataCriado = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataAtivado = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -64,6 +64,32 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cardapios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comestiveis",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comestiveis", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Unidades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Unidades", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,6 +198,91 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ItensDoEstoque",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Marca = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    Conteudo = table.Column<int>(type: "int", nullable: false),
+                    UnidadeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItensDoEstoque", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItensDoEstoque_Unidades_UnidadeId",
+                        column: x => x.UnidadeId,
+                        principalTable: "Unidades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItensDoCardapio",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Fotografia = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ComestivelId = table.Column<int>(type: "int", nullable: true),
+                    Quantidade = table.Column<int>(type: "int", nullable: true),
+                    ItemDoEstoqueId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItensDoCardapio", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItensDoCardapio_Comestiveis_ComestivelId",
+                        column: x => x.ComestivelId,
+                        principalTable: "Comestiveis",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItensDoCardapio_ItensDoEstoque_ItemDoEstoqueId",
+                        column: x => x.ItemDoEstoqueId,
+                        principalTable: "ItensDoEstoque",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CardapiosItensDoCardapio",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CardapioId = table.Column<int>(type: "int", nullable: false),
+                    ItemDoCardapioId = table.Column<int>(type: "int", nullable: false),
+                    Preco = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false),
+                    DataCriado = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataAtivado = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataInativado = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardapiosItensDoCardapio", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CardapiosItensDoCardapio_Cardapios_CardapioId",
+                        column: x => x.CardapioId,
+                        principalTable: "Cardapios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CardapiosItensDoCardapio_ItensDoCardapio_ItemDoCardapioId",
+                        column: x => x.ItemDoCardapioId,
+                        principalTable: "ItensDoCardapio",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -210,6 +321,31 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardapiosItensDoCardapio_CardapioId",
+                table: "CardapiosItensDoCardapio",
+                column: "CardapioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardapiosItensDoCardapio_ItemDoCardapioId",
+                table: "CardapiosItensDoCardapio",
+                column: "ItemDoCardapioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItensDoCardapio_ComestivelId",
+                table: "ItensDoCardapio",
+                column: "ComestivelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItensDoCardapio_ItemDoEstoqueId",
+                table: "ItensDoCardapio",
+                column: "ItemDoEstoqueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItensDoEstoque_UnidadeId",
+                table: "ItensDoEstoque",
+                column: "UnidadeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -230,13 +366,28 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Cardapios");
+                name: "CardapiosItensDoCardapio");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Cardapios");
+
+            migrationBuilder.DropTable(
+                name: "ItensDoCardapio");
+
+            migrationBuilder.DropTable(
+                name: "Comestiveis");
+
+            migrationBuilder.DropTable(
+                name: "ItensDoEstoque");
+
+            migrationBuilder.DropTable(
+                name: "Unidades");
         }
     }
 }

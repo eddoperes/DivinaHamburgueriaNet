@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DivinaHamburgueria.Domain.ValueObjects
 {
-    public class TelefoneFornecedor
+    public class TelefoneFornecedor : Telefone
     {
 
         public Fornecedor Fornecedor { get; private set; }

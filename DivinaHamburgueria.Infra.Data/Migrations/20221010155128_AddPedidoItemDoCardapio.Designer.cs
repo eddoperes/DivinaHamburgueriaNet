@@ -4,6 +4,7 @@ using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221010155128_AddPedidoItemDoCardapio")]
+    partial class AddPedidoItemDoCardapio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +23,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Alarme", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ComestivelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuantidadeMinima")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnidadeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValidadeEmDias")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ComestivelId");
-
-                    b.HasIndex("UnidadeId");
-
-                    b.ToTable("Alarmes", (string)null);
-                });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Cardapio", b =>
                 {
@@ -533,71 +506,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.ToTable("Usuarios", (string)null);
                 });
 
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.Endereco", b =>
-                {
-                    b.Property<string>("Bairro")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("CEP")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
-                    b.Property<string>("Cidade")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Complemento")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logradouro")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Numero")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UF")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.ToTable("Enderecos", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Endereco");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.Telefone", b =>
-                {
-                    b.Property<string>("DDD")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Numero")
-                        .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
-
-                    b.ToTable("Telefones", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Telefone");
-                });
-
             modelBuilder.Entity("DivinaHamburgueria.Infra.Data.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -875,73 +783,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.HasDiscriminator().HasValue("PedidoSalao");
                 });
 
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.EnderecoCliente", b =>
-                {
-                    b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Endereco");
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasDiscriminator().HasValue("EnderecoCliente");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.EnderecoFornecedor", b =>
-                {
-                    b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Endereco");
-
-                    b.Property<int>("FornecedorId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("FornecedorId");
-
-                    b.HasDiscriminator().HasValue("EnderecoFornecedor");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.TelefoneCliente", b =>
-                {
-                    b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Telefone");
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasDiscriminator().HasValue("TelefoneCliente");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.TelefoneFornecedor", b =>
-                {
-                    b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Telefone");
-
-                    b.Property<int>("FornecedorId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("FornecedorId");
-
-                    b.HasDiscriminator().HasValue("TelefoneFornecedor");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Alarme", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
-                        .WithMany()
-                        .HasForeignKey("ComestivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Unidade", "Unidade")
-                        .WithMany()
-                        .HasForeignKey("UnidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comestivel");
-
-                    b.Navigation("Unidade");
-                });
-
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.CardapioItemDoCardapio", b =>
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Cardapio", "Cardapio")
@@ -1149,50 +990,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("ItemDoEstoque");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.EnderecoCliente", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.EnderecoFornecedor", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Fornecedor", "Fornecedor")
-                        .WithMany()
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Fornecedor");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.TelefoneCliente", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.TelefoneFornecedor", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Fornecedor", "Fornecedor")
-                        .WithMany()
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Fornecedor");
                 });
 #pragma warning restore 612, 618
         }

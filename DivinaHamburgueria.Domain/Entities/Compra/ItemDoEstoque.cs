@@ -18,7 +18,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public string? Marca { get; private set; }
 
-        public TipoItemDoEstoque Tipo = TipoItemDoEstoque.Receita;
+        public TipoItemDoEstoque Tipo { get; private set; } = TipoItemDoEstoque.Receita;
 
         public int Conteudo { get; private set; }
 

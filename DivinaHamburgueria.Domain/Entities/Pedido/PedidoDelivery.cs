@@ -31,7 +31,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public DateTime DataEntregue { get; private set; }
 
-        EstadoPagamentoPedidoDelivery Pagamento = EstadoPagamentoPedidoDelivery.EmAberto;
+        public EstadoPagamentoPedidoDelivery Pagamento { get; private set; } = EstadoPagamentoPedidoDelivery.EmAberto;
 
         public DateTime DataPagamento { get; private set; }
 
