@@ -16,7 +16,7 @@ namespace DivinaHamburgueria.Infra.IoC
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "CleanArchMvc.API",
+                    Title = "DivinaHamburgueria.API",
                     Version = "v1",
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

@@ -121,7 +121,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     b.HasIndex("ItemDoCardapioId");
 
-                    b.ToTable("CardapiosItensDoCardapio");
+                    b.ToTable("CardapiosItensDoCardapio", (string)null);
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Cliente", b =>
@@ -277,7 +277,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     b.HasIndex("UnidadeId");
 
-                    b.ToTable("ItensDoEstoque");
+                    b.ToTable("ItensDoEstoque", (string)null);
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Pedido", b =>

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-//using DivinaHamburgueria.Application.Interfaces;
-//using DivinaHamburgueria.Application.Mappings;
-//using DivinaHamburgueria.Application.Services;
+using DivinaHamburgueria.Application.Interfaces;
+using DivinaHamburgueria.Application.Mappings;
+using DivinaHamburgueria.Application.Services;
 using DivinaHamburgueria.Domain.Account;
-//using DivinaHamburgueria.Domain.Interfaces;
+using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using DivinaHamburgueria.Infra.Data.Identity;
 using DivinaHamburgueria.Infra.Data.Repository;
@@ -28,18 +28,18 @@ namespace DivinaHamburgueria.Infra.IoC
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IUnidadeRepository, UnidadeRepository>();
             //services.AddScoped<IProductRepository, ProductRepository>();
 
-            //services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IUnidadeService, UnidadeService>();
             //services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
-            //services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+            services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
-            var myHandlers = AppDomain.CurrentDomain.Load("DivinaHamburgueria.Application");
-            services.AddMediatR(myHandlers);
+            //var myHandlers = AppDomain.CurrentDomain.Load("DivinaHamburgueria.Application");
+            //services.AddMediatR(myHandlers);
 
             return services;
         }

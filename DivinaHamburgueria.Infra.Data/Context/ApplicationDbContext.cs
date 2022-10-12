@@ -49,6 +49,8 @@ namespace DivinaHamburgueria.Infra.Data.Context
 
         public DbSet<TelefoneFornecedor> TelefonesFornecedores { get; set; }
 
+        public DbSet<Unidade> Unidades { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

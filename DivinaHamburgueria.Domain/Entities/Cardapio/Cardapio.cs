@@ -25,6 +25,8 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public DateTime DataInativado { get; private set; }
 
+        public ICollection<CardapioItemDoCardapio> CardapiosItensDoCardapio { get; set; }
+
     }
 
 }
