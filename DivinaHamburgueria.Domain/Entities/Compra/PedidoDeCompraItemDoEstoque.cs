@@ -7,9 +7,9 @@ namespace DivinaHamburgueria.Domain.Entities
     public class PedidoDeCompraItemDoEstoque: Entity
     {
 
-        public PedidoDeCompra PedidoDeCompra { get; private set; }
+        public PedidoDeCompra? PedidoDeCompra { get; private set; }
 
-        public ItemDoEstoque ItemDoEstoque { get; private set; }
+        public ItemDoEstoque? ItemDoEstoque { get; private set; }
 
         public Decimal PrecoUnitario { get; private set; }
 

@@ -9,7 +9,7 @@ namespace DivinaHamburgueria.Domain.ValueObjects
     public class EnderecoCliente: Endereco
     {
 
-        public Cliente Cliente { get; private set; }
+        public Cliente? Cliente { get; private set; }
 
     }
 

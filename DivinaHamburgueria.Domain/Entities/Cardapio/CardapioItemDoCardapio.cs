@@ -11,9 +11,9 @@ namespace DivinaHamburgueria.Domain.Entities
             Inativado = 0
         }
 
-        public Cardapio Cardapio { get; private set; }
+        public Cardapio? Cardapio { get; private set; }
 
-        public ItemDoCardapio ItemDoCardapio  { get; private set; }
+        public ItemDoCardapio? ItemDoCardapio  { get; private set; }
 
         public decimal Preco { get; private set; }
 

@@ -9,6 +9,7 @@ namespace DivinaHamburgueria.Application.Mappings
             public DomainToDTOMappingProfile()
             {
                 CreateMap<Unidade, UnidadeDTO>().ReverseMap();
+                CreateMap<ItemDoEstoque, ItemDoEstoqueDTO>().ReverseMap();
             }
         }
 }

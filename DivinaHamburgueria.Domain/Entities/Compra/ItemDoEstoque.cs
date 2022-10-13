@@ -14,15 +14,19 @@ namespace DivinaHamburgueria.Domain.Entities
             Revenda = 2
         }
 
-        public string Nome { get; private set; } = string.Empty;
+        public int ComestivelId { get; private set; }
+
+        public Comestivel? Comestivel { get; private set; }
 
         public string? Marca { get; private set; }
 
-        public TipoItemDoEstoque Tipo { get; private set; } = TipoItemDoEstoque.Receita;
+        public TipoItemDoEstoque? Tipo { get; private set; } = TipoItemDoEstoque.Receita;
 
         public int Conteudo { get; private set; }
 
-        public Unidade Unidade { get; private set; }
+        public int UnidadeId { get; private set; }
+
+        public Unidade? Unidade { get; private set; }
 
     }
 }
