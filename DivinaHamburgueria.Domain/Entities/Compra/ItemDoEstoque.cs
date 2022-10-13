@@ -8,19 +8,7 @@ namespace DivinaHamburgueria.Domain.Entities
     public class ItemDoEstoque : Entity
     {
 
-        public enum TipoItemDoEstoque
-        {
-            Receita = 1,
-            Revenda = 2
-        }
-
-        public int ComestivelId { get; private set; }
-
-        public Comestivel? Comestivel { get; private set; }
-
         public string? Marca { get; private set; }
-
-        public TipoItemDoEstoque? Tipo { get; private set; } = TipoItemDoEstoque.Receita;
 
         public int Conteudo { get; private set; }
 

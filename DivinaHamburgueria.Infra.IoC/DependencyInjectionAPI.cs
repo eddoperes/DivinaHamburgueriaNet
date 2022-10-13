@@ -29,10 +29,10 @@ namespace DivinaHamburgueria.Infra.IoC
                     .AddDefaultTokenProviders();
 
             services.AddScoped<IUnidadeRepository, UnidadeRepository>();
-            services.AddScoped<IItemDoEstoqueRepository, ItemDoEstoqueRepository>();
+            services.AddScoped<IItemDoEstoqueReceitaRepository, ItemDoEstoqueReceitaRepository>();
 
             services.AddScoped<IUnidadeService, UnidadeService>();
-            services.AddScoped<IItemDoEstoqueService, ItemDoEstoqueService>();
+            services.AddScoped<IItemDoEstoqueReceitaService, ItemDoEstoqueReceitaService>();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
 

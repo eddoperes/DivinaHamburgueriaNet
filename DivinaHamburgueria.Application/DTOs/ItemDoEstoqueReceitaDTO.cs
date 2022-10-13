@@ -8,7 +8,7 @@ using static DivinaHamburgueria.Domain.Entities.ItemDoEstoque;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class ItemDoEstoqueDTO
+    public class ItemDoEstoqueReceitaDTO
     {
 
         public int Id { get; set; }
@@ -18,10 +18,6 @@ namespace DivinaHamburgueria.Application.DTOs
 
         [DisplayName("Marca")]
         public string? Marca { get; set; }
-
-        [Range(1, 2)]
-        [DisplayName("Tipo")]
-        public int Tipo { get;  set; }
 
         [DisplayName("Conteudo")]
         public int Conteudo { get; set; }

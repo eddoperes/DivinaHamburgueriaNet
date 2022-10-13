@@ -22,8 +22,6 @@ namespace DivinaHamburgueria.Infra.Data.Context
 
         public DbSet<ItemDoCardapioRevenda>? ItensDoCardapioRevenda { get; set; }
 
-        public DbSet<ItemDoEstoque>? ItensDoEstoque { get; set; }
-
         public DbSet<PedidoDeCompra>? PedidosDeCompra { get; set; }
 
         public DbSet<PedidoDelivery>? PedidosDelivery { get; set; }
@@ -45,6 +43,10 @@ namespace DivinaHamburgueria.Infra.Data.Context
         public DbSet<TelefoneFornecedor>? TelefonesFornecedores { get; set; }
 
         public DbSet<Unidade>? Unidades { get; set; }
+
+        public DbSet<ItemDoEstoqueReceita>? ItensDoEstoqueReceita { get; set; }
+
+        public DbSet<ItemDoEstoqueRevenda>? ItensDoEstoqueRevenda { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
