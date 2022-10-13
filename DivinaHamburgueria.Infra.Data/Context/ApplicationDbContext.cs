@@ -3,11 +3,6 @@ using DivinaHamburgueria.Domain.ValueObjects;
 using DivinaHamburgueria.Infra.Data.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Infra.Data.Context
 {

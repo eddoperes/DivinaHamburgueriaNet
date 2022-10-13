@@ -1,5 +1,6 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Domain.Interfaces;
+using DivinaHamburgueria.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,13 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 {
     public class CardapioRepository : ICardapioRepository
     {
+
+        private ApplicationDbContext _applicationDbContext;
+
+        public CardapioRepository(ApplicationDbContext context)
+        {
+            _applicationDbContext = context;
+        }
 
         public Task<IEnumerable<Cardapio>> GetAllAsync()
         {

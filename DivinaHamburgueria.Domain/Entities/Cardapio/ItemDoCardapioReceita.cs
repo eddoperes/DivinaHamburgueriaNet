@@ -7,11 +7,7 @@ namespace DivinaHamburgueria.Domain.Entities
     public class ItemDoCardapioReceita: ItemDoCardapio
     {
 
-        public Comestivel Comestivel { get; private set; }
-
-        public int Quantidade { get; private set; } = 0;
-
-        public Unidade Unidade { get; private set; }
+        public ICollection<Ingrediente> Ingredientes { get; private set; }
 
     }
 }
