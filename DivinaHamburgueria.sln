@@ -5,15 +5,15 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DivinaHamburgueria.API", "DivinaHamburgueria.API\DivinaHamburgueria.API.csproj", "{A6DB5081-39E6-4324-8F1B-CDE3635006EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivinaHamburgueria.Application", "DivinaHamburgueria.Application\DivinaHamburgueria.Application.csproj", "{B635A051-E345-4C24-976C-E19D6F5243C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DivinaHamburgueria.Application", "DivinaHamburgueria.Application\DivinaHamburgueria.Application.csproj", "{B635A051-E345-4C24-976C-E19D6F5243C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivinaHamburgueria.Domain", "DivinaHamburgueria.Domain\DivinaHamburgueria.Domain.csproj", "{9652CC89-D2CB-4C1E-AED7-A4443350F2A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DivinaHamburgueria.Domain", "DivinaHamburgueria.Domain\DivinaHamburgueria.Domain.csproj", "{9652CC89-D2CB-4C1E-AED7-A4443350F2A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivinaHamburgueria.Infra.Data", "DivinaHamburgueria.Infra.Data\DivinaHamburgueria.Infra.Data.csproj", "{B9234802-0DEA-45EE-85AA-E122FCA355AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DivinaHamburgueria.Infra.Data", "DivinaHamburgueria.Infra.Data\DivinaHamburgueria.Infra.Data.csproj", "{B9234802-0DEA-45EE-85AA-E122FCA355AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivinaHamburgueria.Infra.IoC", "DivinaHamburgueria.Infra.IoC\DivinaHamburgueria.Infra.IoC.csproj", "{3EF0DEA1-735F-4B8C-A839-7DD5224926D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DivinaHamburgueria.Infra.IoC", "DivinaHamburgueria.Infra.IoC\DivinaHamburgueria.Infra.IoC.csproj", "{3EF0DEA1-735F-4B8C-A839-7DD5224926D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivinaHamburgueria.Domain.Tests", "DivinaHamburgueria.Domain.Tests\DivinaHamburgueria.Domain.Tests.csproj", "{CD2AFEA0-50B0-4B75-8D67-D4B67D50053C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DivinaHamburgueria.Domain.Tests", "DivinaHamburgueria.Domain.Tests\DivinaHamburgueria.Domain.Tests.csproj", "{CD2AFEA0-50B0-4B75-8D67-D4B67D50053C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
