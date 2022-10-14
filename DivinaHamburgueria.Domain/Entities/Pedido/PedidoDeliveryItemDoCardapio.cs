@@ -7,9 +7,9 @@ namespace DivinaHamburgueria.Domain.Entities
     public class PedidoDeliveryItemDoCardapio: Entity
     {
 
-        public PedidoDelivery PedidoDelivery { get; private set; }
+        public PedidoDelivery? PedidoDelivery { get; private set; }
 
-        public ItemDoCardapio ItemDoCardapio { get; private set; }
+        public ItemDoCardapio? ItemDoCardapio { get; private set; }
 
         public decimal Preco { get; private set; }
 

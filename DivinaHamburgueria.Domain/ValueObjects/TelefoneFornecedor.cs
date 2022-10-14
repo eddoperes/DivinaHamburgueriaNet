@@ -8,7 +8,7 @@ namespace DivinaHamburgueria.Domain.ValueObjects
     public class TelefoneFornecedor : Telefone
     {
 
-        public Fornecedor Fornecedor { get; private set; }
+        public Fornecedor? Fornecedor { get; private set; }
 
     }
 }

@@ -19,12 +19,12 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<Unidade>> GetAllAsync()
         {
-            return await _applicationDbContext.Unidades.ToListAsync();
+            return await _applicationDbContext.Unidades!.ToListAsync();
         }
 
         public async Task<Unidade?> GetByIdAsync(int id)
         {
-            return await _applicationDbContext.Unidades.FindAsync(id);
+            return await _applicationDbContext.Unidades!.FindAsync(id);
         }
 
         public async Task<Unidade> CreateAsync(Unidade unidade)

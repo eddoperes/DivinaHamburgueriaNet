@@ -4,6 +4,7 @@ using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221013141300_AlterItemDoEstoque")]
+    partial class AlterItemDoEstoque
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,13 +32,13 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ComestivelId")
+                    b.Property<int>("ComestivelId")
                         .HasColumnType("int");
 
                     b.Property<int>("QuantidadeMinima")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UnidadeId")
+                    b.Property<int>("UnidadeId")
                         .HasColumnType("int");
 
                     b.Property<int>("ValidadeEmDias")
@@ -94,7 +96,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("CardapioId")
+                    b.Property<int>("CardapioId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataAtivado")
@@ -109,7 +111,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ItemDoCardapioId")
+                    b.Property<int>("ItemDoCardapioId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Preco")
@@ -176,7 +178,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ItemDoEstoqueId")
+                    b.Property<int>("ItemDoEstoqueId")
                         .HasColumnType("int");
 
                     b.Property<float>("Quantidade")
@@ -223,7 +225,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ComestivelId")
+                    b.Property<int>("ComestivelId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ItemDoCardapioReceitaId")
@@ -232,7 +234,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UnidadeId")
+                    b.Property<int>("UnidadeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -288,27 +290,28 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ComestivelId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Conteudo")
                         .HasColumnType("int");
 
                     b.Property<string>("Marca")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
 
                     b.Property<int>("UnidadeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ComestivelId");
+
                     b.HasIndex("UnidadeId");
 
-                    b.ToTable("ItensDoEstoque", (string)null);
-
-                    b.HasDiscriminator<string>("Type").HasValue("ItemDoEstoque");
+                    b.ToTable("ItensDoEstoque");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Pedido", b =>
@@ -319,7 +322,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ClienteId")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataCriado")
@@ -337,7 +340,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -386,7 +389,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<int>("EstadoPagamento")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FornecedorId")
+                    b.Property<int>("FornecedorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Observacao")
@@ -415,10 +418,10 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<bool>("Estocado")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ItemDoEstoqueId")
+                    b.Property<int>("ItemDoEstoqueId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PedidoDeCompraId")
+                    b.Property<int>("PedidoDeCompraId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecoTotal")
@@ -447,7 +450,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ItemDoCardapioId")
+                    b.Property<int>("ItemDoCardapioId")
                         .HasColumnType("int");
 
                     b.Property<string>("Observacao")
@@ -455,7 +458,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("PedidoDeliveryId")
+                    b.Property<int>("PedidoDeliveryId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Preco")
@@ -478,7 +481,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ItemDoCardapioId")
+                    b.Property<int>("ItemDoCardapioId")
                         .HasColumnType("int");
 
                     b.Property<string>("Observacao")
@@ -486,7 +489,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("PedidoSalaoId")
+                    b.Property<int>("PedidoSalaoId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Preco")
@@ -838,37 +841,12 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasBaseType("DivinaHamburgueria.Domain.Entities.ItemDoCardapio");
 
-                    b.Property<int?>("ItemDoEstoqueId")
+                    b.Property<int>("ItemDoEstoqueId")
                         .HasColumnType("int");
 
                     b.HasIndex("ItemDoEstoqueId");
 
                     b.HasDiscriminator().HasValue("ItemDoCardapioRevenda");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueReceita", b =>
-                {
-                    b.HasBaseType("DivinaHamburgueria.Domain.Entities.ItemDoEstoque");
-
-                    b.Property<int>("ComestivelId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("ComestivelId");
-
-                    b.HasDiscriminator().HasValue("C");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueRevenda", b =>
-                {
-                    b.HasBaseType("DivinaHamburgueria.Domain.Entities.ItemDoEstoque");
-
-                    b.Property<int>("ComestivelId")
-                        .HasColumnType("int")
-                        .HasColumnName("ItemDoEstoqueRevenda_ComestivelId");
-
-                    b.HasIndex("ComestivelId");
-
-                    b.HasDiscriminator().HasValue("V");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.PedidoDelivery", b =>
@@ -922,7 +900,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Endereco");
 
-                    b.Property<int?>("ClienteId")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.HasIndex("ClienteId");
@@ -934,7 +912,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Endereco");
 
-                    b.Property<int?>("FornecedorId")
+                    b.Property<int>("FornecedorId")
                         .HasColumnType("int");
 
                     b.HasIndex("FornecedorId");
@@ -946,7 +924,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Telefone");
 
-                    b.Property<int?>("ClienteId")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.HasIndex("ClienteId");
@@ -958,7 +936,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasBaseType("DivinaHamburgueria.Domain.ValueObjects.Telefone");
 
-                    b.Property<int?>("FornecedorId")
+                    b.Property<int>("FornecedorId")
                         .HasColumnType("int");
 
                     b.HasIndex("FornecedorId");
@@ -970,11 +948,15 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
                         .WithMany()
-                        .HasForeignKey("ComestivelId");
+                        .HasForeignKey("ComestivelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Unidade", "Unidade")
                         .WithMany()
-                        .HasForeignKey("UnidadeId");
+                        .HasForeignKey("UnidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Comestivel");
 
@@ -985,11 +967,15 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Cardapio", "Cardapio")
                         .WithMany("CardapiosItensDoCardapio")
-                        .HasForeignKey("CardapioId");
+                        .HasForeignKey("CardapioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.ItemDoCardapio", "ItemDoCardapio")
                         .WithMany()
-                        .HasForeignKey("ItemDoCardapioId");
+                        .HasForeignKey("ItemDoCardapioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cardapio");
 
@@ -1000,7 +986,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.ItemDoEstoque", "ItemDoEstoque")
                         .WithMany()
-                        .HasForeignKey("ItemDoEstoqueId");
+                        .HasForeignKey("ItemDoEstoqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ItemDoEstoque");
                 });
@@ -1009,7 +997,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
                         .WithMany()
-                        .HasForeignKey("ComestivelId");
+                        .HasForeignKey("ComestivelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.ItemDoCardapioReceita", null)
                         .WithMany("Ingredientes")
@@ -1017,7 +1007,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Unidade", "Unidade")
                         .WithMany()
-                        .HasForeignKey("UnidadeId");
+                        .HasForeignKey("UnidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Comestivel");
 
@@ -1026,11 +1018,19 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoque", b =>
                 {
+                    b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
+                        .WithMany()
+                        .HasForeignKey("ComestivelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Unidade", "Unidade")
                         .WithMany()
                         .HasForeignKey("UnidadeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Comestivel");
 
                     b.Navigation("Unidade");
                 });
@@ -1039,11 +1039,15 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
 
@@ -1054,7 +1058,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Fornecedor", "Fornecedor")
                         .WithMany()
-                        .HasForeignKey("FornecedorId");
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Fornecedor");
                 });
@@ -1063,11 +1069,15 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.ItemDoEstoque", "ItemDoEstoque")
                         .WithMany()
-                        .HasForeignKey("ItemDoEstoqueId");
+                        .HasForeignKey("ItemDoEstoqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.PedidoDeCompra", "PedidoDeCompra")
                         .WithMany()
-                        .HasForeignKey("PedidoDeCompraId");
+                        .HasForeignKey("PedidoDeCompraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ItemDoEstoque");
 
@@ -1078,11 +1088,15 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.ItemDoCardapio", "ItemDoCardapio")
                         .WithMany()
-                        .HasForeignKey("ItemDoCardapioId");
+                        .HasForeignKey("ItemDoCardapioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.PedidoDelivery", "PedidoDelivery")
                         .WithMany()
-                        .HasForeignKey("PedidoDeliveryId");
+                        .HasForeignKey("PedidoDeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ItemDoCardapio");
 
@@ -1093,11 +1107,15 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.ItemDoCardapio", "ItemDoCardapio")
                         .WithMany()
-                        .HasForeignKey("ItemDoCardapioId");
+                        .HasForeignKey("ItemDoCardapioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DivinaHamburgueria.Domain.Entities.PedidoSalao", "PedidoSalao")
                         .WithMany()
-                        .HasForeignKey("PedidoSalaoId");
+                        .HasForeignKey("PedidoSalaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ItemDoCardapio");
 
@@ -1159,38 +1177,20 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.ItemDoEstoque", "ItemDoEstoque")
                         .WithMany()
-                        .HasForeignKey("ItemDoEstoqueId");
+                        .HasForeignKey("ItemDoEstoqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ItemDoEstoque");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueReceita", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
-                        .WithMany()
-                        .HasForeignKey("ComestivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comestivel");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueRevenda", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
-                        .WithMany()
-                        .HasForeignKey("ComestivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comestivel");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.EnderecoCliente", b =>
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
                 });
@@ -1199,7 +1199,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Fornecedor", "Fornecedor")
                         .WithMany()
-                        .HasForeignKey("FornecedorId");
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Fornecedor");
                 });
@@ -1208,7 +1210,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
                 });
@@ -1217,7 +1221,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Fornecedor", "Fornecedor")
                         .WithMany()
-                        .HasForeignKey("FornecedorId");
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Fornecedor");
                 });

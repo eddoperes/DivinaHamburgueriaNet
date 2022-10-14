@@ -22,7 +22,7 @@ namespace DivinaHamburgueria.Domain.Entities
             Pago = 2
         }
 
-        public Fornecedor Fornecedor { get; private set; }
+        public Fornecedor? Fornecedor { get; private set; }
 
         public EstadoPedidoDeCompra Estado { get; private set; } = EstadoPedidoDeCompra.Cotacao;
 

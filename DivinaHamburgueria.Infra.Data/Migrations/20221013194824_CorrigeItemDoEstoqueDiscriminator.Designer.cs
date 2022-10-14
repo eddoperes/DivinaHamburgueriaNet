@@ -4,6 +4,7 @@ using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221013194824_CorrigeItemDoEstoqueDiscriminator")]
+    partial class CorrigeItemDoEstoqueDiscriminator
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -862,11 +864,10 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasBaseType("DivinaHamburgueria.Domain.Entities.ItemDoEstoque");
 
-                    b.Property<int>("ComestivelId")
-                        .HasColumnType("int")
-                        .HasColumnName("ItemDoEstoqueRevenda_ComestivelId");
-
-                    b.HasIndex("ComestivelId");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasDiscriminator().HasValue("V");
                 });
@@ -1165,17 +1166,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueReceita", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
-                        .WithMany()
-                        .HasForeignKey("ComestivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comestivel");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueRevenda", b =>
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
                         .WithMany()

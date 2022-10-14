@@ -8,7 +8,7 @@ namespace DivinaHamburgueria.Domain.ValueObjects
     public class EnderecoFornecedor: Endereco
     {
 
-        public Fornecedor Fornecedor { get; private set; }
+        public Fornecedor? Fornecedor { get; private set; }
 
     }
 }

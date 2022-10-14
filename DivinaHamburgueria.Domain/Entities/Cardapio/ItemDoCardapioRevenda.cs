@@ -7,7 +7,7 @@ namespace DivinaHamburgueria.Domain.Entities
     public class ItemDoCardapioRevenda: ItemDoCardapio
     {
 
-        public ItemDoEstoque ItemDoEstoque { get; private set; }
+        public ItemDoEstoque? ItemDoEstoque { get; private set; }
 
     }
 }

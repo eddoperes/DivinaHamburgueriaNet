@@ -6,8 +6,7 @@ namespace DivinaHamburgueria.Domain.Entities
 {
     public class ItemDoCardapioReceita: ItemDoCardapio
     {
-
-        public ICollection<Ingrediente> Ingredientes { get; private set; }
+        public ICollection<Ingrediente>? Ingredientes { get; private set; }
 
     }
 }

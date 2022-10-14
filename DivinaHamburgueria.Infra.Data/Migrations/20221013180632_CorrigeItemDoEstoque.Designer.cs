@@ -4,6 +4,7 @@ using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221013180632_CorrigeItemDoEstoque")]
+    partial class CorrigeItemDoEstoque
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,12 +293,11 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<int>("Conteudo")
                         .HasColumnType("int");
 
-                    b.Property<string>("Marca")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Marca")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UnidadeId")
@@ -306,9 +307,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     b.HasIndex("UnidadeId");
 
-                    b.ToTable("ItensDoEstoque", (string)null);
+                    b.ToTable("ItemDoEstoque");
 
-                    b.HasDiscriminator<string>("Type").HasValue("ItemDoEstoque");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ItemDoEstoque");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Pedido", b =>
@@ -855,20 +856,19 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     b.HasIndex("ComestivelId");
 
-                    b.HasDiscriminator().HasValue("C");
+                    b.HasDiscriminator().HasValue("ItemDoEstoqueReceita");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueRevenda", b =>
                 {
                     b.HasBaseType("DivinaHamburgueria.Domain.Entities.ItemDoEstoque");
 
-                    b.Property<int>("ComestivelId")
-                        .HasColumnType("int")
-                        .HasColumnName("ItemDoEstoqueRevenda_ComestivelId");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.HasIndex("ComestivelId");
-
-                    b.HasDiscriminator().HasValue("V");
+                    b.HasDiscriminator().HasValue("ItemDoEstoqueRevenda");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.PedidoDelivery", b =>
@@ -1165,17 +1165,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueReceita", b =>
-                {
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
-                        .WithMany()
-                        .HasForeignKey("ComestivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comestivel");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ItemDoEstoqueRevenda", b =>
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Comestivel", "Comestivel")
                         .WithMany()

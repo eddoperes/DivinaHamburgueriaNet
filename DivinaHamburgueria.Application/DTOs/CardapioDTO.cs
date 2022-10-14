@@ -27,7 +27,7 @@ namespace DivinaHamburgueria.Application.DTOs
         public int Estado { get; set; }
 
         [DisplayName("ItensDoCardapio")]
-        public ICollection<CardapioItemDoCardapioDTO> CardapiosItensDoCardapioDTO{get; set;}
+        public ICollection<CardapioItemDoCardapioDTO>? CardapiosItensDoCardapioDTO{get; set;}
 
     }
 }
