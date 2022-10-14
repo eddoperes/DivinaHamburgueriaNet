@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
-    public class ItemDoEstoque : Entity
+    public abstract class ItemDoEstoque : Entity
     {
 
         public string? Marca { get; private set; }

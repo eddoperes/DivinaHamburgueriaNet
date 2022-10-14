@@ -48,6 +48,8 @@ namespace DivinaHamburgueria.Infra.Data.Context
 
         public DbSet<ItemDoEstoqueRevenda>? ItensDoEstoqueRevenda { get; set; }
 
+        public DbSet<Comestivel>? Comestiveis { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

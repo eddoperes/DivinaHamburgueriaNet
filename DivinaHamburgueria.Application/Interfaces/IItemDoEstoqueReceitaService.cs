@@ -11,8 +11,8 @@ namespace DivinaHamburgueria.Application.Interfaces
 
         Task<IEnumerable<ItemDoEstoqueReceitaDTO>> GetAll();
         Task<ItemDoEstoqueReceitaDTO?> GetById(int id);
-        Task Add(ItemDoEstoqueReceitaDTO itemDoEstoqueDTO);
-        Task Update(ItemDoEstoqueReceitaDTO itemDoEstoqueDTO);
+        Task Add(ItemDoEstoqueReceitaDTO itemDoEstoqueReceitaDTO);
+        Task Update(ItemDoEstoqueReceitaDTO itemDoEstoqueReceitaDTO);
         Task Remove(int id);
 
     }

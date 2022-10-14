@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class ItemDoEstoqueReceitaDTO
+    public class ItemDoEstoqueRevendaDTO
     {
 
         public int Id { get; set; }

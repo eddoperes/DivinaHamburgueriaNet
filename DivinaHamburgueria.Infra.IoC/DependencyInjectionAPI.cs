@@ -30,9 +30,12 @@ namespace DivinaHamburgueria.Infra.IoC
 
             services.AddScoped<IUnidadeRepository, UnidadeRepository>();
             services.AddScoped<IItemDoEstoqueReceitaRepository, ItemDoEstoqueReceitaRepository>();
+            services.AddScoped<IComestivelRepository, ComestivelRepository>();
+            services.AddScoped<IItemDoEstoqueRevendaRepository, ItemDoEstoqueRevendaRepository>();
 
             services.AddScoped<IUnidadeService, UnidadeService>();
             services.AddScoped<IItemDoEstoqueReceitaService, ItemDoEstoqueReceitaService>();
+            services.AddScoped<IItemDoEstoqueRevendaService, ItemDoEstoqueRevendaService>();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
 

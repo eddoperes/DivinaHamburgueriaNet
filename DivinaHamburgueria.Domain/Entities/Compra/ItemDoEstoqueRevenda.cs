@@ -7,7 +7,24 @@ namespace DivinaHamburgueria.Domain.Entities
     public class ItemDoEstoqueRevenda : ItemDoEstoque
     {
 
-        public string Nome { get; private set; } = string.Empty;
+        public int ComestivelId { get; private set; }
+
+        public Comestivel? Comestivel { get; private set; }
+
+        public String Nome
+        {
+            get
+            {
+                if (Comestivel != null)
+                    return Comestivel.Nome;
+                return "";
+            }
+        }
+
+        public void NotificarComestivel(Comestivel? comestivel)
+        {
+            Comestivel = comestivel;
+        }
 
     }
 }

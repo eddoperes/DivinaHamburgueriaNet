@@ -1,6 +1,5 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
-using DivinaHamburgueria.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DivinaHamburgueria.API.Controllers
@@ -21,28 +20,28 @@ namespace DivinaHamburgueria.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ItemDoEstoqueReceitaDTO>>> Get()
         {
-            var itensDoEstoque = await _itemDoEstoqueReceitaService.GetAll();
-            return Ok(itensDoEstoque);
+            var itensDoEstoqueReceita = await _itemDoEstoqueReceitaService.GetAll();
+            return Ok(itensDoEstoqueReceita);
         }
 
-        [HttpGet("{id}", Name = "GetItemDoEstoque")]
+        [HttpGet("{id}", Name = "GetItemDoEstoqueReceita")]
         public async Task<ActionResult<ItemDoEstoqueReceitaDTO>> Get(int id)
         {
-            var itemDoEstoque = await _itemDoEstoqueReceitaService.GetById(id);
-            if (itemDoEstoque == null)
+            var itemDoEstoqueReceita = await _itemDoEstoqueReceitaService.GetById(id);
+            if (itemDoEstoqueReceita == null)
                 return NotFound();
-            return Ok(itemDoEstoque);
+            return Ok(itemDoEstoqueReceita);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ItemDoEstoqueReceitaDTO>> Post([FromBody] ItemDoEstoqueReceitaDTO itemDoEstoque)
+        public async Task<ActionResult<ItemDoEstoqueReceitaDTO>> Post([FromBody] ItemDoEstoqueReceitaDTO itemDoEstoqueReceita)
         {
             try
             {
-                if (itemDoEstoque == null)
+                if (itemDoEstoqueReceita == null)
                     return BadRequest();
-                await _itemDoEstoqueReceitaService.Add(itemDoEstoque);
-                return new CreatedAtRouteResult("GetItemDoEstoque", new { id = itemDoEstoque.Id }, itemDoEstoque);
+                await _itemDoEstoqueReceitaService.Add(itemDoEstoqueReceita);
+                return new CreatedAtRouteResult("GetItemDoEstoqueReceita", new { id = itemDoEstoqueReceita.Id }, itemDoEstoqueReceita);
             }
             catch(Exception ex)
             {
@@ -51,24 +50,24 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ItemDoEstoqueReceitaDTO>> Put(int id, [FromBody] ItemDoEstoqueReceitaDTO itemDoEstoque)
+        public async Task<ActionResult<ItemDoEstoqueReceitaDTO>> Put(int id, [FromBody] ItemDoEstoqueReceitaDTO itemDoEstoqueReceita)
         {
-            if (itemDoEstoque == null)
+            if (itemDoEstoqueReceita == null)
                 return BadRequest();
-            if (itemDoEstoque.Id != id)
+            if (itemDoEstoqueReceita.Id != id)
                 return BadRequest();
-            await _itemDoEstoqueReceitaService.Update(itemDoEstoque);
-            return Ok(itemDoEstoque);
+            await _itemDoEstoqueReceitaService.Update(itemDoEstoqueReceita);
+            return Ok(itemDoEstoqueReceita);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ItemDoEstoqueReceitaDTO>> Delete(int id)
         {
-            var itemDoEstoque = await _itemDoEstoqueReceitaService.GetById(id);
-            if (itemDoEstoque == null)
+            var itemDoEstoqueReceita = await _itemDoEstoqueReceitaService.GetById(id);
+            if (itemDoEstoqueReceita == null)
                 return NotFound();
             await _itemDoEstoqueReceitaService.Remove(id);
-            return Ok(itemDoEstoque);
+            return Ok(itemDoEstoqueReceita);
         }
 
     }

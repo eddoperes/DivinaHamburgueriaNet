@@ -2,10 +2,7 @@
 using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Infra.Data.Repository
@@ -22,12 +19,14 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<ItemDoEstoqueReceita>> GetAllAsync()
         {
-            return await _applicationDbContext.ItensDoEstoqueReceita!.ToListAsync();
+            return await _applicationDbContext.ItensDoEstoqueReceita!.Include(i => i.Comestivel)
+                                                                     .ToListAsync();
         }
 
         public async Task<ItemDoEstoqueReceita?> GetByIdAsync(int id)
         {
-            return await _applicationDbContext.ItensDoEstoqueReceita!.FindAsync(id);
+            return await _applicationDbContext.ItensDoEstoqueReceita!.Include(i => i.Comestivel)
+                                                                     .SingleOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<ItemDoEstoqueReceita> CreateAsync(ItemDoEstoqueReceita itemDoEstoqueReceita)

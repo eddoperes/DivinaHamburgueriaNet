@@ -59,7 +59,7 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task Remove(int id)
         {
-            var cardapioEntity = _cardapioRepository.GetByIdAsync(id).Result;
+            var cardapioEntity = await _cardapioRepository.GetByIdAsync(id);
             if (cardapioEntity != null)
                 await _cardapioRepository.RemoveAsync(cardapioEntity);
         }

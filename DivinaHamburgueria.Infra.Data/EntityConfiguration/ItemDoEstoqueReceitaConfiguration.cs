@@ -1,6 +1,6 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Infra.Data.EntityConfiguration
 {
-    public class ItemDoEstoqueRevendaConfiguration : IEntityTypeConfiguration<ItemDoEstoqueRevenda>
+    internal class ItemDoEstoqueReceitaConfiguration : IEntityTypeConfiguration<ItemDoEstoqueReceita>
     {
-        public void Configure(EntityTypeBuilder<ItemDoEstoqueRevenda> builder)
+        public void Configure(EntityTypeBuilder<ItemDoEstoqueReceita> builder)
         {
             builder.Ignore(c => c.Nome);
-            builder.HasDiscriminator<string>("Type").HasValue("V");            
-        }        
+            builder.HasDiscriminator<string>("Type").HasValue("C");
+        }
     }
 }
+

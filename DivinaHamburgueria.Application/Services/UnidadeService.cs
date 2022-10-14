@@ -48,7 +48,7 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task Remove(int id)
         {
-            var unidadeEntity = _unidadeRepository.GetByIdAsync(id).Result;
+            var unidadeEntity = await _unidadeRepository.GetByIdAsync(id);
             if (unidadeEntity != null)
                 await _unidadeRepository.RemoveAsync(unidadeEntity);
         }

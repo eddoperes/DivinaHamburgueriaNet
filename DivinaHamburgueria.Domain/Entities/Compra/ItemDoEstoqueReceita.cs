@@ -11,5 +11,20 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public Comestivel? Comestivel { get; private set; }
 
+        public String Nome
+        {
+            get
+            {
+                if (Comestivel != null)
+                    return Comestivel.Nome;
+                return "";
+            }
+        }
+
+        public void NotificarComestivel(Comestivel? comestivel)
+        {
+            Comestivel = comestivel;
+        }
+
     }
 }
