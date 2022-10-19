@@ -1,5 +1,6 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DivinaHamburgueria.API.Controllers
