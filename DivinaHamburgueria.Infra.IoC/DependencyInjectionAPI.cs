@@ -28,14 +28,12 @@ namespace DivinaHamburgueria.Infra.IoC
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
-            services.AddScoped<IUnidadeRepository, UnidadeRepository>();
-            services.AddScoped<IItemDoEstoqueReceitaRepository, ItemDoEstoqueReceitaRepository>();
-            services.AddScoped<IComestivelRepository, ComestivelRepository>();
-            services.AddScoped<IItemDoEstoqueRevendaRepository, ItemDoEstoqueRevendaRepository>();
+            services.AddScoped<IUnityRepository, UnityRepository>();
+            services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
+            services.AddScoped<IEatableRepository, EatableRepository>();
 
-            services.AddScoped<IUnidadeService, UnidadeService>();
-            services.AddScoped<IItemDoEstoqueReceitaService, ItemDoEstoqueReceitaService>();
-            services.AddScoped<IItemDoEstoqueRevendaService, ItemDoEstoqueRevendaService>();
+            services.AddScoped<IUnityService, UnityService>();
+            services.AddScoped<IInventoryItemService, InventoryItemService>();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
