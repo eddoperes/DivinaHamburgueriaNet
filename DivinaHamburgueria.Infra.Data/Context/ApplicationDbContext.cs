@@ -14,41 +14,39 @@ namespace DivinaHamburgueria.Infra.Data.Context
         {
         }
 
-        public DbSet<Cardapio>? Cardapios { get; set; }
+        public DbSet<Menu>? Menus { get; set; }
 
-        public DbSet<CardapioItemDoCardapio>? CardapiosItensDoCardapio { get; set; }
+        public DbSet<MenuMenuItem>? MenuMenuItems { get; set; }
 
-        public DbSet<ItemDoCardapioReceita>? ItensDoCardapioReceita { get; set; }
+        public DbSet<MenuItemRecipe>? MenuItemsRecipe { get; set; }
 
-        public DbSet<ItemDoCardapioRevenda>? ItensDoCardapioRevenda { get; set; }
+        public DbSet<MenuItemResale>? MenuItemsResale { get; set; }
 
-        public DbSet<PedidoDeCompra>? PedidosDeCompra { get; set; }
+        public DbSet<PurchaseOrder>? PurchasesOrder { get; set; }
 
-        public DbSet<PedidoDelivery>? PedidosDelivery { get; set; }
+        public DbSet<DeliveryOrder>? DeliveriesOrder { get; set; }
 
-        public DbSet<PedidoDeliveryItemDoCardapio>? PedidosDeliveryItensDoCardapio { get; set; }
+        public DbSet<DeliveryOrderMenuItem>? DeliveriesOrderMenuItems { get; set; }
 
-        public DbSet<PedidoSalao>? PedidosSalao { get; set; }
+        public DbSet<HallOrder>? HallOrders { get; set; }
 
-        public DbSet<PedidoSalaoItemDoCardapio>? PedidosSalaoItensDoCardapio { get; set; }
+        public DbSet<HallOrderMenuItem>? HallOrdersMenuItems { get; set; }
 
-        public DbSet<Estoque>? Estoques { get; set; }
+        public DbSet<Inventory>? Inventories { get; set; }
 
-        public DbSet<EnderecoCliente>? EnderecosClientes { get; set; }
+        public DbSet<CustomerAddress>? CustomersAddresses { get; set; }
 
-        public DbSet<EnderecoFornecedor>? EnderecosFornecedores { get; set; }
+        public DbSet<ProviderAddress>? ProvidersAddresses { get; set; }
 
-        public DbSet<TelefoneCliente>? TelefonesClientes { get; set; }
+        public DbSet<CustomerPhone>? CustomersPhones { get; set; }
 
-        public DbSet<TelefoneFornecedor>? TelefonesFornecedores { get; set; }
+        public DbSet<ProviderPhone>? ProvidersPhones { get; set; }
 
-        public DbSet<Unidade>? Unidades { get; set; }
+        public DbSet<Unity>? Units { get; set; }
 
-        public DbSet<ItemDoEstoqueReceita>? ItensDoEstoqueReceita { get; set; }
+        public DbSet<InventoryItem>? InventoryItems { get; set; }
 
-        public DbSet<ItemDoEstoqueRevenda>? ItensDoEstoqueRevenda { get; set; }
-
-        public DbSet<Comestivel>? Comestiveis { get; set; }
+        public DbSet<Eatable>? Eatables { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
