@@ -10,8 +10,8 @@ namespace DivinaHamburgueria.Domain.Interfaces
     {
 
         Task<IEnumerable<InventoryItem>> GetAllAsync();
+        Task<IEnumerable<InventoryItem>> GetByNameAndOrType(string? name, string? type);
         Task<InventoryItem?> GetByIdAsync(int id);
-
         Task<InventoryItem> CreateAsync(InventoryItem inventoryItem);
         Task<InventoryItem> UpdateAsync(InventoryItem inventoryItem);
         Task<InventoryItem> RemoveAsync(InventoryItem inventoryItem);
