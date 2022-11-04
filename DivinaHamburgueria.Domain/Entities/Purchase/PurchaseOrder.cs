@@ -46,5 +46,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public Decimal Total { get; private set; }
 
+        public ICollection<PurchaseOrderInventoryItem>? PurchaseOrderInventoryItems { get; set; }
+
     }
 }

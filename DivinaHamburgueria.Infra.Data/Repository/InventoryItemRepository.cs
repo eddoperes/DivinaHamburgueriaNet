@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static DivinaHamburgueria.Domain.Entities.InventoryItem;
 
 namespace DivinaHamburgueria.Infra.Data.Repository
 {
@@ -22,7 +21,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         public async Task<IEnumerable<InventoryItem>> GetAllAsync()
         {
             return await _applicationDbContext.InventoryItems!.Include(i => i.Eatable)
-                                                                     .ToListAsync();
+                                                              .ToListAsync();
         }
 
         public async Task<IEnumerable<InventoryItem>> GetByNameAndOrType(string? name, string? type)
