@@ -26,7 +26,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public PurchaseOrderState State { get; private set; } = PurchaseOrderState.Quotation;
 
-        public string Observacao { get; private set; } = string.Empty;
+        public string Observation { get; private set; } = string.Empty;
 
         public DateTime CreationDate { get; private set; }
 
@@ -46,7 +46,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public Decimal Total { get; private set; }
 
-        public ICollection<PurchaseOrderInventoryItem>? PurchaseOrderInventoryItems { get; set; }
+        public ICollection<PurchaseOrderInventoryItem>? PurchaseOrderInventoryItems { get; private set; }
 
     }
 }

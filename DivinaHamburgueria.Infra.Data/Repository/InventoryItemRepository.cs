@@ -91,25 +91,25 @@ namespace DivinaHamburgueria.Infra.Data.Repository
                                                                      .SingleOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<InventoryItem> CreateAsync(InventoryItem itemDoEstoqueReceita)
+        public async Task<InventoryItem> CreateAsync(InventoryItem inventoryItem)
         {
-            _applicationDbContext.Add(itemDoEstoqueReceita);
+            _applicationDbContext.Add(inventoryItem);
             await _applicationDbContext.SaveChangesAsync();
-            return itemDoEstoqueReceita;
+            return inventoryItem;
         }
 
-        public async Task<InventoryItem> UpdateAsync(InventoryItem itemDoEstoqueReceita)
+        public async Task<InventoryItem> UpdateAsync(InventoryItem inventoryItem)
         {
-            _applicationDbContext.Update(itemDoEstoqueReceita);
+            _applicationDbContext.Update(inventoryItem);
             await _applicationDbContext.SaveChangesAsync();
-            return itemDoEstoqueReceita;
+            return inventoryItem;
         }
 
-        public async Task<InventoryItem> RemoveAsync(InventoryItem itemDoEstoqueReceita)
+        public async Task<InventoryItem> RemoveAsync(InventoryItem inventoryItem)
         {
-            _applicationDbContext.Remove(itemDoEstoqueReceita);
+            _applicationDbContext.Remove(inventoryItem);
             await _applicationDbContext.SaveChangesAsync();
-            return itemDoEstoqueReceita;
+            return inventoryItem;
         }
 
     }
