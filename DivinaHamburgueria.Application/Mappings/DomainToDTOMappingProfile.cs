@@ -11,6 +11,8 @@ namespace DivinaHamburgueria.Application.Mappings
                 CreateMap<Unity, UnityDTO>().ReverseMap();
                 CreateMap<InventoryItem, InventoryItemDTO>().ReverseMap();
                 CreateMap<Provider, ProviderDTO>().ReverseMap();
+                CreateMap<PurchaseOrder, PurchaseOrderDTO>().ReverseMap();
+                CreateMap<PurchaseOrderInventoryItem, PurchaseOrderInventoryItemDTO>().ReverseMap();
             }
         }
 }

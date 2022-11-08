@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
     public class PurchaseOrderInventoryItem: Entity
     {
 
-        public PurchaseOrder? PurchaseOrder { get; private set; }
+        //public PurchaseOrder? PurchaseOrder { get; private set; }
+
+        public int InventoryItemId { get; private set; }
 
         public InventoryItem? InventoryItem { get; private set; }
 

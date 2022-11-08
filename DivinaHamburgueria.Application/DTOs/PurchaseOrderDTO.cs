@@ -13,8 +13,10 @@ namespace DivinaHamburgueria.Application.DTOs
 
         public int Id { get; set; }
 
-        [DisplayName("Provider")]
-        public Provider? Provider { get; set; }
+        [DisplayName("ProviderId")]
+        public int ProviderId { get; set; }
+
+        //public Provider? Provider { get; set; }
 
         [DisplayName("State")]
         public int State { get; set; }
@@ -29,7 +31,7 @@ namespace DivinaHamburgueria.Application.DTOs
         public Decimal Total { get; set; }
 
         [DisplayName("PurchaseOrderInventoryItems")]
-        public ICollection<PurchaseOrderInventoryItem>? PurchaseOrderInventoryItems { get; set; }
+        public ICollection<PurchaseOrderInventoryItemDTO>? PurchaseOrderInventoryItems { get; set; }
 
 
 
