@@ -13,7 +13,7 @@ namespace DivinaHamburgueria.Domain.Tests
         [Fact]
         public void CreateProvider_WithValidParameters_ObjectValidState()
         {
-            Action action = () => new Provider(1, "Assai", "00000000000272");
+            Action action = () => new Provider(id: 1, name: "Assai", cnpj: "00000000000272");
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
 
@@ -21,7 +21,7 @@ namespace DivinaHamburgueria.Domain.Tests
         [Fact]
         public void CreateProvider_NegativeId_DomainExceptionInvalid()
         {
-            Action action = () => new Provider(-1, "Assai", "00000000000272");
+            Action action = () => new Provider(id: -1, name: "Assai", cnpj: "00000000000272");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid id. Smaller than zero.");
@@ -30,7 +30,7 @@ namespace DivinaHamburgueria.Domain.Tests
         [Fact]
         public void CreateProvider_InvalidCNPJ_DomainExceptionInvalid()
         {
-            Action action = () => new Provider(1, "Assai", "00000000000999");
+            Action action = () => new Provider(id: 1, name: "Assai", cnpj: "00000000000999");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid CNPJ.");

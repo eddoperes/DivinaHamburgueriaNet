@@ -13,7 +13,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public Customer? Customer { get; private set; }
 
-        public Decimal Total { get; private set; }
+        public decimal Total { get; private set; }
 
         public DateTime CreationDate { get; private set; }
 

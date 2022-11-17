@@ -1,10 +1,6 @@
-﻿using DivinaHamburgueria.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using static DivinaHamburgueria.Domain.Entities.PurchaseOrder;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
@@ -19,13 +15,13 @@ namespace DivinaHamburgueria.Application.DTOs
         //public Provider? Provider { get; set; }
 
         [DisplayName("State")]
-        public int State { get; set; }
+        public int State { get; set; } = 1;
 
         [DisplayName("Observation")]
         public string Observation { get; set; } = string.Empty;
 
         [DisplayName("Payment")]
-        public int Payment { get; set; }
+        public int Payment { get; set; } = 1;
 
         [DisplayName("Total")]
         public Decimal Total { get; set; }

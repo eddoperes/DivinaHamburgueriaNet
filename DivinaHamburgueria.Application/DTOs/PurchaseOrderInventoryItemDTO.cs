@@ -11,13 +11,13 @@ namespace DivinaHamburgueria.Application.DTOs
 
         //public InventoryItem? InventoryItem { get; set; }
 
-        public Decimal UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
         public int Quantity { get; set; }
 
-        public Decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
-        internal bool Stocked { get; set; }
+        public bool Stocked { get; set; }
 
 
 

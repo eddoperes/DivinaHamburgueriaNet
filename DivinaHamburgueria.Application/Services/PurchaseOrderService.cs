@@ -37,6 +37,8 @@ namespace DivinaHamburgueria.Application.Services
         public async Task Add(PurchaseOrderDTO purchaseOrderDTO)
         {
             var purchaseOrder = _mapper.Map<PurchaseOrder>(purchaseOrderDTO);
+            purchaseOrder.RegisterCreationDate();
+            purchaseOrder.RegisterQuotationDate();
             await _purchaseOrderRepository.CreateAsync(purchaseOrder);
         }
 

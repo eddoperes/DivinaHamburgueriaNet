@@ -7,12 +7,12 @@ namespace DivinaHamburgueria.API.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class ProviderController : Controller
+    public class ProvidersController : Controller
     {
 
         private readonly IProviderService _providerService;
 
-        public ProviderController(IProviderService providerService)
+        public ProvidersController(IProviderService providerService)
         {
             _providerService = providerService;
         }
