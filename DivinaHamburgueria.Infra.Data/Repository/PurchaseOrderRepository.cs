@@ -3,6 +3,7 @@ using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Infra.Data.Repository
@@ -19,7 +20,26 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<PurchaseOrder>> GetAllAsync()
         {
-            return await _applicationDbContext.PurchaseOrders!.ToListAsync();
+            return await _applicationDbContext.PurchaseOrders!
+                                              .OrderByDescending(p => p.CreationDate)
+                                              .ToListAsync();
+        }
+
+        public async Task<IEnumerable<PurchaseOrder>> GetByProviderAsync(int? providerid)
+        {
+            if (providerid != null && providerid > 0)
+            {
+                return await _applicationDbContext.PurchaseOrders!
+                                                  .Where(p => p.ProviderId == providerid)
+                                                  .OrderByDescending(p => p.CreationDate)
+                                                  .ToListAsync();
+            }
+            else
+            {
+                return await _applicationDbContext.PurchaseOrders!
+                                                  .OrderByDescending(p => p.CreationDate)
+                                                  .ToListAsync();
+            }
         }
 
         public async Task<PurchaseOrder?> GetByIdAsync(int id)

@@ -6,6 +6,7 @@ using DivinaHamburgueria.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static DivinaHamburgueria.Domain.Entities.User;
 
 namespace DivinaHamburgueria.Application.Services
 {
@@ -28,6 +29,12 @@ namespace DivinaHamburgueria.Application.Services
             return _mapper.Map<IEnumerable<PurchaseOrderDTO>>(purchaseOrder);
         }
 
+        public async Task<IEnumerable<PurchaseOrderDTO>> GetByProvider(int? providerid)
+        {
+            var purchaseOrder = await _purchaseOrderRepository.GetByProviderAsync(providerid);
+            return _mapper.Map<IEnumerable<PurchaseOrderDTO>>(purchaseOrder);
+        }
+
         public async Task<PurchaseOrderDTO?> GetById(int id)
         {
             var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
@@ -37,8 +44,7 @@ namespace DivinaHamburgueria.Application.Services
         public async Task Add(PurchaseOrderDTO purchaseOrderDTO)
         {
             var purchaseOrder = _mapper.Map<PurchaseOrder>(purchaseOrderDTO);
-            purchaseOrder.RegisterCreationDate();
-            purchaseOrder.RegisterQuotationDate();
+            purchaseOrder.RegisterState(PurchaseOrder.PurchaseOrderState.Quotation);
             await _purchaseOrderRepository.CreateAsync(purchaseOrder);
         }
 
@@ -53,6 +59,46 @@ namespace DivinaHamburgueria.Application.Services
             var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
             if (purchaseOrder != null)
                 await _purchaseOrderRepository.RemoveAsync(purchaseOrder);
+        }
+
+        public async Task<PurchaseOrderDTO?> Patch(int id, PurchaseOrder.PurchaseOrderState state)
+        {
+            var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
+            if (purchaseOrder != null)
+            {
+                purchaseOrder.RegisterState(state);
+                await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
+            }
+            return _mapper.Map<PurchaseOrderDTO>(purchaseOrder);
+        }
+
+        public async Task<PurchaseOrderDTO?> ChangePayment(int id, PurchaseOrder.PurchaseOrderPayment payment)
+        {
+            var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
+            if (purchaseOrder != null)
+            {
+                purchaseOrder.RegisterPayment(payment);
+                await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
+            }
+            return _mapper.Map<PurchaseOrderDTO>(purchaseOrder);
+        }
+
+        public async Task<PurchaseOrderDTO?> Patch(int id, PurchaseOrderPatchDTO purchaseOrderPatchDTO)
+        {
+            var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
+            if (purchaseOrder != null)
+            {
+                if (purchaseOrder.State < (PurchaseOrder.PurchaseOrderState) purchaseOrderPatchDTO.State)
+                {
+                    purchaseOrder.RegisterState((PurchaseOrder.PurchaseOrderState) purchaseOrderPatchDTO.State);                    
+                }
+                if (purchaseOrder.Payment < (PurchaseOrder.PurchaseOrderPayment) purchaseOrderPatchDTO.Payment)
+                {
+                    purchaseOrder.RegisterPayment((PurchaseOrder.PurchaseOrderPayment) purchaseOrderPatchDTO.Payment);
+                }
+                await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
+            }
+            return _mapper.Map<PurchaseOrderDTO>(purchaseOrder);
         }
 
     }

@@ -33,7 +33,7 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task<IEnumerable<InventoryItemDTO>> GetByNameAndOrType(string? name, string? type)
         {
-            var inventoryItems = await _inventoryItemRepository.GetByNameAndOrType(name, type);
+            var inventoryItems = await _inventoryItemRepository.GetByNameAndOrTypeAsync(name, type);
             return _mapper.Map<IEnumerable<InventoryItemDTO>>(inventoryItems);
         }
 

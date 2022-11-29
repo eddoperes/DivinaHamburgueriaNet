@@ -1,5 +1,6 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
+using DivinaHamburgueria.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DivinaHamburgueria.API.Controllers
@@ -10,24 +11,31 @@ namespace DivinaHamburgueria.API.Controllers
     public class PurchaseOrdersController : Controller
     {
 
-        private readonly IPurchaseOrderService _purchaseOrder;
+        private readonly IPurchaseOrderService _purchaseOrderService;
 
-        public PurchaseOrdersController(IPurchaseOrderService purchaseOrder)
+        public PurchaseOrdersController(IPurchaseOrderService purchaseOrderService)
         {
-            _purchaseOrder = purchaseOrder;
+            _purchaseOrderService = purchaseOrderService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PurchaseOrderDTO>>> Get()
         {
-            var purchaseOrder = await _purchaseOrder.GetAll();
+            var purchaseOrder = await _purchaseOrderService.GetAll();
+            return Ok(purchaseOrder);
+        }
+
+        [HttpGet("GetByProvider")]
+        public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByProvider([FromQuery] int? providerid)
+        {
+            var purchaseOrder = await _purchaseOrderService.GetByProvider(providerid);
             return Ok(purchaseOrder);
         }
 
         [HttpGet("{id}", Name = "GetPurchaseOrder")]
         public async Task<ActionResult<PurchaseOrderDTO>> Get(int id)
         {
-            var purchaseOrder = await _purchaseOrder.GetById(id);
+            var purchaseOrder = await _purchaseOrderService.GetById(id);
             if (purchaseOrder == null)
                 return NotFound();
             return Ok(purchaseOrder);
@@ -38,7 +46,7 @@ namespace DivinaHamburgueria.API.Controllers
         {
             if (purchaseOrderDTO == null)
                 return BadRequest();
-            await _purchaseOrder.Add(purchaseOrderDTO);
+            await _purchaseOrderService.Add(purchaseOrderDTO);
             return new CreatedAtRouteResult("GetPurchaseOrder", new { id = purchaseOrderDTO.Id }, purchaseOrderDTO);
         }
 
@@ -49,17 +57,30 @@ namespace DivinaHamburgueria.API.Controllers
                 return BadRequest();
             if (purchaseOrderDTO.Id != id)
                 return BadRequest();
-            await _purchaseOrder.Update(purchaseOrderDTO);
+            await _purchaseOrderService.Update(purchaseOrderDTO);
             return Ok(purchaseOrderDTO);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<PurchaseOrderDTO>> ChangeState(int id, [FromBody] PurchaseOrderPatchDTO purchaseOrderPatchDTO)
+        {
+            if (purchaseOrderPatchDTO == null)
+                return BadRequest();
+            if (purchaseOrderPatchDTO.Id != id)
+                return BadRequest();
+            var purchaseOrder = await _purchaseOrderService.Patch(id, purchaseOrderPatchDTO);
+            if (purchaseOrder == null)
+                return NotFound();
+            return Ok(purchaseOrder);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<PurchaseOrderDTO>> Delete(int id)
         {
-            var purchaseOrderDTO = await _purchaseOrder.GetById(id);
+            var purchaseOrderDTO = await _purchaseOrderService.GetById(id);
             if (purchaseOrderDTO == null)
                 return NotFound();
-            await _purchaseOrder.Remove(id);
+            await _purchaseOrderService.Remove(id);
             return Ok(purchaseOrderDTO);
         }
 

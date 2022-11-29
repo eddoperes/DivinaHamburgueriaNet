@@ -24,7 +24,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
                                                               .ToListAsync();
         }
 
-        public async Task<IEnumerable<InventoryItem>> GetByNameAndOrType(string? name, string? type)
+        public async Task<IEnumerable<InventoryItem>> GetByNameAndOrTypeAsync(string? name, string? type)
         {
             if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(type)) 
             {

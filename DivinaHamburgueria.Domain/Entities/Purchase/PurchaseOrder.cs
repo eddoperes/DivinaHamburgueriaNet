@@ -103,39 +103,30 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public ICollection<PurchaseOrderInventoryItem>? PurchaseOrderInventoryItems { get; private set; }
 
-        public void RegisterCreationDate()
+
+        public void RegisterState(PurchaseOrderState state)
         {
-            this.CreationDate = DateTime.Now;
+            this.State = state;
+            if (state == PurchaseOrderState.Quotation)
+            {
+                this.CreationDate = DateTime.Now;
+                this.QuotationDate = DateTime.Now;
+            }
+            else if (state == PurchaseOrderState.Issued)
+                this.IssuedDate = DateTime.Now;
+            else if (state == PurchaseOrderState.Canceled)
+                this.CanceledDate = DateTime.Now;
+            else if (state == PurchaseOrderState.Arrived)
+                this.ArrivedDate = DateTime.Now;
+            else if (state == PurchaseOrderState.Stocked)
+                this.StockedDate = DateTime.Now;
         }
 
-        public void RegisterQuotationDate()
+        public void RegisterPayment(PurchaseOrderPayment payment)
         {
-            this.QuotationDate = DateTime.Now;
-        }
-
-        public void RegisterIssuedDate()
-        {
-            this.IssuedDate = DateTime.Now;
-        }
-
-        public void RegisterCanceledDate()
-        {
-            this.CanceledDate = DateTime.Now;
-        }
-
-        public void RegisterArrivedDate()
-        {
-            this.ArrivedDate = DateTime.Now;
-        }
-
-        public void RegisterStockedDate()
-        {
-            this.StockedDate = DateTime.Now;
-        }
-
-        public void RegisterPaymentDate()
-        {
-            this.PaymentDate = DateTime.Now;
+            this.Payment = payment;
+            if (payment == PurchaseOrderPayment.Paid)
+                this.PaymentDate = DateTime.Now;
         }
 
     }
