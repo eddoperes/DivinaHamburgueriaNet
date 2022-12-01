@@ -48,5 +48,10 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public bool Stocked { get; private set; }
 
+        public void RegisterStocked()
+        {
+            Stocked = true;
+        }
+
     }
 }

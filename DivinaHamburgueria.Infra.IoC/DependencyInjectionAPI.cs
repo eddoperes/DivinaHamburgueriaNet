@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DivinaHamburgueria.Infra.IoC
 {
@@ -35,6 +36,8 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IInventoryItemService, InventoryItemService>();
             services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+
+            services.AddScoped<IInventoryEnterService, InventoryEnterService>();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
 

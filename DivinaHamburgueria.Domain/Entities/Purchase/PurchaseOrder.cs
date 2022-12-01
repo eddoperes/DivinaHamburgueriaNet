@@ -1,6 +1,8 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
@@ -49,6 +51,7 @@ namespace DivinaHamburgueria.Domain.Entities
             DomainExceptionValidation.When(payment < PurchaseOrderPayment.Opened || payment > PurchaseOrderPayment.Paid, "Invalid payment. Out of range 1 to 2.");
             this.ProviderId = providerId;
             this.State = state;
+            this.Payment = payment;
             this.Observation = observation;
             this.CreationDate = creationDate;
             this.QuotationDate = quotationDate;
@@ -119,7 +122,49 @@ namespace DivinaHamburgueria.Domain.Entities
             else if (state == PurchaseOrderState.Arrived)
                 this.ArrivedDate = DateTime.Now;
             else if (state == PurchaseOrderState.Stocked)
+            {
                 this.StockedDate = DateTime.Now;
+                //if (PurchaseOrderInventoryItems != null)
+                //{
+                //    foreach (var purchaseOrderInventoryItem in PurchaseOrderInventoryItems)
+                //    {
+                //        purchaseOrderInventoryItem.RegisterStocked();
+                //    }
+                //}
+
+                /*
+                public class MyScheduler : BackgroundService
+        {
+            private readonly IServiceScopeFactory _serviceScopeFactory;
+            public MyScheduler(IServiceScopeFactory serviceScopeFactory) => _serviceScopeFactory = serviceScopeFactory;
+
+            protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+            {
+                // Option 1
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    // do async work
+                    using (var scope = _serviceScopeFactory.CreateScope())
+                    {
+                        var myService = scope.ServiceProvider.GetRequiredService<IMyService>();
+                        await myService.Execute(stoppingToken);
+                    }
+                    await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
+                }
+
+                // Option 2 (.NET 6)
+                var timer = new PeriodicTimer(TimeSpan.FromMinutes(5));
+                while (await timer.WaitForNextTickAsync(stoppingToken))
+                {
+                    // do async work
+                    // ...as above
+                }
+            }
+        }
+
+                */
+            }
+                
         }
 
         public void RegisterPayment(PurchaseOrderPayment payment)
