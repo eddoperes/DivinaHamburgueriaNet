@@ -9,7 +9,8 @@ namespace DivinaHamburgueria.Domain.Interfaces
 
         Task<IEnumerable<PurchaseOrder>> GetAllAsync();
         Task<IEnumerable<PurchaseOrder>> GetByProviderAsync(int? providerid);
-        Task<PurchaseOrder?> GetByIdAsync(int id);
+        Task<IEnumerable<PurchaseOrder>> GetByStatusAsync(PurchaseOrder.PurchaseOrderState state);
+        Task<PurchaseOrder?> GetByIdAsync(int id);       
         Task<PurchaseOrder> CreateAsync(PurchaseOrder purchaseOrder);
         Task<PurchaseOrder> UpdateAsync(PurchaseOrder purchaseOrder);
         Task<PurchaseOrder> RemoveAsync(PurchaseOrder purchaseOrder);

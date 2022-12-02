@@ -1,4 +1,5 @@
 ﻿using DivinaHamburgueria.Application.Interfaces;
+using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,16 @@ namespace DivinaHamburgueria.Application.Services
             {
                 try
                 {
-                    //var categoryEntity = _mapper.Map<Category>(categoryDto);
-                    //await _categoryRepository.CreateAsync(categoryEntity);
-
-
-                    var purchaseOrders = await _purchaseOrderRepository.GetAllAsync();
-                    Debug.WriteLine(purchaseOrders);
+ 
+                    var purchaseOrders = await _purchaseOrderRepository.GetByStatusAsync(PurchaseOrder.PurchaseOrderState.Arrived);
+                    
+                    foreach(var purchaseOrder in purchaseOrders)
+                    {
+                        foreach(var purchaseOrderInventoryItem in purchaseOrder.PurchaseOrderInventoryItems!)
+                        {
+                            // purchaseOrderInventoryItem.InventoryItemId;
+                        }
+                    }
 
                     scope.Complete();
                 }
