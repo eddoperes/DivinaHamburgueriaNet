@@ -124,45 +124,13 @@ namespace DivinaHamburgueria.Domain.Entities
             else if (state == PurchaseOrderState.Stocked)
             {
                 this.StockedDate = DateTime.Now;
-                //if (PurchaseOrderInventoryItems != null)
-                //{
-                //    foreach (var purchaseOrderInventoryItem in PurchaseOrderInventoryItems)
-                //    {
-                //        purchaseOrderInventoryItem.RegisterStocked();
-                //    }
-                //}
-
-                /*
-                public class MyScheduler : BackgroundService
-        {
-            private readonly IServiceScopeFactory _serviceScopeFactory;
-            public MyScheduler(IServiceScopeFactory serviceScopeFactory) => _serviceScopeFactory = serviceScopeFactory;
-
-            protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-            {
-                // Option 1
-                while (!stoppingToken.IsCancellationRequested)
+                if (PurchaseOrderInventoryItems != null)
                 {
-                    // do async work
-                    using (var scope = _serviceScopeFactory.CreateScope())
+                    foreach (var purchaseOrderInventoryItem in PurchaseOrderInventoryItems)
                     {
-                        var myService = scope.ServiceProvider.GetRequiredService<IMyService>();
-                        await myService.Execute(stoppingToken);
+                        purchaseOrderInventoryItem.RegisterStocked();
                     }
-                    await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
                 }
-
-                // Option 2 (.NET 6)
-                var timer = new PeriodicTimer(TimeSpan.FromMinutes(5));
-                while (await timer.WaitForNextTickAsync(stoppingToken))
-                {
-                    // do async work
-                    // ...as above
-                }
-            }
-        }
-
-                */
             }
                 
         }

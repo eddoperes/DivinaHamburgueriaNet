@@ -31,6 +31,7 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();
             services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
 
             services.AddScoped<IUnityService, UnityService>();
             services.AddScoped<IInventoryItemService, InventoryItemService>();
