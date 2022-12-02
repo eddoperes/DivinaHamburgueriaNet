@@ -25,6 +25,7 @@ namespace DivinaHamburgueria.Application.DTOs
         [DisplayName("UnityId")]
         public int UnityId { get; set; }
 
+        [DisplayName("Type")]
         public int Type { get; set; }
 
     }

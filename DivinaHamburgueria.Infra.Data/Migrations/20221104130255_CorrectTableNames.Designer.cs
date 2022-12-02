@@ -4,6 +4,7 @@ using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221104130255_CorrectTableNames")]
+    partial class CorrectTableNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -402,7 +404,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -423,38 +425,39 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("ArrivedDate")
+                    b.Property<DateTime>("ArrivedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("CanceledDate")
+                    b.Property<DateTime>("CanceledDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("IssuedDate")
+                    b.Property<DateTime>("IssuedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Observation")
+                    b.Property<string>("Observacao")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Payment")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("PaymentDate")
+                    b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProviderId")
+                    b.Property<int?>("ProviderId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("QuotationDate")
+                    b.Property<DateTime>("QuotationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("StockedDate")
+                    b.Property<DateTime>("StockedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Total")
@@ -1073,9 +1076,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.Provider", "Provider")
                         .WithMany()
-                        .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProviderId");
 
                     b.Navigation("Provider");
                 });

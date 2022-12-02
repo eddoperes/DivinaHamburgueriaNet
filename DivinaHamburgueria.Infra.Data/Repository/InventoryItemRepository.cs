@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static DivinaHamburgueria.Domain.Entities.InventoryItem;
 
 namespace DivinaHamburgueria.Infra.Data.Repository
 {
@@ -22,10 +21,10 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         public async Task<IEnumerable<InventoryItem>> GetAllAsync()
         {
             return await _applicationDbContext.InventoryItems!.Include(i => i.Eatable)
-                                                                     .ToListAsync();
+                                                              .ToListAsync();
         }
 
-        public async Task<IEnumerable<InventoryItem>> GetByNameAndOrType(string? name, string? type)
+        public async Task<IEnumerable<InventoryItem>> GetByNameAndOrTypeAsync(string? name, string? type)
         {
             if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(type)) 
             {
@@ -92,25 +91,25 @@ namespace DivinaHamburgueria.Infra.Data.Repository
                                                                      .SingleOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<InventoryItem> CreateAsync(InventoryItem itemDoEstoqueReceita)
+        public async Task<InventoryItem> CreateAsync(InventoryItem inventoryItem)
         {
-            _applicationDbContext.Add(itemDoEstoqueReceita);
+            _applicationDbContext.Add(inventoryItem);
             await _applicationDbContext.SaveChangesAsync();
-            return itemDoEstoqueReceita;
+            return inventoryItem;
         }
 
-        public async Task<InventoryItem> UpdateAsync(InventoryItem itemDoEstoqueReceita)
+        public async Task<InventoryItem> UpdateAsync(InventoryItem inventoryItem)
         {
-            _applicationDbContext.Update(itemDoEstoqueReceita);
+            _applicationDbContext.Update(inventoryItem);
             await _applicationDbContext.SaveChangesAsync();
-            return itemDoEstoqueReceita;
+            return inventoryItem;
         }
 
-        public async Task<InventoryItem> RemoveAsync(InventoryItem itemDoEstoqueReceita)
+        public async Task<InventoryItem> RemoveAsync(InventoryItem inventoryItem)
         {
-            _applicationDbContext.Remove(itemDoEstoqueReceita);
+            _applicationDbContext.Remove(inventoryItem);
             await _applicationDbContext.SaveChangesAsync();
-            return itemDoEstoqueReceita;
+            return inventoryItem;
         }
 
     }

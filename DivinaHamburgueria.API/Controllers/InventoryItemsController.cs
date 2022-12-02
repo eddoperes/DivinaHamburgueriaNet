@@ -24,7 +24,7 @@ namespace DivinaHamburgueria.API.Controllers
             return Ok(inventoryItem);
         }
 
-        [HttpGet("GetByNameAndType")]
+        [HttpGet("GetByNameAndOrType")]
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByNameAndOrType([FromQuery] string? name, [FromQuery] string? type)
         {
             var inventoryItem = await _inventoryItemService.GetByNameAndOrType(name, type);

@@ -1,0 +1,88 @@
+﻿using DivinaHamburgueria.Application.DTOs;
+using DivinaHamburgueria.Application.Interfaces;
+using DivinaHamburgueria.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
+
+namespace DivinaHamburgueria.API.Controllers
+{
+
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PurchaseOrdersController : Controller
+    {
+
+        private readonly IPurchaseOrderService _purchaseOrderService;
+
+        public PurchaseOrdersController(IPurchaseOrderService purchaseOrderService)
+        {
+            _purchaseOrderService = purchaseOrderService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PurchaseOrderDTO>>> Get()
+        {
+            var purchaseOrder = await _purchaseOrderService.GetAll();
+            return Ok(purchaseOrder);
+        }
+
+        [HttpGet("GetByProvider")]
+        public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByProvider([FromQuery] int? providerid)
+        {
+            var purchaseOrder = await _purchaseOrderService.GetByProvider(providerid);
+            return Ok(purchaseOrder);
+        }
+
+        [HttpGet("{id}", Name = "GetPurchaseOrder")]
+        public async Task<ActionResult<PurchaseOrderDTO>> Get(int id)
+        {
+            var purchaseOrder = await _purchaseOrderService.GetById(id);
+            if (purchaseOrder == null)
+                return NotFound();
+            return Ok(purchaseOrder);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PurchaseOrderDTO>> Post([FromBody] PurchaseOrderDTO purchaseOrderDTO)
+        {
+            if (purchaseOrderDTO == null)
+                return BadRequest();
+            await _purchaseOrderService.Add(purchaseOrderDTO);
+            return new CreatedAtRouteResult("GetPurchaseOrder", new { id = purchaseOrderDTO.Id }, purchaseOrderDTO);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PurchaseOrderDTO>> Put(int id, [FromBody] PurchaseOrderDTO purchaseOrderDTO)
+        {
+            if (purchaseOrderDTO == null)
+                return BadRequest();
+            if (purchaseOrderDTO.Id != id)
+                return BadRequest();
+            await _purchaseOrderService.Update(purchaseOrderDTO);
+            return Ok(purchaseOrderDTO);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<PurchaseOrderDTO>> ChangeState(int id, [FromBody] PurchaseOrderPatchDTO purchaseOrderPatchDTO)
+        {
+            if (purchaseOrderPatchDTO == null)
+                return BadRequest();
+            if (purchaseOrderPatchDTO.Id != id)
+                return BadRequest();
+            var purchaseOrder = await _purchaseOrderService.Patch(id, purchaseOrderPatchDTO);
+            if (purchaseOrder == null)
+                return NotFound();
+            return Ok(purchaseOrder);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<PurchaseOrderDTO>> Delete(int id)
+        {
+            var purchaseOrderDTO = await _purchaseOrderService.GetById(id);
+            if (purchaseOrderDTO == null)
+                return NotFound();
+            await _purchaseOrderService.Remove(id);
+            return Ok(purchaseOrderDTO);
+        }
+
+    }
+}
