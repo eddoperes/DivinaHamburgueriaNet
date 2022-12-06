@@ -37,6 +37,7 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IInventoryItemService, InventoryItemService>();
             services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+            services.AddScoped<IInventoryService, InventoryService>();
 
             services.AddScoped<IInventoryEnterService, InventoryEnterService>();
 

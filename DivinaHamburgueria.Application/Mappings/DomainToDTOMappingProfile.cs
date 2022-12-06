@@ -13,6 +13,8 @@ namespace DivinaHamburgueria.Application.Mappings
                 CreateMap<Provider, ProviderDTO>().ReverseMap();
                 CreateMap<PurchaseOrder, PurchaseOrderDTO>().ReverseMap();
                 CreateMap<PurchaseOrderInventoryItem, PurchaseOrderInventoryItemDTO>().ReverseMap();
+                CreateMap<Inventory, InventoryDTO>().ReverseMap();
+                CreateMap<Eatable, EatableDTO>().ReverseMap();
             }
         }
 }
