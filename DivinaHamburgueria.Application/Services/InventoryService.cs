@@ -30,6 +30,12 @@ namespace DivinaHamburgueria.Application.Services
             return _mapper.Map<IEnumerable<InventoryDTO>>(inventory);
         }
 
+        public async Task<IEnumerable<InventoryDTO>> GetByEatable(int? eatableid)
+        {
+            var inventory = await _inventoryRepository.GetByEatableAsync(eatableid);
+            return _mapper.Map<IEnumerable<InventoryDTO>>(inventory);
+        }
+
         public async Task<InventoryDTO?> GetById(int id)
         {
             var inventory = await _inventoryRepository.GetByIdAsync(id);

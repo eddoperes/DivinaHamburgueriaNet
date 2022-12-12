@@ -10,6 +10,7 @@ namespace DivinaHamburgueria.Application.Interfaces
     {
 
         Task<IEnumerable<InventoryDTO>> GetAll();
+        Task<IEnumerable<InventoryDTO>> GetByEatable(int? eatableid);
         Task<InventoryDTO?> GetById(int id);
         Task Add(InventoryDTO inventoryDTO);
         Task Update(InventoryDTO inventoryDTO);

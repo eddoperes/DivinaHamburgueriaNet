@@ -25,6 +25,23 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             return await _applicationDbContext.Inventories!.ToListAsync();
         }
 
+        public async Task<IEnumerable<Inventory>> GetByEatableAsync(int? eatableid)
+        {
+            if (eatableid != null && eatableid > 0)
+            {
+                return await _applicationDbContext.Inventories!
+                                                  .Where(p => p.InventoryItem!.EatableId == eatableid)
+                                                  .OrderBy(p => p.InventoryItem!.Eatable!.Name)
+                                                  .ToListAsync();
+            }
+            else
+            {
+                return await _applicationDbContext.Inventories!
+                                                  .OrderBy(p => p.InventoryItem!.Eatable!.Name)
+                                                  .ToListAsync();
+            }
+        }
+
         public async Task<Inventory?> GetByIdAsync(int id)
         {
             return await _applicationDbContext.Inventories!.SingleOrDefaultAsync(p => p.Id == id);

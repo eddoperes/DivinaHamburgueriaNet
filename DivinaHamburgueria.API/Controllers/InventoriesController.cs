@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace DivinaHamburgueria.API.Controllers
 {
 
-    [ApiController]
     [Authorize]
+    [ApiController]    
     [Route("api/[controller]")]
     public class InventoriesController : Controller
     {
@@ -23,6 +23,13 @@ namespace DivinaHamburgueria.API.Controllers
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> Get()
         {
             var inventory = await _inventoryService.GetAll();
+            return Ok(inventory);
+        }
+
+        [HttpGet("GetByEatable")]
+        public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByEatable([FromQuery] int? eatableid)
+        {
+            var inventory = await _inventoryService.GetByEatable(eatableid);
             return Ok(inventory);
         }
 

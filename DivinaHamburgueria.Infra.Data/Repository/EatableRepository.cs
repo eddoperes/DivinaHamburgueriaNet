@@ -20,7 +20,10 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<Eatable>> GetAllAsync()
         {
-            return await _applicationDbContext.Eatables!.Join(_applicationDbContext.InventoryItems!, e => e.Id, i => i.EatableId, (e, i) => e).ToListAsync();
+            return await _applicationDbContext.Eatables!
+                                              .Join(_applicationDbContext.InventoryItems!, e => e.Id, i => i.EatableId, (e, i) => e)
+                                              .OrderBy(e => e.Name)
+                                              .ToListAsync();
         }
 
         public async Task<Eatable?> GetByNameAsync(string name)

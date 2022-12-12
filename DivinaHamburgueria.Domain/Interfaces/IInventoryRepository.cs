@@ -10,6 +10,7 @@ namespace DivinaHamburgueria.Domain.Interfaces
     {
 
         Task<IEnumerable<Inventory>> GetAllAsync();
+        Task<IEnumerable<Inventory>> GetByEatableAsync(int? eatableid);
         Task<Inventory?> GetByIdAsync(int id);
         Task<Inventory?> GetByInventoryItemAsync(int inventoryItemId);
         Task<Inventory> CreateAsync(Inventory inventory);

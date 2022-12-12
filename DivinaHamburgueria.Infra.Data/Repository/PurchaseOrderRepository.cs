@@ -2,7 +2,9 @@
 using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -66,6 +68,19 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<PurchaseOrder> UpdateAsync(PurchaseOrder purchaseOrder)
         {
+
+            var previousPurchaseOrder = await _applicationDbContext.PurchaseOrders!.Include(i => i.PurchaseOrderInventoryItems)
+                                                                                   .AsNoTracking()   
+                                                                                   .SingleOrDefaultAsync(i => i.Id == purchaseOrder.Id);
+            var currentPurchaseOrderInventoryItemsList = purchaseOrder.PurchaseOrderInventoryItems!.ToList();
+
+            foreach (var previousPurchaseOrderInventoryItem in previousPurchaseOrder!.PurchaseOrderInventoryItems!)
+            {
+                var currentPurchaseOrderInventoryItem = currentPurchaseOrderInventoryItemsList.Find(p => p.Id == previousPurchaseOrderInventoryItem.Id);
+                if (currentPurchaseOrderInventoryItem == null)
+                    _applicationDbContext.Remove(previousPurchaseOrderInventoryItem);                
+            }
+
             _applicationDbContext.Update(purchaseOrder);
             await _applicationDbContext.SaveChangesAsync();
             return purchaseOrder;

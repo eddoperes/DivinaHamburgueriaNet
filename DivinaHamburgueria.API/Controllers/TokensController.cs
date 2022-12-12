@@ -71,7 +71,7 @@ namespace DivinaHamburgueria.API.Controllers
             //generate digital signature
             var credentials = new SigningCredentials(privateKey, SecurityAlgorithms.HmacSha256); 
             //time to token expire
-            var expiration = DateTime.UtcNow.AddMinutes(10);
+            var expiration = DateTime.UtcNow.AddMinutes(60);
             //generate token
             var token = new JwtSecurityToken(issuer : _configuration["Jwt:Issuer"],
                                              audience : _configuration["Jwt:Audience"],
