@@ -31,11 +31,13 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();
             services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
 
             services.AddScoped<IUnityService, UnityService>();
             services.AddScoped<IInventoryItemService, InventoryItemService>();
             services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+            services.AddScoped<IInventoryService, InventoryService>();
 
             services.AddScoped<IInventoryEnterService, InventoryEnterService>();
 

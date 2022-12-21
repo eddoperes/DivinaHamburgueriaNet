@@ -1,11 +1,13 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DivinaHamburgueria.API.Controllers
 {
 
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class InventoryItemsController : Controller
     {
@@ -22,6 +24,13 @@ namespace DivinaHamburgueria.API.Controllers
         {
             var inventoryItem = await _inventoryItemService.GetAll();
             return Ok(inventoryItem);
+        }
+
+        [HttpGet("GetDistinctNames")]
+        public async Task<ActionResult<IEnumerable<EatableDTO>>> GetDistinctNames()
+        {
+            var eatables = await _inventoryItemService.GetDistinctNames();
+            return Ok(eatables);
         }
 
         [HttpGet("GetByNameAndOrType")]

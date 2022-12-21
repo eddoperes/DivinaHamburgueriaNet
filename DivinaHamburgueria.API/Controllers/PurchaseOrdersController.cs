@@ -1,12 +1,14 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using DivinaHamburgueria.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DivinaHamburgueria.API.Controllers
 {
 
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class PurchaseOrdersController : Controller
     {
