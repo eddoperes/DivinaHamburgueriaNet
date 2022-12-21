@@ -23,7 +23,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         public async Task<IEnumerable<PurchaseOrder>> GetAllAsync()
         {
             return await _applicationDbContext.PurchaseOrders!
-                                              .OrderByDescending(p => p.CreationDate)
+                                              .OrderByDescending(p => p.Id)
                                               .ToListAsync();
         }
 
@@ -33,13 +33,13 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             {
                 return await _applicationDbContext.PurchaseOrders!
                                                   .Where(p => p.ProviderId == providerid)
-                                                  .OrderByDescending(p => p.CreationDate)
+                                                  .OrderByDescending(p => p.Id)
                                                   .ToListAsync();
             }
             else
             {
                 return await _applicationDbContext.PurchaseOrders!
-                                                  .OrderByDescending(p => p.CreationDate)
+                                                  .OrderByDescending(p => p.Id)
                                                   .ToListAsync();
             }
         }
@@ -49,7 +49,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             return await _applicationDbContext.PurchaseOrders!
                                   .Include(i => i.PurchaseOrderInventoryItems)
                                   .Where(p => p.State == state)
-                                  .OrderByDescending(p => p.CreationDate)
+                                  .OrderByDescending(p => p.Id)
                                   .ToListAsync();
         }
 
