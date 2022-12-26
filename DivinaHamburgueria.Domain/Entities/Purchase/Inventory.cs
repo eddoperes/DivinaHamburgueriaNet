@@ -23,21 +23,18 @@ namespace DivinaHamburgueria.Domain.Entities
             ValidateDomain(inventoryItemId, quantity);
         }
 
+        private void ValidateDomain(int inventoryItemId, float quantity)
+        {
+            DomainExceptionValidation.When(inventoryItemId <= 0, "Invalid inventory item id. Smaller or equal than zero.");
+            this.InventoryItemId = inventoryItemId;
+            this.Quantity = quantity;
+        }
+
         public int InventoryItemId { get; private set; }
 
         public InventoryItem? InventoryItem { get; private set; }
 
         public float Quantity { get; private set; }
-
-        private void ValidateDomain(int inventoryItemId, float quantity)
-        {
-            //DomainExceptionValidation.When(providerId <= 0, "Invalid provider id. Smaller or equal than zero.");
-            //DomainExceptionValidation.When(total <= 0, "Invalid total. Smaller or equal than zero.");
-            //DomainExceptionValidation.When(state < PurchaseOrderState.Quotation || state > PurchaseOrderState.Stocked, "Invalid state. Out of range 1 to 5.");
-            //DomainExceptionValidation.When(payment < PurchaseOrderPayment.Opened || payment > PurchaseOrderPayment.Paid, "Invalid payment. Out of range 1 to 2.");
-            this.InventoryItemId = inventoryItemId;
-            this.Quantity = quantity;            
-        }
 
         public void addQuantity(float quantity)
         {
