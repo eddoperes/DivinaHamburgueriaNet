@@ -30,11 +30,11 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public string Token { get; private set; } = string.Empty;
 
-        public DateTime CreationDate { get; private set; }
+        public DateTime? CreationDate { get; private set; }
 
-        public DateTime ActivationDate { get; private set; }
+        public DateTime? ActivationDate { get; private set; }
 
-        public DateTime InactivationDate { get; private set; }
+        public DateTime? InactivationDate { get; private set; }
 
     }
 }

@@ -7,7 +7,9 @@ namespace DivinaHamburgueria.Domain.Entities
     public class HallOrderMenuItem: Entity
     {
 
-        public HallOrder? HallOrder { get; private set; }
+        //public HallOrder? HallOrder { get; private set; }
+
+        public int MenuItemId { get; private set; }
 
         public MenuItem? MenuItem { get; private set; }
 

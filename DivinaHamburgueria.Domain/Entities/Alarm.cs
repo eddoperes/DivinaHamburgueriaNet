@@ -8,9 +8,13 @@ namespace DivinaHamburgueria.Domain.Entities
     public class Alarm: Entity
     {
 
+        public int EatableId { get; private set; }
+
         public Eatable? Eatable { get; private set; }
 
         public int MinimumQuantity { get; private set; }
+
+        public int UnityId { get; private set; }
 
         public Unity? Unity { get; private set; }
 

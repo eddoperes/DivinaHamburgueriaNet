@@ -23,17 +23,19 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public DeliveryOrderState State = DeliveryOrderState.Issued;
 
-        public DateTime IssuedDate { get; private set; }
+        public DateTime? IssuedDate { get; private set; }
 
-        public DateTime CanceledDate { get; private set; }
+        public DateTime? CanceledDate { get; private set; }
 
-        public DateTime PackagedDate { get; private set; }
+        public DateTime? PackagedDate { get; private set; }
 
-        public DateTime DeliveredDate { get; private set; }
+        public DateTime? DeliveredDate { get; private set; }
 
         public DeliveryOrderPaymentState Payment { get; private set; } = DeliveryOrderPaymentState.Opened;
 
-        public DateTime PaymentDate { get; private set; }
+        public DateTime? PaymentDate { get; private set; }
+
+        public ICollection<DeliveryOrderMenuItem>? DeliveryOrderMenuItems { get; private set; }
 
     }
 }

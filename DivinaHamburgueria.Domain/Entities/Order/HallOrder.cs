@@ -16,11 +16,13 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public HallOrderState State { get; private set; } = HallOrderState.Issued;
 
-        public DateTime IssuedDate { get; private set; }
+        public DateTime? IssuedDate { get; private set; }
 
-        public DateTime CanceledDate { get; private set; }
+        public DateTime? CanceledDate { get; private set; }
 
-        public DateTime ServedDate { get; private set; }
+        public DateTime? ServedDate { get; private set; }
+
+        public ICollection<HallOrderMenuItem>? HallOrderMenuItems { get; private set; }
 
     }
 }

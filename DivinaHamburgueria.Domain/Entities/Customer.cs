@@ -12,7 +12,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public string CPF { get; private set; } = string.Empty;
 
-        public DateTime CreationDate { get; private set; }
+        public DateTime? CreationDate { get; private set; }
 
     }
 }
