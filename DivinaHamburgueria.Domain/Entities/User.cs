@@ -1,11 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DivinaHamburgueria.Domain.Validation;
+using System;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
     public class User: Entity
     {
+
+        public User(string name, UserType type, UserState state,
+                    string email, string password, string? token = null,
+                    DateTime? creationDate = null, DateTime? activationDate = null,
+                    DateTime? inactivationDate = null) 
+        {
+            ValidateDomain(name, type, state,
+                           email, password, token,
+                           creationDate, activationDate,
+                           inactivationDate);
+        }
+
+        public User(int id, string name, UserType type, UserState state,
+                    string email, string password, string? token = null,
+                    DateTime? creationDate = null, DateTime? activationDate = null,
+                    DateTime? inactivationDate = null)
+        {
+            DomainExceptionValidation.When(id < 0, "Invalid id. Smaller than zero.");
+            this.Id = id;
+            ValidateDomain(name, type, state,
+                           email, password, token,
+                           creationDate, activationDate,
+                           inactivationDate);
+        }
+
+        private void ValidateDomain(string name, UserType type, UserState state,
+                                    string email, string password, string? token = null,
+                                    DateTime? creationDate = null, DateTime? activationDate = null,
+                                    DateTime? inactivationDate = null)
+        {
+            DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name. Name is required.");
+            DomainExceptionValidation.When(name.Length < 3, "Invalid name, too short, minimum 3 characters.");
+            DomainExceptionValidation.When(type < UserType.Administrator || type > UserType.Cashier, "Invalid type. Out of range 1 to 3.");
+            DomainExceptionValidation.When(state < UserState.Inactive || state > UserState.Active, "Invalid state. Out of range 0 to 1.");
+            DomainExceptionValidation.When(!email.Contains("@"), "Invalid email. Must have a @ character.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(password), "Invalid password. Password is required.");
+            DomainExceptionValidation.When(password.Length < 8, "Invalid password, too short, minimum 8 characters.");
+            this.Name = name;
+            this.Type = type;
+            this.State = state;
+            this.Email = email;
+            this.Password = password;
+            this.Token = token;
+            this.CreationDate = creationDate;
+            this.ActivationDate = activationDate;
+            this.InactivationDate = inactivationDate;
+        }
 
         public enum UserType
         {
@@ -14,7 +60,7 @@ namespace DivinaHamburgueria.Domain.Entities
             Cashier = 3
         }
 
-        public enum State
+        public enum UserState
         {
             Active = 1,
             Inactive = 0
@@ -24,11 +70,13 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public UserType Type { get; private set; } = UserType.Cashier;
 
+        public UserState State { get; private set; } = UserState.Active;
+
         public string Email { get; private set; } = string.Empty;
 
         public string Password { get; private set; } = string.Empty;
 
-        public string Token { get; private set; } = string.Empty;
+        public string? Token { get; private set; }
 
         public DateTime? CreationDate { get; private set; }
 
