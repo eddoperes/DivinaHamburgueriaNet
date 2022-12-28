@@ -1,6 +1,5 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
-using DivinaHamburgueria.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,21 +20,21 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> Get()
+        public async Task<ActionResult<IEnumerable<MenuItemRecipeDTO>>> Get()
         {
             var menuItemsRecipe = await _menuItemRecipeService.GetAll();
             return Ok(menuItemsRecipe);
         }
 
         [HttpGet("GetByName")]
-        public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByName([FromQuery] string? name)
+        public async Task<ActionResult<IEnumerable<MenuItemRecipeDTO>>> GetByName([FromQuery] string? name)
         {
             var menuItemsRecipe = await _menuItemRecipeService.GetByName(name);
             return Ok(menuItemsRecipe);
         }
 
         [HttpGet("{id}", Name = "GetMenuItemRecipe")]
-        public async Task<ActionResult<InventoryItemDTO>> Get(int id)
+        public async Task<ActionResult<MenuItemRecipeDTO>> Get(int id)
         {
             var menuItemRecipe = await _menuItemRecipeService.GetById(id);
             if (menuItemRecipe == null)
@@ -44,7 +43,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<InventoryItemDTO>> Post([FromBody] MenuItemRecipeDTO menuItemRecipeDTO)
+        public async Task<ActionResult<MenuItemRecipeDTO>> Post([FromBody] MenuItemRecipeDTO menuItemRecipeDTO)
         {
             try
             {
@@ -60,7 +59,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<InventoryItemDTO>> Put(int id, [FromBody] MenuItemRecipeDTO menuItemRecipeDTO)
+        public async Task<ActionResult<MenuItemRecipeDTO>> Put(int id, [FromBody] MenuItemRecipeDTO menuItemRecipeDTO)
         {
             if (menuItemRecipeDTO == null)
                 return BadRequest();
@@ -81,6 +80,5 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
     }
-
 
 }

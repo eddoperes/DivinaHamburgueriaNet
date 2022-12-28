@@ -12,8 +12,6 @@ namespace DivinaHamburgueria.Application.DTOs
         [DisplayName("ProviderId")]
         public int ProviderId { get; set; }
 
-        //public Provider? Provider { get; set; }
-
         [DisplayName("State")]
         public int State { get; set; } = 1;
 

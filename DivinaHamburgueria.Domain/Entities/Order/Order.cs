@@ -49,7 +49,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public decimal Total { get; private set; }
 
-        public DateTime? CreationDate { get; private set; }
+        public DateTime? CreationDate { get; protected set; }
 
     }
 }

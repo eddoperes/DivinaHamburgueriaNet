@@ -1,6 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
 using System;
 using System.Collections.Generic;
+using static DivinaHamburgueria.Domain.Entities.DeliveryOrder;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
@@ -60,6 +61,21 @@ namespace DivinaHamburgueria.Domain.Entities
         public DateTime? ServedDate { get; private set; }
 
         public ICollection<HallOrderMenuItem>? HallOrderMenuItems { get; private set; }
+
+
+        public void RegisterState(HallOrderState state)
+        {
+            this.State = state;
+            if (state == HallOrderState.Issued)
+            {
+                this.CreationDate = DateTime.Now;
+                this.IssuedDate = DateTime.Now;
+            }
+            else if (state == HallOrderState.Canceled)
+                this.CanceledDate = DateTime.Now;
+            else if (state == HallOrderState.Served )
+                this.ServedDate = DateTime.Now;
+        }
 
     }
 }

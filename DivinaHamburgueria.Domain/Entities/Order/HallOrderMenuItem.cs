@@ -28,8 +28,6 @@ namespace DivinaHamburgueria.Domain.Entities
             this.Observation = observation;
         }
 
-        //public HallOrder? HallOrder { get; private set; }
-
         public int MenuItemId { get; private set; }
 
         public MenuItem? MenuItem { get; private set; }

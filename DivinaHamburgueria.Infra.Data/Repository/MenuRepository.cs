@@ -1,7 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,29 +17,35 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             _applicationDbContext = context;
         }
 
-        public Task<IEnumerable<Menu>> GetAllAsync()
+        public async Task<IEnumerable<Menu>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _applicationDbContext.Menus!.ToListAsync();
         }
 
-        public Task<Menu?> GetByIdAsync(int id)
+        public async Task<Menu?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _applicationDbContext.Menus!.SingleOrDefaultAsync(m => m.Id == id);
         }
 
-        public Task<Menu> CreateAsync(Menu cardapio)
+        public async Task<Menu> CreateAsync(Menu menu)
         {
-            throw new NotImplementedException();
+            _applicationDbContext.Add(menu);
+            await _applicationDbContext.SaveChangesAsync();
+            return menu;
         }
 
-        public Task<Menu> UpdateAsync(Menu cardapio)
+        public async Task<Menu> UpdateAsync(Menu menu)
         {
-            throw new NotImplementedException();
+            _applicationDbContext.Update(menu);
+            await _applicationDbContext.SaveChangesAsync();
+            return menu;
         }
 
-        public Task<Menu> RemoveAsync(Menu cardapio)
+        public async Task<Menu> RemoveAsync(Menu menu)
         {
-            throw new NotImplementedException();
+            _applicationDbContext.Remove(menu);
+            await _applicationDbContext.SaveChangesAsync();
+            return menu;
         }
 
     }

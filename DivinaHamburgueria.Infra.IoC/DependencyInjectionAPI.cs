@@ -33,6 +33,10 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IMenuItemRecipeRepository, MenuItemRecipeRepository>();
+            services.AddScoped<IMenuItemResaleRepository, MenuItemResaleRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
+            services.AddScoped<IDeliveryOrderRepository, DeliveryOrderRepository>();
+            services.AddScoped<IHallOrderRepository, HallOrderRepository>();
 
             services.AddScoped<IUnityService, UnityService>();
             services.AddScoped<IInventoryItemService, InventoryItemService>();
@@ -40,6 +44,10 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IMenuItemRecipeService, MenuItemRecipeService>();
+            services.AddScoped<IMenuItemResaleService, MenuItemResaleService>();
+            services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IDeliveryOrderService, DeliveryOrderService>();
+            services.AddScoped<IHallOrderService, HallOrderService>();
 
             services.AddScoped<IInventoryEnterService, InventoryEnterService>();
 

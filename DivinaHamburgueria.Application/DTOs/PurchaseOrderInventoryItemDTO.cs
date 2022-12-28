@@ -9,8 +9,6 @@ namespace DivinaHamburgueria.Application.DTOs
 
         public int InventoryItemId { get; set; }
 
-        //public InventoryItem? InventoryItem { get; set; }
-
         public decimal UnitPrice { get; set; }
 
         public int Quantity { get; set; }
