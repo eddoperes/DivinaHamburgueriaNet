@@ -5,7 +5,6 @@ using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Application.Services

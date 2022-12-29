@@ -23,7 +23,7 @@ namespace DivinaHamburgueria.Domain.Tests
             Action action = () => new Customer(id: -1, name: "João", cpf: "11111111111");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
-                                        .WithMessage("Invalid id. Smaller than zero.");
+                                        .WithMessage("Invalid id. Smaller than zero.");            
         }
 
         [Fact]

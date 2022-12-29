@@ -24,9 +24,9 @@ namespace DivinaHamburgueria.Domain.Entities
             DomainExceptionValidation.When(eatableId <= 0, "Invalid eatable id. Smaller or equal than zero.");
             DomainExceptionValidation.When(quantity <= 0, "Invalid quantity. Smaller or equal than zero.");
             DomainExceptionValidation.When(unityId <= 0, "Invalid unit id. Smaller or equal than zero.");
-            this.EatableId= EatableId;
-            this.Quantity=Quantity;
-            this.UnityId= UnityId;
+            this.EatableId = eatableId;
+            this.Quantity = quantity;
+            this.UnityId =  unityId;
         }
 
         public int EatableId { get; private set; }

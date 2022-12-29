@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DivinaHamburgueria.Domain.Validation;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace DivinaHamburgueria.Domain.Entities
     public class MenuItemRecipe: MenuItem
     {
 
-        public MenuItemRecipe(string name, string description, string photo): base(name, description, photo)
+        public MenuItemRecipe(string name, string description, string photo) : base(name, description, photo)
         {
             //called by entity framework   
         }
