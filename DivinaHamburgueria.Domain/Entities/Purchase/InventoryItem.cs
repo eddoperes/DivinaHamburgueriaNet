@@ -1,41 +1,36 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
-using DivinaHamburgueria.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using static DivinaHamburgueria.Domain.Entities.Menu;
-using static DivinaHamburgueria.Domain.Entities.User;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
     public class InventoryItem : Entity
     {
 
-        public InventoryItem(string? brand, int content,
-                             int unityId, InventoryItemType type, int eatableId) 
+        public InventoryItem(int eatableId, int content,
+                             int unityId, InventoryItemType type, string? brand) 
         {
             //called by entity framework   
-            ValidateDomain(brand, content,
-                           unityId, type, eatableId);
+            ValidateDomain(eatableId, content,
+                           unityId, type, brand);
         }
 
-        public InventoryItem(int id, string? brand, int content,
-                             int unityId, InventoryItemType type, int eatableId)
+        public InventoryItem(int id, int eatableId, int content,
+                             int unityId, InventoryItemType type, string? brand)
         {
             DomainExceptionValidation.When(id < 0, "Invalid id. Smaller than zero.");
             this.Id = id;
             //called by mapper
-            ValidateDomain(brand, content,
-                           unityId, type, eatableId);
+            ValidateDomain(eatableId, content,
+                           unityId, type, brand);
         }
 
-        private void ValidateDomain(string? brand, int content, 
-                                    int unityId, InventoryItemType type, int eatableId)
+        private void ValidateDomain(int eatableId, int content,
+                                    int unityId, InventoryItemType type, string? brand)
         {
             DomainExceptionValidation.When(content <= 0, "Invalid content. Smaller or equal than zero.");
             DomainExceptionValidation.When(unityId <= 0, "Invalid unit id. Smaller or equal than zero.");
             DomainExceptionValidation.When(type < InventoryItemType.Recipe || type > InventoryItemType.Resale, "Invalid type. Out of range 1 to 2.");
-            DomainExceptionValidation.When(eatableId <= 0, "Invalid eatable id. Smaller or equal than zero.");
+            DomainExceptionValidation.When(eatableId < 0, "Invalid eatable id. Smaller than zero.");
             this.Brand = brand;
             this.Content = content;
             this.UnityId = unityId;
@@ -73,9 +68,9 @@ namespace DivinaHamburgueria.Domain.Entities
             }
         }
 
-        public void NotificarComestivel(Eatable? eatable)
+        public void NotificarComestivel(Eatable eatable)
         {
-            Eatable = eatable;
+            this.Eatable = eatable;
         }
 
     }

@@ -17,6 +17,7 @@ namespace DivinaHamburgueria.Application.Mappings
                 CreateMap<Eatable, EatableDTO>().ReverseMap();
                 CreateMap<MenuItemRecipe, MenuItemRecipeDTO>().ReverseMap();
                 CreateMap<Ingredient, IngredientDTO>().ReverseMap();
+                CreateMap<MenuItemResale, MenuItemResaleDTO>().ReverseMap();
             }
         }
 }

@@ -6,6 +6,7 @@ using DivinaHamburgueria.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static DivinaHamburgueria.Domain.Entities.InventoryItem;
 
 namespace DivinaHamburgueria.Application.Services
 {
@@ -49,26 +50,58 @@ namespace DivinaHamburgueria.Application.Services
             return _mapper.Map<InventoryItemDTO>(inventoryItem);
         }
 
-        public async Task Add(InventoryItemDTO itemDoEstoqueReceitaDTO)
+        public async Task Add(InventoryItemDTO inventoryItemDTO)
         {
-            var inventoryItem = _mapper.Map<InventoryItem>(itemDoEstoqueReceitaDTO);
-            var eatable = await _eatableRepository.GetByNameAsync(itemDoEstoqueReceitaDTO.Name);
+            var eatable = await _eatableRepository.GetByNameAsync(inventoryItemDTO.Name);
             if (eatable != null)
+            {
+                var inventoryItem = new InventoryItem(id: inventoryItemDTO.Id, 
+                                                      eatableId: eatable.Id,
+                                                      content: inventoryItemDTO.Content,
+                                                      unityId: inventoryItemDTO.UnityId, 
+                                                      type: (InventoryItemType) inventoryItemDTO.Type, 
+                                                      brand: inventoryItemDTO.Brand);
                 inventoryItem.NotificarComestivel(eatable);
+                await _inventoryItemRepository.CreateAsync(inventoryItem);
+            }
             else
-                inventoryItem.NotificarComestivel(new Eatable(itemDoEstoqueReceitaDTO.Name));
-            await _inventoryItemRepository.CreateAsync(inventoryItem);
+            {
+                var inventoryItem = new InventoryItem(id: inventoryItemDTO.Id,
+                                                      eatableId: 0,
+                                                      content: inventoryItemDTO.Content,
+                                                      unityId: inventoryItemDTO.UnityId,
+                                                      type: (InventoryItemType) inventoryItemDTO.Type,
+                                                      brand: inventoryItemDTO.Brand);
+                inventoryItem.NotificarComestivel(new Eatable(inventoryItemDTO.Name));
+                await _inventoryItemRepository.CreateAsync(inventoryItem);
+            }                            
         }
 
-        public async Task Update(InventoryItemDTO itemDoEstoqueReceitaDTO)
+        public async Task Update(InventoryItemDTO inventoryItemDTO)
         {
-            var inventoryItem = _mapper.Map<InventoryItem>(itemDoEstoqueReceitaDTO);
-            var eatable = await _eatableRepository.GetByNameAsync(itemDoEstoqueReceitaDTO.Name);
+            var eatable = await _eatableRepository.GetByNameAsync(inventoryItemDTO.Name);
             if (eatable != null)
+            {
+                var inventoryItem = new InventoryItem(id: inventoryItemDTO.Id,
+                                                      eatableId: eatable.Id,
+                                                      content: inventoryItemDTO.Content,
+                                                      unityId: inventoryItemDTO.UnityId,
+                                                      type: (InventoryItemType) inventoryItemDTO.Type,
+                                                      brand: inventoryItemDTO.Brand);
                 inventoryItem.NotificarComestivel(eatable);
+                await _inventoryItemRepository.UpdateAsync(inventoryItem);
+            }
             else
-                inventoryItem.NotificarComestivel(new Eatable(itemDoEstoqueReceitaDTO.Name));
-            await _inventoryItemRepository.UpdateAsync(inventoryItem);
+            {
+                var inventoryItem = new InventoryItem(id: inventoryItemDTO.Id,
+                                                      eatableId: 0,
+                                                      content: inventoryItemDTO.Content,
+                                                      unityId: inventoryItemDTO.UnityId,
+                                                      type: (InventoryItemType) inventoryItemDTO.Type,
+                                                      brand: inventoryItemDTO.Brand);
+                inventoryItem.NotificarComestivel(new Eatable(inventoryItemDTO.Name));
+                await _inventoryItemRepository.UpdateAsync(inventoryItem);
+            }
         }
 
         public async Task Remove(int id)

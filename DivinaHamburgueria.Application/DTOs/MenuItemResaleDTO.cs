@@ -23,7 +23,7 @@ namespace DivinaHamburgueria.Application.DTOs
         public string Photo { get; set; } = String.Empty;
 
         [DisplayName("InventoryItemId")]
-        public int InventoryItemId { get; private set; }
+        public int InventoryItemId { get; set; }
 
     }
 }

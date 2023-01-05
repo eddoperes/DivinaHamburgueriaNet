@@ -91,7 +91,7 @@ namespace DivinaHamburgueria.Domain.Tests
                                                     eatableId: -1);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
-                                        .WithMessage("Invalid eatable id. Smaller or equal than zero.");
+                                        .WithMessage("Invalid eatable id. Smaller than zero.");
         }
 
     }
