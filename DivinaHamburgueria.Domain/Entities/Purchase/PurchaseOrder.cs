@@ -131,8 +131,7 @@ namespace DivinaHamburgueria.Domain.Entities
                         purchaseOrderInventoryItem.RegisterStocked();
                     }
                 }
-            }
-                
+            }                
         }
 
         public void RegisterPayment(PurchaseOrderPayment payment)

@@ -6,6 +6,10 @@ namespace DivinaHamburgueria.Domain.Tests
     public class PurchaseOrderUnitTest
     {
 
+        // 1 - What test
+        // 2 - Complement
+        // 3 - Expected result
+
         [Fact]
         public void CreatePurchaseOrder_WithValidParameters_ObjectValidState()
         {

@@ -28,21 +28,21 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         {
             if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(type)) 
             {
-                InventoryItem.ItemType itemType;
+                InventoryItem.InventoryItemType itemType;
                 switch (type.ToLower())
                 {
                     case "1":
                     case "recipe":
                     case "receita":
-                        itemType = InventoryItem.ItemType.Recipe;
+                        itemType = InventoryItem.InventoryItemType.Recipe;
                         break;
                     case "2":
                     case "resale":
                     case "revenda":
-                        itemType = InventoryItem.ItemType.Resale;
+                        itemType = InventoryItem.InventoryItemType.Resale;
                         break;
                     default:
-                        itemType = InventoryItem.ItemType.Recipe;
+                        itemType = InventoryItem.InventoryItemType.Recipe;
                         break;
                 }
                 return await _applicationDbContext.InventoryItems!.Include(i => i.Eatable)
@@ -57,21 +57,21 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             }
             else if (!string.IsNullOrWhiteSpace(type))
             {
-                InventoryItem.ItemType itemType;
+                InventoryItem.InventoryItemType itemType;
                 switch (type.ToLower())
                 {
                     case "1":
                     case "recipe":
                     case "receita":
-                        itemType = InventoryItem.ItemType.Recipe;
+                        itemType = InventoryItem.InventoryItemType.Recipe;
                         break;
                     case "2":
                     case "resale":
                     case "revenda":
-                        itemType = InventoryItem.ItemType.Resale;
+                        itemType = InventoryItem.InventoryItemType.Resale;
                         break;
                     default:
-                        itemType = InventoryItem.ItemType.Recipe;
+                        itemType = InventoryItem.InventoryItemType.Recipe;
                         break;
                 }
                 return await _applicationDbContext.InventoryItems!.Include(i => i.Eatable)

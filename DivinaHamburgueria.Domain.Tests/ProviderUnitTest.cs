@@ -36,6 +36,24 @@ namespace DivinaHamburgueria.Domain.Tests
                                         .WithMessage("Invalid CNPJ.");
         }
 
+        [Fact]
+        public void CreateProvider_EmptyName_DomainExceptionInvalid()
+        {
+            Action action = () => new Provider(id: 1, name: "", cnpj: "00000000000272");
+            action.Should().Throw<Domain.Validation
+                                        .DomainExceptionValidation>()
+                                        .WithMessage("Invalid name. Name is required.");
+        }
+
+        [Fact]
+        public void CreateProvider_ShortName_DomainExceptionInvalid()
+        {
+            Action action = () => new Provider(id: 1, name: "As", cnpj: "00000000000272");
+            action.Should().Throw<Domain.Validation
+                                        .DomainExceptionValidation>()
+                                        .WithMessage("Invalid name, too short, minimum 3 characters.");
+        }
+
 
     }
 }

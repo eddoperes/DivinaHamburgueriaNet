@@ -6,7 +6,7 @@ using DivinaHamburgueria.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Transactions;
+//using System.Transactions;
 
 namespace DivinaHamburgueria.Application.Services
 {
@@ -36,19 +36,19 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task Add(MenuDTO CardapioDTO)
         {
-            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                try
-                {
+            //using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            //{
+            //    try
+            //    {
                     var cardapioEntity = _mapper.Map<Menu>(CardapioDTO);
                     await _cardapioRepository.CreateAsync(cardapioEntity);
-                    scope.Complete();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+            //        scope.Complete();
+            //    }
+            //    catch (Exception)
+            //    {
+            //        throw;
+            //    }
+            //}
         }
 
         public async Task Update(MenuDTO CardapioDTO)
