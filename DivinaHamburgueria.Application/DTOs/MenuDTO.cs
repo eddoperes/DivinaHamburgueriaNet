@@ -1,5 +1,4 @@
-﻿using DivinaHamburgueria.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -27,7 +26,7 @@ namespace DivinaHamburgueria.Application.DTOs
         public int State { get; set; }
 
         [DisplayName("MenusMenuItems")]
-        public ICollection<MenuMenuItemDTO>? MenusMenuItems { get; set;}
+        public ICollection<MenuMenuItemDTO>? MenuMenuItems { get; set;}
 
     }
 }

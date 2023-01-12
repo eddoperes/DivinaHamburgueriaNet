@@ -12,7 +12,6 @@ namespace DivinaHamburgueria.API.Controllers
     public class MenusController : Controller
     {
 
-
         private readonly IMenuService _MenuService;
 
         public MenusController(IMenuService MenuService)
@@ -23,35 +22,35 @@ namespace DivinaHamburgueria.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MenuDTO>>> Get()
         {
-            var menuItemsRecipe = await _MenuService.GetAll();
-            return Ok(menuItemsRecipe);
+            var menuDTOs = await _MenuService.GetAll();
+            return Ok(menuDTOs);
         }
 
-        //[HttpGet("GetByName")]
-        //public async Task<ActionResult<IEnumerable<MenuDTO>>> GetByName([FromQuery] string? name)
-        //{
-        //    var menuItemsRecipe = await _MenuService.GetByName(name);
-        //    return Ok(menuItemsRecipe);
-        //}
+        [HttpGet("GetByName")]
+        public async Task<ActionResult<IEnumerable<MenuDTO>>> GetByName([FromQuery] string? name)
+        {
+            var menuDTOs = await _MenuService.GetByName(name);
+            return Ok(menuDTOs);
+        }
 
         [HttpGet("{id}", Name = "GetMenu")]
         public async Task<ActionResult<MenuDTO>> Get(int id)
         {
-            var Menu = await _MenuService.GetById(id);
-            if (Menu == null)
+            var menuDTO = await _MenuService.GetById(id);
+            if (menuDTO == null)
                 return NotFound();
-            return Ok(Menu);
+            return Ok(menuDTO);
         }
 
         [HttpPost]
-        public async Task<ActionResult<MenuDTO>> Post([FromBody] MenuDTO MenuDTO)
+        public async Task<ActionResult<MenuDTO>> Post([FromBody] MenuDTO menuDTO)
         {
             try
             {
-                if (MenuDTO == null)
+                if (menuDTO == null)
                     return BadRequest();
-                await _MenuService.Add(MenuDTO);
-                return new CreatedAtRouteResult("GetMenu", new { id = MenuDTO.Id }, MenuDTO);
+                await _MenuService.Add(menuDTO);
+                return new CreatedAtRouteResult("GetMenu", new { id = menuDTO.Id }, menuDTO);
             }
             catch (Exception ex)
             {
@@ -60,28 +59,32 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<MenuDTO>> Put(int id, [FromBody] MenuDTO MenuDTO)
+        public async Task<ActionResult<MenuDTO>> Put(int id, [FromBody] MenuDTO menuDTO)
         {
-            if (MenuDTO == null)
-                return BadRequest();
-            if (MenuDTO.Id != id)
-                return BadRequest();
-            await _MenuService.Update(MenuDTO);
-            return Ok(MenuDTO);
+            try
+            {
+                if (menuDTO == null)
+                    return BadRequest();
+                if (menuDTO.Id != id)
+                    return BadRequest();
+                await _MenuService.Update(menuDTO);
+                return Ok(menuDTO);
+            }
+            catch(Exception ex) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }            
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<MenuDTO>> Delete(int id)
         {
-            var MenuDTO = await _MenuService.GetById(id);
-            if (MenuDTO == null)
+            var menuDTO = await _MenuService.GetById(id);
+            if (menuDTO == null)
                 return NotFound();
             await _MenuService.Remove(id);
-            return Ok(MenuDTO);
+            return Ok(menuDTO);
         }
-
-
-
 
     }
 }

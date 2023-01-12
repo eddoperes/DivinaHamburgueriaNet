@@ -10,6 +10,7 @@ namespace DivinaHamburgueria.Domain.Interfaces
     {
 
         Task<IEnumerable<Menu>> GetAllAsync();
+        Task<IEnumerable<Menu>> GetByNameAsync(string? name);
         Task<Menu?> GetByIdAsync(int id);
 
         Task<Menu> CreateAsync(Menu menu);

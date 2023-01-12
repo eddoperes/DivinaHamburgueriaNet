@@ -8,6 +8,7 @@ namespace DivinaHamburgueria.Application.Interfaces
     {
 
         Task<IEnumerable<MenuDTO>> GetAll();
+        Task<IEnumerable<MenuDTO>> GetByName(string? name);
         Task<MenuDTO?> GetById(int id);
         Task Add(MenuDTO menuDTO);
         Task Update(MenuDTO menuDTO);
