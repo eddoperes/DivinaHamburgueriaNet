@@ -4,6 +4,7 @@ using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230113120306_CorrectValueObjects")]
+    partial class CorrectValueObjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -566,6 +568,65 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.Address", b =>
+                {
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Complement")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FederationUnity")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.ToTable("Addresses", (string)null);
+                });
+
+            modelBuilder.Entity("DivinaHamburgueria.Domain.ValueObjects.Phone", b =>
+                {
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DDD")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.ToTable("Phones", (string)null);
+                });
+
             modelBuilder.Entity("DivinaHamburgueria.Infra.Data.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -852,82 +913,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Navigation("Unity");
                 });
 
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Customer", b =>
-                {
-                    b.OwnsOne("DivinaHamburgueria.Domain.ValueObjects.Address", "Address", b1 =>
-                        {
-                            b1.Property<int>("CustomerId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<string>("Complement")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
-
-                            b1.Property<string>("District")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<string>("FederationUnity")
-                                .IsRequired()
-                                .HasMaxLength(2)
-                                .HasColumnType("nvarchar(2)");
-
-                            b1.Property<int>("Number")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("PostalCode")
-                                .IsRequired()
-                                .HasMaxLength(8)
-                                .HasColumnType("nvarchar(8)");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
-
-                            b1.HasKey("CustomerId");
-
-                            b1.ToTable("Customers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CustomerId");
-                        });
-
-                    b.OwnsOne("DivinaHamburgueria.Domain.ValueObjects.Phone", "Phone", b1 =>
-                        {
-                            b1.Property<int>("CustomerId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("DDD")
-                                .IsRequired()
-                                .HasMaxLength(2)
-                                .HasColumnType("nvarchar(2)");
-
-                            b1.Property<string>("Number")
-                                .IsRequired()
-                                .HasMaxLength(9)
-                                .HasColumnType("nvarchar(9)");
-
-                            b1.HasKey("CustomerId");
-
-                            b1.ToTable("Customers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CustomerId");
-                        });
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Phone");
-                });
-
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.DeliveryOrderMenuItem", b =>
                 {
                     b.HasOne("DivinaHamburgueria.Domain.Entities.DeliveryOrder", null)
@@ -1043,82 +1028,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Provider", b =>
-                {
-                    b.OwnsOne("DivinaHamburgueria.Domain.ValueObjects.Address", "Address", b1 =>
-                        {
-                            b1.Property<int>("ProviderId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<string>("Complement")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
-
-                            b1.Property<string>("District")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<string>("FederationUnity")
-                                .IsRequired()
-                                .HasMaxLength(2)
-                                .HasColumnType("nvarchar(2)");
-
-                            b1.Property<int>("Number")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("PostalCode")
-                                .IsRequired()
-                                .HasMaxLength(8)
-                                .HasColumnType("nvarchar(8)");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
-
-                            b1.HasKey("ProviderId");
-
-                            b1.ToTable("Providers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProviderId");
-                        });
-
-                    b.OwnsOne("DivinaHamburgueria.Domain.ValueObjects.Phone", "Phone", b1 =>
-                        {
-                            b1.Property<int>("ProviderId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("DDD")
-                                .IsRequired()
-                                .HasMaxLength(2)
-                                .HasColumnType("nvarchar(2)");
-
-                            b1.Property<string>("Number")
-                                .IsRequired()
-                                .HasMaxLength(9)
-                                .HasColumnType("nvarchar(9)");
-
-                            b1.HasKey("ProviderId");
-
-                            b1.ToTable("Providers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProviderId");
-                        });
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Phone");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.PurchaseOrder", b =>

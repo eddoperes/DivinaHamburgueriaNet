@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Application.DTOs;
+using DivinaHamburgueria.Domain.ValueObjects;
 
 namespace DivinaHamburgueria.Application.Mappings
 {
@@ -20,6 +21,9 @@ namespace DivinaHamburgueria.Application.Mappings
                 CreateMap<MenuItemResale, MenuItemResaleDTO>().ReverseMap();
                 CreateMap<Menu, MenuDTO>().ReverseMap();
                 CreateMap<MenuMenuItem, MenuMenuItemDTO>().ReverseMap();
+                CreateMap<Customer, CustomerDTO>().ReverseMap();
+                CreateMap<Address, AddressDTO>().ReverseMap();
+                CreateMap<Phone, PhoneDTO>().ReverseMap();
             }
         }
 }

@@ -1,5 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
+using DivinaHamburgueria.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
@@ -112,6 +114,10 @@ namespace DivinaHamburgueria.Domain.Entities
             return cnpj.EndsWith(digito);
 
         }
+
+        public Address? Address { get; set; }
+
+        public Phone? Phone { get; set; }
 
     }
 

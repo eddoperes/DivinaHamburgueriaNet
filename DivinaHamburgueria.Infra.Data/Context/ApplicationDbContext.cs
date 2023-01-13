@@ -34,14 +34,6 @@ namespace DivinaHamburgueria.Infra.Data.Context
 
         public DbSet<Inventory>? Inventories { get; set; }
 
-        public DbSet<CustomerAddress>? CustomersAddresses { get; set; }
-
-        public DbSet<ProviderAddress>? ProvidersAddresses { get; set; }
-
-        public DbSet<CustomerPhone>? CustomersPhones { get; set; }
-
-        public DbSet<ProviderPhone>? ProvidersPhones { get; set; }
-
         public DbSet<Unity>? Units { get; set; }
 
         public DbSet<InventoryItem>? InventoryItems { get; set; }
@@ -49,6 +41,8 @@ namespace DivinaHamburgueria.Infra.Data.Context
         public DbSet<Eatable>? Eatables { get; set; }
 
         public DbSet<Provider>? Providers { get; set; }
+
+        public DbSet<Customer>? Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

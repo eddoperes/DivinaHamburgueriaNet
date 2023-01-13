@@ -1,5 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
+using DivinaHamburgueria.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
@@ -35,6 +37,10 @@ namespace DivinaHamburgueria.Domain.Entities
         public string CPF { get; private set; } = string.Empty;
 
         public DateTime? CreationDate { get; private set; }
+
+        public Address? Address { get; set; }
+
+        public Phone? Phone { get; set; }
 
         public bool IsCPFValid(string cpf) 
         {

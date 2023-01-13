@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DivinaHamburgueria.Domain.ValueObjects
 {
-    public abstract class Address
+    public class Address
     {
 
         public string PostalCode { get; private set; } = string.Empty;
@@ -20,8 +20,6 @@ namespace DivinaHamburgueria.Domain.ValueObjects
         public string City { get; private set; } = string.Empty;
 
         public string FederationUnity { get; private set; } = string.Empty;
-
-        public DateTime CreationDate { get; private set; }
 
     }
 }
