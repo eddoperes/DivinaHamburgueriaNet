@@ -1,23 +1,18 @@
-﻿using System;
+﻿using DivinaHamburgueria.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.Serialization;
+using System.Text;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-
-    public class ProviderDTO
+    public class CustomerDTO
     {
 
         public int Id { get; set; }
 
-        [DisplayName("Name")]
         public string Name { get; set; } = string.Empty;
 
-        [DisplayName("CNPJ")]
-        public string CNPJ { get; set; } = string.Empty;
-
-        internal DateTime? CreationDate { get; set; }
+        public string CPF { get; set; } = string.Empty;
 
         public AddressDTO? Address { get; set; }
 
