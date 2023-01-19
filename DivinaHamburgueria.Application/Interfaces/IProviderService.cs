@@ -8,6 +8,7 @@ namespace DivinaHamburgueria.Application.Interfaces
     {
 
         Task<IEnumerable<ProviderDTO>> GetAll();
+        Task<IEnumerable<ProviderDTO>> GetByName(string? name);
         Task<ProviderDTO?> GetById(int id);
         Task Add(ProviderDTO providerDTO);
         Task Update(ProviderDTO providerDTO);

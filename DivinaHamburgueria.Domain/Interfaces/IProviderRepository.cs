@@ -8,6 +8,7 @@ namespace DivinaHamburgueria.Domain.Interfaces
     {
 
         Task<IEnumerable<Provider>> GetAllAsync();
+        Task<IEnumerable<Provider>> GetByNameAsync(string? name);
         Task<Provider?> GetByIdAsync(int id);
         Task<Provider> CreateAsync(Provider provider);
         Task<Provider> UpdateAsync(Provider provider);

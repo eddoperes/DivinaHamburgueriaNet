@@ -1,5 +1,6 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
+using DivinaHamburgueria.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,13 @@ namespace DivinaHamburgueria.API.Controllers
         {
             var provider = await _providerService.GetAll();
             return Ok(provider);
+        }
+
+        [HttpGet("GetByName")]
+        public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetByName([FromQuery] string? name)
+        {
+            var providerDTOs = await _providerService.GetByName(name);
+            return Ok(providerDTOs);
         }
 
         [HttpGet("{id}", Name = "GetProvider")]
