@@ -28,6 +28,12 @@ namespace DivinaHamburgueria.Application.Services
             return _mapper.Map<IEnumerable<ProviderDTO>>(providers);
         }
 
+        public async Task<IEnumerable<ProviderDTO>> GetByName(string? name)
+        {
+            var providers = await _providerRepository.GetByNameAsync(name);
+            return _mapper.Map<IEnumerable<ProviderDTO>>(providers);
+        }
+
         public async Task<ProviderDTO?> GetById(int id)
         {
             var provider = await _providerRepository.GetByIdAsync(id);
