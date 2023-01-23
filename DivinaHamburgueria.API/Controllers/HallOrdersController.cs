@@ -1,5 +1,6 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
+using DivinaHamburgueria.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,8 +23,15 @@ namespace DivinaHamburgueria.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HallOrderDTO>>> Get()
         {
-            var hallOrder = await _hallOrderService.GetAll();
-            return Ok(hallOrder);
+            var hallOrders = await _hallOrderService.GetAll();
+            return Ok(hallOrders);
+        }
+
+        [HttpGet("GetByCode")]
+        public async Task<ActionResult<IEnumerable<HallOrderDTO>>> GetByCode([FromQuery] int? code)
+        {
+            var hallOrders = await _hallOrderService.GetByCode(code);
+            return Ok(hallOrders);
         }
 
         [HttpGet("{id}", Name = "GetHallOrder")]

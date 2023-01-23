@@ -8,6 +8,7 @@ namespace DivinaHamburgueria.Domain.Interfaces
     {
 
         Task<IEnumerable<HallOrder>> GetAllAsync();
+        Task<IEnumerable<HallOrder>> GetByCodeAsync(int? code);
         Task<HallOrder?> GetByIdAsync(int id);
         Task<HallOrder> CreateAsync(HallOrder hallOrder);
         Task<HallOrder> UpdateAsync(HallOrder hallOrder);

@@ -7,6 +7,7 @@ namespace DivinaHamburgueria.Application.Interfaces
     public interface IHallOrderService
     {
         Task<IEnumerable<HallOrderDTO>> GetAll();
+        Task<IEnumerable<HallOrderDTO>> GetByCode(int? code);
         Task<HallOrderDTO?> GetById(int id);
         Task Add(HallOrderDTO hallOrderDTO);
         Task Update(HallOrderDTO hallOrderDTO);

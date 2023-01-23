@@ -7,31 +7,36 @@ namespace DivinaHamburgueria.Domain.Entities
     {
 
         public User(string name, UserType type, UserState state,
-                    string email, string password, string? token = null,
+                    string email, string password, string? refreshToken = null,
+                    DateTime? refreshTokenExpire = null,
                     DateTime? creationDate = null, DateTime? activationDate = null,
                     DateTime? inactivationDate = null) 
         {
             ValidateDomain(name, type, state,
-                           email, password, token,
+                           email, password, refreshToken,
+                           refreshTokenExpire,
                            creationDate, activationDate,
                            inactivationDate);
         }
 
         public User(int id, string name, UserType type, UserState state,
-                    string email, string password, string? token = null,
+                    string email, string password, string? refreshToken = null,
+                    DateTime? refreshTokenExpire = null,
                     DateTime? creationDate = null, DateTime? activationDate = null,
                     DateTime? inactivationDate = null)
         {
             DomainExceptionValidation.When(id < 0, "Invalid id. Smaller than zero.");
             this.Id = id;
             ValidateDomain(name, type, state,
-                           email, password, token,
+                           email, password, refreshToken,
+                           refreshTokenExpire,
                            creationDate, activationDate,
                            inactivationDate);
         }
 
         private void ValidateDomain(string name, UserType type, UserState state,
-                                    string email, string password, string? token = null,
+                                    string email, string password, string? refreshToken = null,
+                                    DateTime? refreshTokenExpire = null,
                                     DateTime? creationDate = null, DateTime? activationDate = null,
                                     DateTime? inactivationDate = null)
         {
@@ -47,7 +52,8 @@ namespace DivinaHamburgueria.Domain.Entities
             this.State = state;
             this.Email = email;
             this.Password = password;
-            this.Token = token;
+            this.RefreshToken = refreshToken;
+            this.RefreshTokenExpire = refreshTokenExpire;
             this.CreationDate = creationDate;
             this.ActivationDate = activationDate;
             this.InactivationDate = inactivationDate;
@@ -76,13 +82,31 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public string Password { get; private set; } = string.Empty;
 
-        public string? Token { get; private set; }
+        public string? RefreshToken { get; private set; }
+
+        public DateTime? RefreshTokenExpire { get; private set; }
 
         public DateTime? CreationDate { get; private set; }
 
         public DateTime? ActivationDate { get; private set; }
 
         public DateTime? InactivationDate { get; private set; }
+
+        public void NotifyRefreshToken(string refreshToken)
+        {
+            this.RefreshToken= refreshToken;
+        }
+
+        public void NotifyRefreshTokenExpire(DateTime refreshTokenExpire)
+        {
+            this.RefreshTokenExpire = refreshTokenExpire;
+        }
+
+        public void NotifyEncryptedPassword(string encryptedPassword)
+        {
+            this.Password = encryptedPassword;
+        }
+
 
     }
 }

@@ -7,11 +7,12 @@ namespace DivinaHamburgueria.Domain.Entities
 {
     public class DeliveryOrder: Order
     {
-        public DeliveryOrder(int userId, int customerId, decimal total,
+        public DeliveryOrder(int userId, decimal total,
                              DeliveryOrderState state, DeliveryOrderPayment payment,
+                             int? customerId = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? packagedDate = null, DateTime? deliveredDate = null, DateTime? paymentDate = null,
-                             string? observation = null, DateTime? creationDate = null): base(userId, customerId, total,
+                             string? observation = null, DateTime? creationDate = null): base(userId, total, customerId,
                                                                                               observation, creationDate)
         {
             //called by entity framework   
@@ -20,11 +21,12 @@ namespace DivinaHamburgueria.Domain.Entities
                            packagedDate, deliveredDate, paymentDate);
         }
 
-        public DeliveryOrder(int id, int userId, int customerId, decimal total,
+        public DeliveryOrder(int id, int userId, decimal total,
                              DeliveryOrderState state, DeliveryOrderPayment payment,
+                             int? customerId = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? packagedDate = null, DateTime? deliveredDate = null, DateTime? paymentDate = null,
-                             string? observation = null, DateTime? creationDate = null) : base(id, userId, customerId, total,
+                             string? observation = null, DateTime? creationDate = null) : base(id, userId, total, customerId,
                                                                                                observation, creationDate)
         {
             //called by mapper
@@ -47,6 +49,7 @@ namespace DivinaHamburgueria.Domain.Entities
             this.DeliveredDate = deliveredDate;
             this.PackagedDate = paymentDate;
         }
+
 
         public enum DeliveryOrderState
         {

@@ -24,8 +24,14 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task<IEnumerable<HallOrderDTO>> GetAll()
         {
-            var hallOrder = await _hallOrderRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<HallOrderDTO>>(hallOrder);
+            var hallOrders = await _hallOrderRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<HallOrderDTO>>(hallOrders);
+        }
+
+        public async Task<IEnumerable<HallOrderDTO>> GetByCode(int? code)
+        {
+            var hallOrders = await _hallOrderRepository.GetByCodeAsync(code);
+            return _mapper.Map<IEnumerable<HallOrderDTO>>(hallOrders);
         }
 
         public async Task<HallOrderDTO?> GetById(int id)

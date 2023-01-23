@@ -8,11 +8,12 @@ namespace DivinaHamburgueria.Domain.Entities
     public class HallOrder : Order
     {
 
-        public HallOrder(int userId, int customerId, decimal total,
+        public HallOrder(int userId, decimal total,
                          HallOrderState state,
+                         int? customerId = null,
                          DateTime? issuedDate = null, DateTime? canceledDate = null,
                          DateTime? servedDate = null,
-                         string? observation = null, DateTime? creationDate = null) : base(userId, customerId, total,
+                         string? observation = null, DateTime? creationDate = null) : base(userId, total, customerId,
                                                                                            observation, creationDate)
         {
             //called by entity framework   
@@ -21,11 +22,12 @@ namespace DivinaHamburgueria.Domain.Entities
                            servedDate);
         }
 
-        public HallOrder(int id, int userId, int customerId, decimal total,
+        public HallOrder(int id, int userId, decimal total,
                              HallOrderState state,
+                             int? customerId = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? servedDate = null,
-                             string? observation = null, DateTime? creationDate = null) : base(id, userId, customerId, total,
+                             string? observation = null, DateTime? creationDate = null) : base(id, userId, total, customerId,
                                                                                                observation, creationDate)
         {
             //called by mapper
@@ -61,7 +63,6 @@ namespace DivinaHamburgueria.Domain.Entities
         public DateTime? ServedDate { get; private set; }
 
         public ICollection<HallOrderMenuItem>? HallOrderMenuItems { get; private set; }
-
 
         public void RegisterState(HallOrderState state)
         {
