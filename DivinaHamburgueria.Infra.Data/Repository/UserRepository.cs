@@ -26,6 +26,27 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             return await _applicationDbContext.CustomUsers!.ToListAsync();
         }
 
+        public async Task<IEnumerable<User>> GetByNameAsync(string? name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                return await _applicationDbContext.CustomUsers!
+                                                  .Where(u => u.Name.Contains(name))
+                                                  .ToListAsync();
+            }
+            else
+            {
+                return await _applicationDbContext.CustomUsers!
+                                                  .ToListAsync();
+            }
+        }
+
+        public async Task<User?> GetByIdAsync(int id)
+        {
+            return await _applicationDbContext.CustomUsers!
+                                              .SingleOrDefaultAsync(c => c.Id == id);
+        }
+
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _applicationDbContext.CustomUsers!
@@ -39,6 +60,13 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             user.NotifyEncryptedPassword(pass);
 
             _applicationDbContext.Add(user);
+            await _applicationDbContext.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<User> UpdateAsync(User user)
+        {
+            _applicationDbContext.Update(user);
             await _applicationDbContext.SaveChangesAsync();
             return user;
         }
@@ -95,7 +123,12 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             return BitConverter.ToString(hashedBytes);
         }
 
-
+        public async Task<User> RemoveAsync(User user)
+        {
+            _applicationDbContext.Remove(user);
+            await _applicationDbContext.SaveChangesAsync();
+            return user;
+        }
 
 
     }

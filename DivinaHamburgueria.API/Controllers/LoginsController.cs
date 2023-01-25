@@ -1,7 +1,5 @@
 ﻿using DivinaHamburgueria.API.Models;
-using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
-using DivinaHamburgueria.Domain.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -65,6 +63,23 @@ namespace DivinaHamburgueria.API.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return BadRequest(ModelState);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("RevokeToken")]
+        public async Task<ActionResult<UserToken>> RevokeToken([FromBody] RevokeTokenModel userInfo)
+        {
+
+            var result = await _loginService.RevokeToken(userInfo.Email);
+            if (result)
+            {
+                return Ok(userInfo);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid revoke attempt.");
                 return BadRequest(ModelState);
             }
         }

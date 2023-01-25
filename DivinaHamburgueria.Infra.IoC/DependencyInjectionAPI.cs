@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DivinaHamburgueria.Infra.IoC
 {
@@ -54,11 +53,10 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<ILoginService, LoginService>();
-
-            services.AddScoped<IInventoryEnterService, InventoryEnterService>();
-
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
+            services.AddScoped<IInventoryEnterService, InventoryEnterService>();
+          
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
             //var myHandlers = AppDomain.CurrentDomain.Load("DivinaHamburgueria.Application");

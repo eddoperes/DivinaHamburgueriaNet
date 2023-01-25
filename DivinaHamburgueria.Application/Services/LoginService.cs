@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
-using DivinaHamburgueria.Domain.Account;
-using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Domain.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -21,12 +18,10 @@ namespace DivinaHamburgueria.Application.Services
 
         private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         private IUserRepository _userRepository;
-        private readonly IMapper _mapper;
 
-        public LoginService(IUserRepository userRepository, IMapper mapper)
+        public LoginService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _mapper = mapper;
         }
 
         public async Task<TokenDTO?> ValidateCredentials(string email, string password, 
@@ -50,6 +45,7 @@ namespace DivinaHamburgueria.Application.Services
             DateTime createDate = DateTime.Now;
             DateTime expirationDate = createDate.AddMinutes(minutes);
             return new TokenDTO(
+                                user.Id,
                                 true,
                                 createDate.ToString(DATE_FORMAT),
                                 expirationDate.ToString(DATE_FORMAT),
@@ -62,25 +58,21 @@ namespace DivinaHamburgueria.Application.Services
                                                          string secretKey, double minutes, 
                                                          string issuer, string audience)
         {
-
-
             var principal = GetPrincipalFromExpiredToken(accessToken, secretKey);
             var email = principal.Identity.Name;
-
             var user = await _userRepository.GetByEmailAsync(email);
             if (user == null)
                 return null;
             if (user.RefreshToken != refreshToken || user.RefreshTokenExpire <= DateTime.Now)
                 return null;
-
             accessToken = GenerateAccessToken(principal.Claims, secretKey, minutes, issuer, audience);
             refreshToken = GenerateRefreshToken();
             user.NotifyRefreshToken(refreshToken);
-
             await _userRepository.RefreshUserInfo(user);
             DateTime createDate = DateTime.Now;
             DateTime expirationDate = createDate.AddMinutes(minutes);
             return new TokenDTO(
+                                user.Id,            
                                 true,
                                 createDate.ToString(DATE_FORMAT),
                                 expirationDate.ToString(DATE_FORMAT),
@@ -142,8 +134,6 @@ namespace DivinaHamburgueria.Application.Services
             }
             return principal;
         }
-
-
 
     }
 }

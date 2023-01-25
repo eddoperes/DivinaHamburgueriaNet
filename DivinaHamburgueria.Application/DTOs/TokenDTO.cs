@@ -7,14 +7,17 @@ namespace DivinaHamburgueria.Application.DTOs
     public class TokenDTO
     {
 
-        public TokenDTO(bool autenticated, string created, string expiration, string accessToken, string refreshToken)
+        public TokenDTO(int userId, bool autenticated, string created, string expiration, string accessToken, string refreshToken)
         {
+            UserId = userId;
             Autenticated = autenticated;
             Created = created;
             Expiration = expiration;
             AccessToken = accessToken;
             RefreshToken = refreshToken;
         }
+
+        public int UserId { get; set; }
 
         public bool Autenticated { get; set; }
 

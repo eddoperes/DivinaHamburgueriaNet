@@ -107,6 +107,13 @@ namespace DivinaHamburgueria.Domain.Entities
             this.Password = encryptedPassword;
         }
 
+        public void Update(string name, UserType type, UserState state, string email)
+        {
+            this.Email = email;
+            this.Name = name;
+            this.State = state;
+            this.Type = type;
+        }
 
     }
 }
