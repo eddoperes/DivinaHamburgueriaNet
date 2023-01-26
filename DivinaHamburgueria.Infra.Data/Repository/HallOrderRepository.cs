@@ -27,7 +27,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<HallOrder>> GetByCodeAsync(int? code)
         {
-            if (code == null)
+            if (code == null || code == 0)
             {
                 return await _applicationDbContext.HallOrders!
                                                   .OrderByDescending(p => p.Id)

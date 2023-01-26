@@ -12,5 +12,8 @@ namespace DivinaHamburgueria.Application.Interfaces
         Task Add(HallOrderDTO hallOrderDTO);
         Task Update(HallOrderDTO hallOrderDTO);
         Task Remove(int id);
+
+        Task<HallOrderDTO?> Patch(int id, HallOrderPatchDTO hallOrderPatchDTO);
+
     }
 }

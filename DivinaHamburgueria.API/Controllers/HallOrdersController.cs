@@ -63,6 +63,19 @@ namespace DivinaHamburgueria.API.Controllers
             return Ok(hallOrderDTO);
         }
 
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<HallOrderDTO>> ChangeState(int id, [FromBody] HallOrderPatchDTO hallOrderPatchDTO)
+        {
+            if (hallOrderPatchDTO == null)
+                return BadRequest();
+            if (hallOrderPatchDTO.Id != id)
+                return BadRequest();
+            var purchaseOrder = await _hallOrderService.Patch(id, hallOrderPatchDTO);
+            if (purchaseOrder == null)
+                return NotFound();
+            return Ok(purchaseOrder);
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<HallOrderDTO>> Delete(int id)
         {

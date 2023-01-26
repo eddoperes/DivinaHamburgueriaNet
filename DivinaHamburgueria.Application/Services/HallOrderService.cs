@@ -60,5 +60,19 @@ namespace DivinaHamburgueria.Application.Services
                 await _hallOrderRepository.RemoveAsync(hallOrder);
         }
 
+        public async Task<HallOrderDTO?> Patch(int id, HallOrderPatchDTO hallOrderPatchDTO)
+        {
+            var hallOrderOrder = await _hallOrderRepository.GetByIdAsync(id);
+            if (hallOrderOrder != null)
+            {
+                if (hallOrderOrder.State < (HallOrder.HallOrderState)hallOrderPatchDTO.State)
+                {
+                    hallOrderOrder.RegisterState((HallOrder.HallOrderState)hallOrderPatchDTO.State);
+                }              
+                await _hallOrderRepository.UpdateAsync(hallOrderOrder);
+            }
+            return _mapper.Map<HallOrderDTO>(hallOrderOrder);
+        }
+
     }
 }
