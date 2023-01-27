@@ -46,10 +46,16 @@ namespace DivinaHamburgueria.API.Controllers
         [HttpPost]
         public async Task<ActionResult<HallOrderDTO>> Post([FromBody] HallOrderDTO hallOrderDTO)
         {
-            if (hallOrderDTO == null)
-                return BadRequest();
-            await _hallOrderService.Add(hallOrderDTO);
-            return new CreatedAtRouteResult("GetHallOrder", new { id = hallOrderDTO.Id }, hallOrderDTO);
+            try
+            {
+                if (hallOrderDTO == null)
+                    return BadRequest();
+                await _hallOrderService.Add(hallOrderDTO);
+                return new CreatedAtRouteResult("GetHallOrder", new { id = hallOrderDTO.Id }, hallOrderDTO);
+            }
+            catch (Exception ex)            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
