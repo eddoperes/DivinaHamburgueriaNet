@@ -6,25 +6,25 @@ namespace DivinaHamburgueria.Domain.Entities
     public abstract class Order: Entity
     {
 
-        public Order(int userId, int customerId, decimal total, 
+        public Order(int userId, decimal total, int? customerId = null,
                      string? observation = null, DateTime? creationDate = null)
         {
             //called by entity framework   
-            ValidateDomain(userId, customerId, total,
+            ValidateDomain(userId, total, customerId, 
                            observation, creationDate);
         }
 
-        public Order(int id, int userId, int customerId, decimal total,
+        public Order(int id, int userId, decimal total, int? customerId = null,
                      string? observation = null, DateTime? creationDate = null)
         {
             DomainExceptionValidation.When(id < 0, "Invalid id. Smaller than zero.");
             this.Id = id;
             //called by mapper
-            ValidateDomain(userId, customerId, total,
+            ValidateDomain(userId, total, customerId,
                            observation, creationDate);
         }
 
-        private void ValidateDomain(int userId, int customerId, decimal total,
+        private void ValidateDomain(int userId, decimal total, int? customerId = null,
                                     string? observation = null, DateTime? creationDate = null)
         {            
             DomainExceptionValidation.When(userId <= 0, "Invalid user id. Smaller or equal than zero.");            
@@ -43,7 +43,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public string? Observation { get; private set; }
 
-        public int CustomerId { get; private set; }
+        public int? CustomerId { get; private set; }
 
         public Customer? Customer { get; private set; }
 

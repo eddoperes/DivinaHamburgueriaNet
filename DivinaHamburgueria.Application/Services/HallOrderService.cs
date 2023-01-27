@@ -24,8 +24,14 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task<IEnumerable<HallOrderDTO>> GetAll()
         {
-            var hallOrder = await _hallOrderRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<HallOrderDTO>>(hallOrder);
+            var hallOrders = await _hallOrderRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<HallOrderDTO>>(hallOrders);
+        }
+
+        public async Task<IEnumerable<HallOrderDTO>> GetByCode(int? code)
+        {
+            var hallOrders = await _hallOrderRepository.GetByCodeAsync(code);
+            return _mapper.Map<IEnumerable<HallOrderDTO>>(hallOrders);
         }
 
         public async Task<HallOrderDTO?> GetById(int id)
@@ -52,6 +58,20 @@ namespace DivinaHamburgueria.Application.Services
             var hallOrder = await _hallOrderRepository.GetByIdAsync(id);
             if (hallOrder != null)
                 await _hallOrderRepository.RemoveAsync(hallOrder);
+        }
+
+        public async Task<HallOrderDTO?> Patch(int id, HallOrderPatchDTO hallOrderPatchDTO)
+        {
+            var hallOrderOrder = await _hallOrderRepository.GetByIdAsync(id);
+            if (hallOrderOrder != null)
+            {
+                if (hallOrderOrder.State < (HallOrder.HallOrderState)hallOrderPatchDTO.State)
+                {
+                    hallOrderOrder.RegisterState((HallOrder.HallOrderState)hallOrderPatchDTO.State);
+                }              
+                await _hallOrderRepository.UpdateAsync(hallOrderOrder);
+            }
+            return _mapper.Map<HallOrderDTO>(hallOrderOrder);
         }
 
     }

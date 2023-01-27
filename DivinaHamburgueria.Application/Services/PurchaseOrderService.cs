@@ -61,27 +61,27 @@ namespace DivinaHamburgueria.Application.Services
                 await _purchaseOrderRepository.RemoveAsync(purchaseOrder);
         }
 
-        public async Task<PurchaseOrderDTO?> Patch(int id, PurchaseOrder.PurchaseOrderState state)
-        {
-            var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
-            if (purchaseOrder != null)
-            {
-                purchaseOrder.RegisterState(state);
-                await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
-            }
-            return _mapper.Map<PurchaseOrderDTO>(purchaseOrder);
-        }
+        //public async Task<PurchaseOrderDTO?> Patch(int id, PurchaseOrder.PurchaseOrderState state)
+        //{
+        //    var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
+        //    if (purchaseOrder != null)
+        //    {
+        //        purchaseOrder.RegisterState(state);
+        //        await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
+        //    }
+        //    return _mapper.Map<PurchaseOrderDTO>(purchaseOrder);
+        //}
 
-        public async Task<PurchaseOrderDTO?> ChangePayment(int id, PurchaseOrder.PurchaseOrderPayment payment)
-        {
-            var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
-            if (purchaseOrder != null)
-            {
-                purchaseOrder.RegisterPayment(payment);
-                await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
-            }
-            return _mapper.Map<PurchaseOrderDTO>(purchaseOrder);
-        }
+        //public async Task<PurchaseOrderDTO?> ChangePayment(int id, PurchaseOrder.PurchaseOrderPayment payment)
+        //{
+        //    var purchaseOrder = await _purchaseOrderRepository.GetByIdAsync(id);
+        //    if (purchaseOrder != null)
+        //    {
+        //        purchaseOrder.RegisterPayment(payment);
+        //        await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
+        //    }
+        //    return _mapper.Map<PurchaseOrderDTO>(purchaseOrder);
+        //}
 
         public async Task<PurchaseOrderDTO?> Patch(int id, PurchaseOrderPatchDTO purchaseOrderPatchDTO)
         {

@@ -44,6 +44,8 @@ namespace DivinaHamburgueria.Infra.Data.Context
 
         public DbSet<Customer>? Customers { get; set; }
 
+        public DbSet<User>? CustomUsers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
