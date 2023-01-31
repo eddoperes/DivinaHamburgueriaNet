@@ -8,13 +8,13 @@ namespace DivinaHamburgueria.Application.DTOs
 
         public int Id { get; set; }
 
-        public int UserId { get; private set; }
+        public int UserId { get; set; }
 
-        public string? Observation { get; private set; }
+        public string? Observation { get; set; }
 
-        public int CustomerId { get; private set; }
+        public int? CustomerId { get; set; }
 
-        public decimal Total { get; private set; }
+        public decimal Total { get; set; }
 
         [DisplayName("State")]
         public int State { get; set; } = 1;

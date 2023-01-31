@@ -8,6 +8,7 @@ namespace DivinaHamburgueria.Domain.Interfaces
     {
 
         Task<IEnumerable<DeliveryOrder>> GetAllAsync();
+        Task<IEnumerable<DeliveryOrder>> GetByCodeAsync(int? code);
         Task<DeliveryOrder?> GetByIdAsync(int id);
         Task<DeliveryOrder> CreateAsync(DeliveryOrder deliveryOrder);
         Task<DeliveryOrder> UpdateAsync(DeliveryOrder deliveryOrder);

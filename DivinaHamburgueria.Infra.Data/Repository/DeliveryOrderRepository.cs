@@ -25,6 +25,23 @@ namespace DivinaHamburgueria.Infra.Data.Repository
                                               .ToListAsync();
         }
 
+        public async Task<IEnumerable<DeliveryOrder>> GetByCodeAsync(int? code)
+        {
+            if (code == null || code == 0)
+            {
+                return await _applicationDbContext.DeliveryOrders!
+                                                  .OrderByDescending(p => p.Id)
+                                                  .ToListAsync();
+            }
+            else
+            {
+                return await _applicationDbContext.DeliveryOrders!
+                                                  .Where(h => h.Id.ToString().Contains(new string(code.ToString())))
+                                                  .OrderByDescending(p => p.Id)
+                                                  .ToListAsync();
+            }
+        }
+
         public async Task<DeliveryOrder?> GetByIdAsync(int id)
         {
             return await _applicationDbContext.DeliveryOrders!.Include(i => i.DeliveryOrderMenuItems)

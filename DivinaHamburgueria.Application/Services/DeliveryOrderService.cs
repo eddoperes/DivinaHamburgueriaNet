@@ -28,6 +28,12 @@ namespace DivinaHamburgueria.Application.Services
             return _mapper.Map<IEnumerable<DeliveryOrderDTO>>(deliveryOrder);
         }
 
+        public async Task<IEnumerable<DeliveryOrderDTO>> GetByCode(int? code)
+        {
+            var deliveryOrders = await _deliveryOrderRepository.GetByCodeAsync(code);
+            return _mapper.Map<IEnumerable<DeliveryOrderDTO>>(deliveryOrders);
+        }
+
         public async Task<DeliveryOrderDTO?> GetById(int id)
         {
             var deliveryOrder = await _deliveryOrderRepository.GetByIdAsync(id);
@@ -52,6 +58,24 @@ namespace DivinaHamburgueria.Application.Services
             var deliveryOrder = await _deliveryOrderRepository.GetByIdAsync(id);
             if (deliveryOrder != null)
                 await _deliveryOrderRepository.RemoveAsync(deliveryOrder);
+        }
+
+        public async Task<DeliveryOrderDTO?> Patch(int id, DeliveryOrderPatchDTO deliveryOrderPatchDTO)
+        {
+            var deliveryOrder = await _deliveryOrderRepository.GetByIdAsync(id);
+            if (deliveryOrder != null)
+            {
+                if (deliveryOrder.State < (DeliveryOrder.DeliveryOrderState)deliveryOrderPatchDTO.State)
+                {
+                    deliveryOrder.RegisterState((DeliveryOrder.DeliveryOrderState)deliveryOrderPatchDTO.State);
+                }
+                if (deliveryOrder.Payment < (DeliveryOrder.DeliveryOrderPayment)deliveryOrderPatchDTO.Payment)
+                {
+                    deliveryOrder.RegisterPayment((DeliveryOrder.DeliveryOrderPayment)deliveryOrderPatchDTO.Payment);
+                }
+                await _deliveryOrderRepository.UpdateAsync(deliveryOrder);
+            }
+            return _mapper.Map<DeliveryOrderDTO>(deliveryOrder);
         }
 
     }

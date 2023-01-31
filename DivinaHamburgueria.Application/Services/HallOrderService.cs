@@ -62,16 +62,16 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task<HallOrderDTO?> Patch(int id, HallOrderPatchDTO hallOrderPatchDTO)
         {
-            var hallOrderOrder = await _hallOrderRepository.GetByIdAsync(id);
-            if (hallOrderOrder != null)
+            var hallOrder = await _hallOrderRepository.GetByIdAsync(id);
+            if (hallOrder != null)
             {
-                if (hallOrderOrder.State < (HallOrder.HallOrderState)hallOrderPatchDTO.State)
+                if (hallOrder.State < (HallOrder.HallOrderState)hallOrderPatchDTO.State)
                 {
-                    hallOrderOrder.RegisterState((HallOrder.HallOrderState)hallOrderPatchDTO.State);
+                    hallOrder.RegisterState((HallOrder.HallOrderState)hallOrderPatchDTO.State);
                 }              
-                await _hallOrderRepository.UpdateAsync(hallOrderOrder);
+                await _hallOrderRepository.UpdateAsync(hallOrder);
             }
-            return _mapper.Map<HallOrderDTO>(hallOrderOrder);
+            return _mapper.Map<HallOrderDTO>(hallOrder);
         }
 
     }

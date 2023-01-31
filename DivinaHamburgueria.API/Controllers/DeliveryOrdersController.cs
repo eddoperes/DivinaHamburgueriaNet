@@ -1,6 +1,5 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
-using DivinaHamburgueria.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +26,13 @@ namespace DivinaHamburgueria.API.Controllers
             return Ok(deliveryOrder);
         }
 
+        [HttpGet("GetByCode")]
+        public async Task<ActionResult<IEnumerable<DeliveryOrderDTO>>> GetByCode([FromQuery] int? code)
+        {
+            var deliveryOrders = await _deliveryOrderService.GetByCode(code);
+            return Ok(deliveryOrders);
+        }
+
         [HttpGet("{id}", Name = "GetDeliveryOrder")]
         public async Task<ActionResult<HallOrderDTO>> Get(int id)
         {
@@ -39,10 +45,17 @@ namespace DivinaHamburgueria.API.Controllers
         [HttpPost]
         public async Task<ActionResult<DeliveryOrderDTO>> Post([FromBody] DeliveryOrderDTO deliveryOrderDTO)
         {
-            if (deliveryOrderDTO == null)
-                return BadRequest();
-            await _deliveryOrderService.Add(deliveryOrderDTO);
-            return new CreatedAtRouteResult("GetDeliveryOrder", new { id = deliveryOrderDTO.Id }, deliveryOrderDTO);
+            try
+            {
+                if (deliveryOrderDTO == null)
+                    return BadRequest();
+                await _deliveryOrderService.Add(deliveryOrderDTO);
+                return new CreatedAtRouteResult("GetDeliveryOrder", new { id = deliveryOrderDTO.Id }, deliveryOrderDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
@@ -54,6 +67,19 @@ namespace DivinaHamburgueria.API.Controllers
                 return BadRequest();
             await _deliveryOrderService.Update(deliveryOrderDTO);
             return Ok(deliveryOrderDTO);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<DeliveryOrderDTO>> ChangeState(int id, [FromBody] DeliveryOrderPatchDTO deliveryOrderPatchDTO)
+        {
+            if (deliveryOrderPatchDTO == null)
+                return BadRequest();
+            if (deliveryOrderPatchDTO.Id != id)
+                return BadRequest();
+            var deliveryOrder = await _deliveryOrderService.Patch(id, deliveryOrderPatchDTO);
+            if (deliveryOrder == null)
+                return NotFound();
+            return Ok(deliveryOrder);
         }
 
         [HttpDelete("{id}")]
