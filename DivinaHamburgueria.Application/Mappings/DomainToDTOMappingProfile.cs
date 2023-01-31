@@ -28,6 +28,8 @@ namespace DivinaHamburgueria.Application.Mappings
                 CreateMap<User, UserNoSecretDTO>().ReverseMap();
                 CreateMap<HallOrder, HallOrderDTO>().ReverseMap();
                 CreateMap<HallOrderMenuItem, HallOrderMenuItemDTO>().ReverseMap();
+                CreateMap<DeliveryOrder, DeliveryOrderDTO>().ReverseMap();
+                CreateMap<DeliveryOrderMenuItem, DeliveryOrderMenuItemDTO>().ReverseMap();
             }
         }
 }

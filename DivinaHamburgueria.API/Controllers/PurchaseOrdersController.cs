@@ -46,10 +46,16 @@ namespace DivinaHamburgueria.API.Controllers
         [HttpPost]
         public async Task<ActionResult<PurchaseOrderDTO>> Post([FromBody] PurchaseOrderDTO purchaseOrderDTO)
         {
-            if (purchaseOrderDTO == null)
-                return BadRequest();
-            await _purchaseOrderService.Add(purchaseOrderDTO);
-            return new CreatedAtRouteResult("GetPurchaseOrder", new { id = purchaseOrderDTO.Id }, purchaseOrderDTO);
+            try { 
+                if (purchaseOrderDTO == null)
+                    return BadRequest();
+                await _purchaseOrderService.Add(purchaseOrderDTO);
+                return new CreatedAtRouteResult("GetPurchaseOrder", new { id = purchaseOrderDTO.Id }, purchaseOrderDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPut("{id}")]

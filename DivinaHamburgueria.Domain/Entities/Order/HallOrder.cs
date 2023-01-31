@@ -1,7 +1,6 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
 using System;
 using System.Collections.Generic;
-using static DivinaHamburgueria.Domain.Entities.DeliveryOrder;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
