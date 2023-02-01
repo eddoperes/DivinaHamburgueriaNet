@@ -1,9 +1,4 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
-using DivinaHamburgueria.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using static DivinaHamburgueria.Domain.Entities.DeliveryOrder;
 
 namespace DivinaHamburgueria.Domain.Entities
 {

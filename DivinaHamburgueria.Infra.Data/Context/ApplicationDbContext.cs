@@ -46,6 +46,8 @@ namespace DivinaHamburgueria.Infra.Data.Context
 
         public DbSet<User>? CustomUsers { get; set; }
 
+        public DbSet<Alarm>? Alarms { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
