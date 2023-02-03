@@ -1,7 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using FluentAssertions;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class InventoryUnitTest
     {
@@ -13,8 +13,8 @@ namespace DivinaHamburgueria.Domain.Tests
         [Fact]
         public void CreateInventory_WithValidParameters_ObjectValidState()
         {
-            Action action = () => new Inventory(id: 1, 
-                                                inventoryItemId: 1, 
+            Action action = () => new Inventory(id: 1,
+                                                inventoryItemId: 1,
                                                 quantity: 1);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }

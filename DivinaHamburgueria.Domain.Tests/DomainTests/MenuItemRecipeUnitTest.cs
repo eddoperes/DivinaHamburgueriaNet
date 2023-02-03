@@ -1,7 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using FluentAssertions;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class MenuItemRecipeUnitTest
     {
@@ -13,9 +13,9 @@ namespace DivinaHamburgueria.Domain.Tests
         [Fact]
         public void CreateMenuItemRecipe_WithValidParameters_ObjectValidState()
         {
-            Action action = () => new MenuItemRecipe(id: 1, 
-                                                     name: "Big Divino", 
-                                                     description: "Pão, hamburguer, alface, tomate, maionese", 
+            Action action = () => new MenuItemRecipe(id: 1,
+                                                     name: "Big Divino",
+                                                     description: "Pão, hamburguer, alface, tomate, maionese",
                                                      photo: "\\photos\\bigdivino.jpg");
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }

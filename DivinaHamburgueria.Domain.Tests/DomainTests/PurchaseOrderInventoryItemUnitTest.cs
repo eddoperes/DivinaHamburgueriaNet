@@ -1,7 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using FluentAssertions;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class PurchaseOrderInventoryItemUnitTest
     {
@@ -13,11 +13,11 @@ namespace DivinaHamburgueria.Domain.Tests
         [Fact]
         public void CreatePurchaseOrderInventoryItem_WithValidParameters_ObjectValidState()
         {
-            Action action = () => new PurchaseOrderInventoryItem(id: 1, 
-                                                                 inventoryItemId: 1, 
+            Action action = () => new PurchaseOrderInventoryItem(id: 1,
+                                                                 inventoryItemId: 1,
                                                                  unitPrice: 1,
-                                                                 quantity: 1, 
-                                                                 totalPrice: 1, 
+                                                                 quantity: 1,
+                                                                 totalPrice: 1,
                                                                  stocked: false);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
@@ -60,7 +60,7 @@ namespace DivinaHamburgueria.Domain.Tests
                                                                  totalPrice: 1,
                                                                  stocked: false);
             action.Should().Throw<Domain.Validation
-                                        .DomainExceptionValidation>()                                                      
+                                        .DomainExceptionValidation>()
                                         .WithMessage("Invalid unit price. Smaller or equal than zero.");
         }
 

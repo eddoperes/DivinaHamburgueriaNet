@@ -1,7 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using FluentAssertions;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests  
 {
     public class MenuItemResaleUnitTest
     {

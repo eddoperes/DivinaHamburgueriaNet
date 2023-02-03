@@ -2,9 +2,6 @@
 using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Domain.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -25,15 +22,16 @@ namespace DivinaHamburgueria.Application.Services
 
         public async Task Execute()
         {
-            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+
+            var purchaseOrders = await _purchaseOrderRepository.GetByStatusAsync(PurchaseOrder.PurchaseOrderState.Arrived);
+
+            foreach (var purchaseOrder in purchaseOrders)
             {
-                try
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
- 
-                    var purchaseOrders = await _purchaseOrderRepository.GetByStatusAsync(PurchaseOrder.PurchaseOrderState.Arrived);
-                    
-                    foreach(var purchaseOrder in purchaseOrders)
-                    {
+                    try
+                    {                                        
                         foreach(var purchaseOrderInventoryItem in purchaseOrder.PurchaseOrderInventoryItems!)
                         {
                             Inventory? inventory = await _inventoryRepository.GetByInventoryItemAsync(purchaseOrderInventoryItem.InventoryItemId);
@@ -49,15 +47,15 @@ namespace DivinaHamburgueria.Application.Services
                             }
                         }
                         purchaseOrder.RegisterState(PurchaseOrder.PurchaseOrderState.Stocked);
-                        await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
+                        await _purchaseOrderRepository.UpdateAsync(purchaseOrder);                    
+                        scope.Complete();
                     }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
 
-                    scope.Complete();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
             }
         }
     }

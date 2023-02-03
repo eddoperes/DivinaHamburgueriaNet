@@ -1,7 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using FluentAssertions;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class MenuUnitTest
     {
@@ -62,7 +62,7 @@ namespace DivinaHamburgueria.Domain.Tests
             Action action = () => new Menu(id: 1,
                                            name: "Segunda a sexta",
                                            description: "Cardápio para os dias úteis",
-                                           state: (Menu.MenuState) 2);
+                                           state: (Menu.MenuState)2);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid state. Out of range 0 to 1.");

@@ -1,7 +1,7 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
 using FluentAssertions;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class DeliveryOrderMenuItemUnitTest
     {
@@ -14,7 +14,7 @@ namespace DivinaHamburgueria.Domain.Tests
         public void DeliveryOrderMenuItem_WithValidParameters_ObjectValidState()
         {
             Action action = () => new DeliveryOrderMenuItem(id: 1,
-                                                            menuItemId: 1, 
+                                                            menuItemId: 1,
                                                             price: 1);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }

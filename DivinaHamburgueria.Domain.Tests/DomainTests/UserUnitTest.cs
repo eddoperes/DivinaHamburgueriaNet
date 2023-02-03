@@ -2,7 +2,7 @@
 using FluentAssertions;
 using static DivinaHamburgueria.Domain.Entities.User;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class UserUnitTest
     {
@@ -15,10 +15,10 @@ namespace DivinaHamburgueria.Domain.Tests
         public void CreateUser_WithValidParameters_ObjectValidState()
         {
             Action action = () => new User(id: 1,
-                                           name: "João", 
-                                           type: UserType.Cashier, 
+                                           name: "João",
+                                           type: UserType.Cashier,
                                            state: UserState.Active,
-                                           email: "1@2com.br", 
+                                           email: "1@2com.br",
                                            password: "12345678");
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
@@ -70,7 +70,7 @@ namespace DivinaHamburgueria.Domain.Tests
         {
             Action action = () => new User(id: 1,
                                            name: "João",
-                                           type: (UserType) 4,
+                                           type: (UserType)4,
                                            state: UserState.Active,
                                            email: "1@2com.br",
                                            password: "12345678");
@@ -85,7 +85,7 @@ namespace DivinaHamburgueria.Domain.Tests
             Action action = () => new User(id: 1,
                                            name: "João",
                                            type: UserType.Cashier,
-                                           state: (UserState) 2,
+                                           state: (UserState)2,
                                            email: "1@2com.br",
                                            password: "12345678");
             action.Should().Throw<Domain.Validation

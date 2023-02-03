@@ -2,7 +2,7 @@
 using FluentAssertions;
 using static DivinaHamburgueria.Domain.Entities.HallOrder;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class HallOrderUnitTest
     {

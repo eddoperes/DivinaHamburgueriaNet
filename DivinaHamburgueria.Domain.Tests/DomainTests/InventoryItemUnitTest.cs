@@ -2,7 +2,7 @@
 using FluentAssertions;
 using static DivinaHamburgueria.Domain.Entities.InventoryItem;
 
-namespace DivinaHamburgueria.Domain.Tests
+namespace DivinaHamburgueria.Domain.Tests.DomainTests
 {
     public class InventoryItemUnitTest
     {
@@ -15,10 +15,10 @@ namespace DivinaHamburgueria.Domain.Tests
         public void CreateInventoryItem_WithValidParameters_ObjectValidState()
         {
             Action action = () => new InventoryItem(id: 1,
-                                                    brand: "", 
+                                                    brand: "",
                                                     content: 300,
-                                                    unityId: 1, 
-                                                    type: InventoryItemType.Recipe, 
+                                                    unityId: 1,
+                                                    type: InventoryItemType.Recipe,
                                                     eatableId: 1);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
@@ -73,7 +73,7 @@ namespace DivinaHamburgueria.Domain.Tests
                                                     brand: "",
                                                     content: 300,
                                                     unityId: 1,
-                                                    type: (InventoryItem.InventoryItemType) 3,
+                                                    type: (InventoryItemType)3,
                                                     eatableId: 1);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
