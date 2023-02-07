@@ -2,10 +2,11 @@
 
 namespace DivinaHamburgueria.Application.Interfaces
 {
-    public interface IInventoryEnterService
+    public interface IInventorySupervisorService
     {
 
         Task Execute();
 
     }
+
 }

@@ -9,6 +9,7 @@ builder.Services.AddInfrastructureJWT(builder.Configuration);
 
 
 builder.Services.AddHostedService<InventoryEnterService>();
+builder.Services.AddHostedService<InventorySupervisorService>();
 
 builder.Services.AddControllers();
 

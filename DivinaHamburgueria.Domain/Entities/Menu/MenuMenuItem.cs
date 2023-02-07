@@ -1,6 +1,5 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
 using System;
-using static DivinaHamburgueria.Domain.Entities.PurchaseOrder;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
@@ -48,8 +47,6 @@ namespace DivinaHamburgueria.Domain.Entities
             Active = 1,
             Inactive = 0
         }
-
-        //public Menu? Menu { get; private set; }
 
         public int MenuItemId { get; private set; }
 

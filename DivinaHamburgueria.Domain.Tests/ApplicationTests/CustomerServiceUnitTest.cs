@@ -58,6 +58,8 @@ namespace DivinaHamburgueria.Domain.Tests.ApplicationTests
         public void UpdateCustomer_ValidDTO_ObjectAddedWithSuccess()
         {
 
+            _customerDTO.Id = 1;
+
             var customerRepositoryMock = new Mock<ICustomerRepository>();
             ICustomerService customerService = new CustomerService(customerRepositoryMock.Object, _mapper);
             customerService.Update(_customerDTO);

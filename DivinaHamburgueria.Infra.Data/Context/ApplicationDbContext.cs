@@ -1,5 +1,4 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
-using DivinaHamburgueria.Domain.ValueObjects;
 using DivinaHamburgueria.Infra.Data.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +46,10 @@ namespace DivinaHamburgueria.Infra.Data.Context
         public DbSet<User>? CustomUsers { get; set; }
 
         public DbSet<Alarm>? Alarms { get; set; }
+
+        public DbSet<QuantityAlarmTriggered>? QuantityAlarmsTriggered { get; set; }
+
+        public DbSet<ValidityAlarmTriggered>? ValidityAlarmsTriggered { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

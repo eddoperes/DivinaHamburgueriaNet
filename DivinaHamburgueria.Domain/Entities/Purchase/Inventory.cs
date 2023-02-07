@@ -1,8 +1,4 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using static DivinaHamburgueria.Domain.Entities.PurchaseOrder;
 
 namespace DivinaHamburgueria.Domain.Entities
 {

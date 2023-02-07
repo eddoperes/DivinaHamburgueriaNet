@@ -1,21 +1,20 @@
 ﻿using Bogus;
 using DivinaHamburgueria.Domain.Entities;
+using DivinaHamburgueria.Domain.Tests.Extensions;
 
 namespace DivinaHamburgueria.Domain.Tests.Builders
 {
     public class CustomerBuilder
     {
 
-        private static int _id;
-        private static string _name = "";
-        private static string _cpf = "";
+        private static readonly Faker faker = new Faker();
+
+        private int _id = faker.Random.Int(1, 9999);
+        private string _name = faker.Name.FullName();
+        private string _cpf = faker.CPF();
 
         public static CustomerBuilder New()
         {
-            var faker = new Faker();
-            _id = faker.Random.Int(1,9999);
-            _name = faker.Name.FullName();
-            _cpf = "11111111111";
             return new CustomerBuilder();
         }
 
