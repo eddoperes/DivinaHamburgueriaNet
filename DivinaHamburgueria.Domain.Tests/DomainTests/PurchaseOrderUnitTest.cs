@@ -18,6 +18,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     state: PurchaseOrder.PurchaseOrderState.Quotation,
                                                     payment: PurchaseOrder.PurchaseOrderPayment.Opened,
                                                     total: 1,
+                                                    supervised: false,
                                                     observation: "Comentário");
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
@@ -30,6 +31,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     state: PurchaseOrder.PurchaseOrderState.Quotation,
                                                     payment: PurchaseOrder.PurchaseOrderPayment.Opened,
                                                     total: 1,
+                                                    supervised: false,
                                                     observation: "Comentário");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
@@ -44,6 +46,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     state: PurchaseOrder.PurchaseOrderState.Quotation,
                                                     payment: PurchaseOrder.PurchaseOrderPayment.Opened,
                                                     total: 1,
+                                                    supervised: false,
                                                     observation: "Comentário");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
@@ -58,6 +61,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     state: 0,
                                                     payment: PurchaseOrder.PurchaseOrderPayment.Opened,
                                                     total: 1,
+                                                    supervised: false,
                                                     observation: "Comentário");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
@@ -72,6 +76,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     state: PurchaseOrder.PurchaseOrderState.Quotation,
                                                     payment: 0,
                                                     total: 1,
+                                                    supervised: false,
                                                     observation: "Comentário");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()

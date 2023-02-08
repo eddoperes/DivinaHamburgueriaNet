@@ -19,7 +19,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     customerId: 1,
                                                     total: 1,
                                                     state: DeliveryOrderState.Issued,
-                                                    payment: DeliveryOrderPayment.Opened);
+                                                    payment: DeliveryOrderPayment.Opened,
+                                                    supervised: false);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
 
@@ -31,7 +32,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     customerId: 1,
                                                     total: 1,
                                                     state: DeliveryOrderState.Issued,
-                                                    payment: DeliveryOrderPayment.Opened);
+                                                    payment: DeliveryOrderPayment.Opened,
+                                                    supervised: false);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid id. Smaller than zero.");
@@ -45,7 +47,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     customerId: 1,
                                                     total: 1,
                                                     state: DeliveryOrderState.Issued,
-                                                    payment: DeliveryOrderPayment.Opened);
+                                                    payment: DeliveryOrderPayment.Opened,
+                                                    supervised: false);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid user id. Smaller or equal than zero.");
@@ -59,7 +62,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     customerId: -1,
                                                     total: 1,
                                                     state: DeliveryOrderState.Issued,
-                                                    payment: DeliveryOrderPayment.Opened);
+                                                    payment: DeliveryOrderPayment.Opened,
+                                                    supervised: false);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid customer id. Smaller or equal than zero.");
@@ -73,7 +77,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     customerId: 1,
                                                     total: 0,
                                                     state: DeliveryOrderState.Issued,
-                                                    payment: DeliveryOrderPayment.Opened);
+                                                    payment: DeliveryOrderPayment.Opened,
+                                                    supervised: false);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid total. Smaller or equal than zero.");
@@ -87,7 +92,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     customerId: 1,
                                                     total: 1,
                                                     state: 0,
-                                                    payment: DeliveryOrderPayment.Opened);
+                                                    payment: DeliveryOrderPayment.Opened,
+                                                    supervised: false);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid state. Out of range 1 to 4.");
@@ -101,7 +107,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     customerId: 1,
                                                     total: 1,
                                                     state: DeliveryOrderState.Issued,
-                                                    payment: 0);
+                                                    payment: 0, 
+                                                    supervised: false);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid payment. Out of range 1 to 2.");

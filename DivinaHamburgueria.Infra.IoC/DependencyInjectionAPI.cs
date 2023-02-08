@@ -60,7 +60,6 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
-            services.AddScoped<IInventoryEnterService, InventoryEnterService>();
             services.AddScoped<IInventorySupervisorService, InventorySupervisorService>();
 
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));

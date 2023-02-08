@@ -8,7 +8,7 @@ namespace DivinaHamburgueria.Domain.Entities
     {
 
         public HallOrder(int userId, decimal total,
-                         HallOrderState state,
+                         HallOrderState state, bool supervised,
                          int? customerId = null,
                          DateTime? issuedDate = null, DateTime? canceledDate = null,
                          DateTime? servedDate = null,
@@ -16,26 +16,26 @@ namespace DivinaHamburgueria.Domain.Entities
                                                                                            observation, creationDate)
         {
             //called by entity framework   
-            ValidateDomain(state,
+            ValidateDomain(state, supervised,
                            issuedDate, canceledDate,
                            servedDate);
         }
 
         public HallOrder(int id, int userId, decimal total,
-                             HallOrderState state,
-                             int? customerId = null,
-                             DateTime? issuedDate = null, DateTime? canceledDate = null,
-                             DateTime? servedDate = null,
-                             string? observation = null, DateTime? creationDate = null) : base(id, userId, total, customerId,
+                         HallOrderState state, bool supervised,
+                         int? customerId = null,
+                         DateTime? issuedDate = null, DateTime? canceledDate = null,
+                         DateTime? servedDate = null,
+                         string? observation = null, DateTime? creationDate = null) : base(id, userId, total, customerId,
                                                                                                observation, creationDate)
         {
             //called by mapper
-            ValidateDomain(state,
+            ValidateDomain(state, supervised,
                            issuedDate, canceledDate,
                            servedDate);
         }
 
-        private void ValidateDomain(HallOrderState state,
+        private void ValidateDomain(HallOrderState state, bool supervised,
                                     DateTime? issuedDate = null, DateTime? canceledDate = null,
                                     DateTime? servedDate = null)
         {
@@ -44,6 +44,7 @@ namespace DivinaHamburgueria.Domain.Entities
             this.IssuedDate = issuedDate;
             this.CanceledDate = canceledDate;
             this.ServedDate = servedDate;
+            this.Supervised = supervised;
         }
 
         public enum HallOrderState
@@ -54,6 +55,8 @@ namespace DivinaHamburgueria.Domain.Entities
         }
 
         public HallOrderState State { get; private set; } = HallOrderState.Issued;
+
+        public bool Supervised { get; private set; }
 
         public DateTime? IssuedDate { get; private set; }
 

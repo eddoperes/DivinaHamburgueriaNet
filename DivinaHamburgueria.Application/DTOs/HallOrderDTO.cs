@@ -19,6 +19,8 @@ namespace DivinaHamburgueria.Application.DTOs
         [DisplayName("State")]
         public int State { get; set; } = 1;
 
+        public bool Supervised { get; set; }
+
         public ICollection<HallOrderMenuItemDTO>? HallOrderMenuItems { get; set; }
 
     }

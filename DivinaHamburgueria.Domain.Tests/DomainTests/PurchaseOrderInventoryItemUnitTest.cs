@@ -17,8 +17,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                                  inventoryItemId: 1,
                                                                  unitPrice: 1,
                                                                  quantity: 1,
-                                                                 totalPrice: 1,
-                                                                 stocked: false);
+                                                                 totalPrice: 1);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
 
@@ -29,8 +28,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                                  inventoryItemId: 1,
                                                                  unitPrice: 1,
                                                                  quantity: 1,
-                                                                 totalPrice: 1,
-                                                                 stocked: false);
+                                                                 totalPrice: 1);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid id. Smaller than zero.");
@@ -43,8 +41,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                                  inventoryItemId: -1,
                                                                  unitPrice: 1,
                                                                  quantity: 1,
-                                                                 totalPrice: 1,
-                                                                 stocked: false);
+                                                                 totalPrice: 1);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid inventory item id. Smaller or equal than zero.");
@@ -57,8 +54,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                                  inventoryItemId: 1,
                                                                  unitPrice: 0,
                                                                  quantity: 1,
-                                                                 totalPrice: 1,
-                                                                 stocked: false);
+                                                                 totalPrice: 1);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid unit price. Smaller or equal than zero.");
@@ -71,8 +67,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                                  inventoryItemId: 1,
                                                                  unitPrice: 1,
                                                                  quantity: 0,
-                                                                 totalPrice: 1,
-                                                                 stocked: false);
+                                                                 totalPrice: 1);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid quantity. Smaller or equal than zero.");
@@ -85,8 +80,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                                  inventoryItemId: 1,
                                                                  unitPrice: 1,
                                                                  quantity: 1,
-                                                                 totalPrice: 0,
-                                                                 stocked: false);
+                                                                 totalPrice: 0);
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
                                         .WithMessage("Invalid total price. Smaller or equal than zero.");

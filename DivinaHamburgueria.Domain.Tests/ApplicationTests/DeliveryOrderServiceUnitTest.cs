@@ -35,6 +35,7 @@ namespace DivinaHamburgueria.Domain.Tests.ApplicationTests
                 Total = faker.Random.Decimal(1, 1000),
                 State = 1,
                 Payment = 1,
+                Supervised = false,
                 DeliveryOrderMenuItems = new List<DeliveryOrderMenuItemDTO>(),
             };
 
@@ -84,7 +85,8 @@ namespace DivinaHamburgueria.Domain.Tests.ApplicationTests
                                                       customerId: _deliveryOrderDTO.CustomerId,
                                                       total: _deliveryOrderDTO.Total,
                                                       state: (DeliveryOrder.DeliveryOrderState ) _deliveryOrderDTO.State,
-                                                      payment: (DeliveryOrder.DeliveryOrderPayment) _deliveryOrderDTO.Payment                                                                                                                                                              
+                                                      payment: (DeliveryOrder.DeliveryOrderPayment) _deliveryOrderDTO.Payment,
+                                                      supervised: false
                                                      );
                 return deliveryOrder;
             });

@@ -42,13 +42,14 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<PurchaseOrder>> GetByStatusAsync(PurchaseOrder.PurchaseOrderState state)
+        public async Task<IEnumerable<PurchaseOrder>> GetByArrivedNotSupervisedAsync()
         {
             return await _applicationDbContext.PurchaseOrders!
-                                  .Include(i => i.PurchaseOrderInventoryItems)
-                                  .Where(p => p.State == state)
-                                  .OrderByDescending(p => p.Id)
-                                  .ToListAsync();
+                                              .Include(i => i.PurchaseOrderInventoryItems)
+                                              .Where(p => p.State == PurchaseOrder.PurchaseOrderState.Arrived
+                                                       && p.Supervised == false)
+                                              .OrderByDescending(p => p.Id)
+                                              .ToListAsync();
         }
 
         public async Task<PurchaseOrder?> GetByIdAsync(int id)

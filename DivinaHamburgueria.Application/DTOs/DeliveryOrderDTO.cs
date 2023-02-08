@@ -22,6 +22,8 @@ namespace DivinaHamburgueria.Application.DTOs
         [DisplayName("Payment")]
         public int Payment { get; set; } = 1;
 
+        public bool Supervised { get; set; }
+
         public ICollection<DeliveryOrderMenuItemDTO>? DeliveryOrderMenuItems { get; set; }
 
 

@@ -1,29 +1,34 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
     public class PurchaseOrder: Entity
     {
 
-        public PurchaseOrder(int providerId, PurchaseOrderState state, PurchaseOrderPayment payment, decimal total, string? observation = null,
+        public PurchaseOrder(int providerId, 
+                             PurchaseOrderState state, PurchaseOrderPayment payment, 
+                             decimal total, bool supervised,
+                             string? observation = null,
                              DateTime? creationDate = null, DateTime? quotationDate = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? arrivedDate = null, DateTime? stockedDate = null,
                              DateTime? paymentDate = null)
         {
             //called by entity framework
-            ValidateDomain(providerId, state, payment, total, observation,
+            ValidateDomain(providerId, state, payment, total, supervised,
+                           observation,
                            creationDate, quotationDate,
                            issuedDate, canceledDate,
                            arrivedDate, stockedDate,
                            paymentDate);
         }
 
-        public PurchaseOrder(int id, int providerId, PurchaseOrderState state, PurchaseOrderPayment payment, decimal total, string? observation = null,
+        public PurchaseOrder(int id, int providerId, 
+                             PurchaseOrderState state, PurchaseOrderPayment payment, 
+                             decimal total, bool supervised,
+                             string? observation = null,
                              DateTime? creationDate = null, DateTime? quotationDate = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? arrivedDate = null, DateTime? stockedDate = null,
@@ -32,14 +37,17 @@ namespace DivinaHamburgueria.Domain.Entities
             //called by mapper
             DomainExceptionValidation.When(id < 0, "Invalid id. Smaller than zero.");
             this.Id = id;
-            ValidateDomain(providerId, state, payment, total, observation,
+            ValidateDomain(providerId, state, payment, total, supervised,
+                           observation,
                            creationDate, quotationDate,
                            issuedDate, canceledDate,
                            arrivedDate, stockedDate,
                            paymentDate);
         }
 
-        private void ValidateDomain(int providerId, PurchaseOrderState state, PurchaseOrderPayment payment, decimal total, string? observation,
+        private void ValidateDomain(int providerId, PurchaseOrderState state, 
+                                    PurchaseOrderPayment payment, decimal total, bool supervised,
+                                    string? observation,
                                     DateTime? creationDate, DateTime? quotationDate,
                                     DateTime? issuedDate, DateTime? canceledDate,
                                     DateTime? arrivedDate, DateTime? stockedDate,
@@ -47,7 +55,7 @@ namespace DivinaHamburgueria.Domain.Entities
         {
             DomainExceptionValidation.When(providerId <= 0, "Invalid provider id. Smaller or equal than zero.");
             DomainExceptionValidation.When(total <= 0, "Invalid total. Smaller or equal than zero.");
-            DomainExceptionValidation.When(state < PurchaseOrderState.Quotation || state > PurchaseOrderState.Stocked, "Invalid state. Out of range 1 to 5.");
+            DomainExceptionValidation.When(state < PurchaseOrderState.Quotation || state > PurchaseOrderState.Arrived, "Invalid state. Out of range 1 to 5.");
             DomainExceptionValidation.When(payment < PurchaseOrderPayment.Opened || payment > PurchaseOrderPayment.Paid, "Invalid payment. Out of range 1 to 2.");
             this.ProviderId = providerId;
             this.State = state;
@@ -61,6 +69,7 @@ namespace DivinaHamburgueria.Domain.Entities
             this.StockedDate = stockedDate;
             this.PaymentDate = paymentDate;
             this.Total = total;
+            this.Supervised = supervised;
         }
 
         public enum PurchaseOrderState
@@ -68,8 +77,7 @@ namespace DivinaHamburgueria.Domain.Entities
             Quotation = 1,
             Issued = 2,
             Canceled = 3,
-            Arrived = 4,
-            Stocked = 5
+            Arrived = 4
         }
 
         public enum PurchaseOrderPayment
@@ -104,6 +112,8 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public decimal Total { get; private set; }
 
+        public bool Supervised { get; private set; }
+
         public ICollection<PurchaseOrderInventoryItem>? PurchaseOrderInventoryItems { get; private set; }
 
 
@@ -121,17 +131,17 @@ namespace DivinaHamburgueria.Domain.Entities
                 this.CanceledDate = DateTime.Now;
             else if (state == PurchaseOrderState.Arrived)
                 this.ArrivedDate = DateTime.Now;
-            else if (state == PurchaseOrderState.Stocked)
-            {
-                this.StockedDate = DateTime.Now;
-                if (PurchaseOrderInventoryItems != null)
-                {
-                    foreach (var purchaseOrderInventoryItem in PurchaseOrderInventoryItems)
-                    {
-                        purchaseOrderInventoryItem.RegisterStocked();
-                    }
-                }
-            }                
+            //else if (state == PurchaseOrderState.Stocked)
+            //{
+            //    this.StockedDate = DateTime.Now;
+            //    if (PurchaseOrderInventoryItems != null)
+            //    {
+            //        foreach (var purchaseOrderInventoryItem in PurchaseOrderInventoryItems)
+            //        {
+            //            purchaseOrderInventoryItem.RegisterStocked();
+            //        }
+            //    }
+            //}                
         }
 
         public void RegisterPayment(PurchaseOrderPayment payment)
@@ -139,6 +149,11 @@ namespace DivinaHamburgueria.Domain.Entities
             this.Payment = payment;
             if (payment == PurchaseOrderPayment.Paid)
                 this.PaymentDate = DateTime.Now;
+        }
+
+        public void NotifySupurvised()
+        {
+            this.Supervised= true;
         }
 
     }

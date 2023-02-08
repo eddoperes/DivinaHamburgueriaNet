@@ -24,6 +24,8 @@ namespace DivinaHamburgueria.Application.DTOs
         [DisplayName("Total")]
         public Decimal Total { get; set; }
 
+        public bool Supervised { get; set; }
+
         [DisplayName("PurchaseOrderInventoryItems")]
         public ICollection<PurchaseOrderInventoryItemDTO>? PurchaseOrderInventoryItems { get; set; }
 
