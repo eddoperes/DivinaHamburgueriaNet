@@ -1,4 +1,5 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Domain.Interfaces
@@ -10,7 +11,7 @@ namespace DivinaHamburgueria.Domain.Interfaces
 
         Task<QuantityAlarmTriggered> CreateAsync(QuantityAlarmTriggered quantityAlarmTriggered);
         Task<QuantityAlarmTriggered> UpdateAsync(QuantityAlarmTriggered quantityAlarmTriggered);
-        Task<QuantityAlarmTriggered> RemoveAsync(QuantityAlarmTriggered quantityAlarmTriggered);
+        Task RemoveBeforeDateAsync(DateTime limitDate);
 
 
     }

@@ -1,4 +1,5 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Domain.Interfaces
@@ -10,7 +11,7 @@ namespace DivinaHamburgueria.Domain.Interfaces
 
         Task<ValidityAlarmTriggered> CreateAsync(ValidityAlarmTriggered validityAlarmTriggered);
         Task<ValidityAlarmTriggered> UpdateAsync(ValidityAlarmTriggered validityAlarmTriggered);
-        Task<ValidityAlarmTriggered> RemoveAsync(ValidityAlarmTriggered validityAlarmTriggered);
+        Task RemoveBeforeDateAsync(DateTime limitDate);
 
     }
 }

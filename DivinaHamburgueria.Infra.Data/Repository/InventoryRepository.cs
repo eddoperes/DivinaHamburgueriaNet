@@ -30,6 +30,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             if (eatableid != null && eatableid > 0)
             {
                 return await _applicationDbContext.Inventories!
+                                                  .Include(p => p.InventoryItem).Include(p => p.InventoryItem!.Unity) 
                                                   .Where(p => p.InventoryItem!.EatableId == eatableid)
                                                   .OrderBy(p => p.InventoryItem!.Eatable!.Name)
                                                   .ToListAsync();

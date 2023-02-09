@@ -15,9 +15,10 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
         {
             Action action = () => new QuantityAlarmTriggered(id: 1,
                                                              eatableId: 1,
-                                                             minimumQuantity: 1,
+                                                             minimumQuantity: 3,
                                                              verifiedQuantity: 2,
-                                                             unityId: 1);
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
 
@@ -28,7 +29,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                              eatableId: 1,
                                                              minimumQuantity: 1,
                                                              verifiedQuantity: 2,
-                                                             unityId: 1);
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
                             .WithMessage("Invalid id. Smaller than zero.");
@@ -41,7 +43,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                              eatableId: -1,
                                                              minimumQuantity: 1,
                                                              verifiedQuantity: 2,
-                                                             unityId: 1);
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
                             .WithMessage("Invalid eatable id. Smaller or equal than zero.");
@@ -54,7 +57,8 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                              eatableId: 1,
                                                              minimumQuantity: 0,
                                                              verifiedQuantity: 2,
-                                                             unityId: 1);
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
                             .WithMessage("Invalid minimum quantity. Smaller or equal than zero.");
@@ -65,12 +69,13 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
         {
             Action action = () => new QuantityAlarmTriggered(id: 1,
                                                              eatableId: 1,
-                                                             minimumQuantity: 1,
-                                                             verifiedQuantity: 1,
-                                                             unityId: 1);
+                                                             minimumQuantity: 3,
+                                                             verifiedQuantity: 4,
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
-                            .WithMessage("Invalid verified quantity. Smaller or equal than minimum quantity.");
+                            .WithMessage("Invalid verified quantity. Bigger than minimum quantity.");
         }
 
         [Fact]
@@ -78,9 +83,10 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
         {
             Action action = () => new QuantityAlarmTriggered(id: 1,
                                                              eatableId: 1,
-                                                             minimumQuantity: 1,
+                                                             minimumQuantity: 3,
                                                              verifiedQuantity: 2,
-                                                             unityId: -1);
+                                                             unityId: -1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
                             .WithMessage("Invalid unity id. Smaller or equal than zero.");

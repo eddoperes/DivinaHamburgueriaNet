@@ -37,6 +37,11 @@ namespace DivinaHamburgueria.Domain.Entities
             this.Quantity += quantity;
         }
 
+        public void subtractQuantity(float quantity)
+        {
+            this.Quantity -= quantity;
+        }
+
 
     }
 }

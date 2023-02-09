@@ -151,7 +151,7 @@ namespace DivinaHamburgueria.Domain.Entities
                 this.PaymentDate = DateTime.Now;
         }
 
-        public void NotifySupurvised()
+        public void NotifySupervised()
         {
             this.Supervised= true;
         }

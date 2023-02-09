@@ -42,12 +42,12 @@ namespace DivinaHamburgueria.Domain.Tests.ApplicationTests
         // 3 - Expected result
 
         [Fact]
-        public void CreateAlarm_ValidDTO_ObjectAddedWithSuccess()
+        public async void CreateAlarm_ValidDTO_ObjectAddedWithSuccess()
         {
 
             var alarmRepositoryMock = new Mock<IAlarmRepository>();
             IAlarmService alarmService = new AlarmService(alarmRepositoryMock.Object, _mapper);
-            alarmService.Add(_alarmDTO);
+            await alarmService.Add(_alarmDTO);
 
             alarmRepositoryMock.Verify(a => a.CreateAsync(It.Is<Alarm>(a => a.EatableId == _alarmDTO.EatableId &&
                                                                             a.MinimumQuantity == _alarmDTO.MinimumQuantity)));
@@ -55,31 +55,32 @@ namespace DivinaHamburgueria.Domain.Tests.ApplicationTests
         }
 
           [Fact]
-        public void UpdateAlarm_ValidDTO_ObjectAddedWithSuccess()
+        public async void UpdateAlarm_ValidDTO_ObjectAddedWithSuccess()
         {
 
             _alarmDTO.Id = 1;
 
             var alarmRepositoryMock = new Mock<IAlarmRepository>();
             IAlarmService alarmService = new AlarmService(alarmRepositoryMock.Object, _mapper);
-            alarmService.Update(_alarmDTO);
+            await alarmService.Update(_alarmDTO);
 
             alarmRepositoryMock.Verify(c => c.UpdateAsync(It.IsAny<Alarm>()));
 
         }
 
         [Fact]
-        public void RemoveAlarm_ValidDTO_ObjectAddedWithSuccess()
+        public async void RemoveAlarm_ValidDTO_ObjectAddedWithSuccess()
         {
 
             _alarmDTO.Id = 1;
 
             Task<Alarm?> GetByIdAsyncFake = Task<Alarm?>.Factory.StartNew(() =>
             {
-                var alarm = new Alarm(_alarmDTO.Id, _alarmDTO.EatableId, 
-                                                    _alarmDTO.MinimumQuantity, 
-                                                    _alarmDTO.UnityId,
-                                                    _alarmDTO.ValidityInDays);
+                var alarm = new Alarm(id: _alarmDTO.Id, 
+                                      eatableId: _alarmDTO.EatableId, 
+                                      minimumQuantity: _alarmDTO.MinimumQuantity, 
+                                      unityId: _alarmDTO.UnityId,
+                                      validityInDays: _alarmDTO.ValidityInDays);
                 return alarm;
             });
 
@@ -87,7 +88,7 @@ namespace DivinaHamburgueria.Domain.Tests.ApplicationTests
             alarmRepositoryMock.Setup(c => c.GetByIdAsync(_alarmDTO.Id)).Returns(GetByIdAsyncFake);
 
             IAlarmService alarmService = new AlarmService(alarmRepositoryMock.Object, _mapper);
-            alarmService.Remove(_alarmDTO.Id);
+            await alarmService.Remove(_alarmDTO.Id);
 
             alarmRepositoryMock.Verify(c => c.RemoveAsync(It.Is<Alarm>(c => c.Id == _alarmDTO.Id)));
 

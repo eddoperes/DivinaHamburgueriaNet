@@ -1,4 +1,5 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
+using System;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
@@ -28,6 +29,33 @@ namespace DivinaHamburgueria.Domain.Entities
         }
 
         public string Name { get; private set; } = string.Empty;
+
+
+        public static float FindUnitConversionFactor(string unitFrom, string unitTo)
+        {
+
+            if (unitFrom.Equals(unitTo))
+                return 1f;
+
+            if (unitFrom.ToLower().Equals("gramas") &&
+                unitTo.ToLower().Equals("quilos"))
+                return 1/1000;
+
+            if (unitFrom.ToLower().Equals("quilos") &&
+                unitTo.ToLower().Equals("gramas"))
+                return 1000f;
+
+            if (unitFrom.ToLower().Equals("mililitros") &&
+                unitTo.ToLower().Equals("litros"))
+                return 1/1000;
+
+            if (unitFrom.ToLower().Equals("litros") &&
+                unitTo.ToLower().Equals("mililitros"))
+                return 1000f;
+
+            throw new Exception("Conversion not especified");
+
+        }
 
     }
 

@@ -16,7 +16,9 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
             Action action = () => new ValidityAlarmTriggered(id: 1,
                                                              eatableId: 1,
                                                              validityInDays: 1,
-                                                             verifiedInDays: 2);
+                                                             possiblySpoiled: 2, 
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().NotThrow<Domain.Validation.DomainExceptionValidation>();
         }
 
@@ -26,7 +28,9 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
             Action action = () => new ValidityAlarmTriggered(id: -1,
                                                              eatableId: 1,
                                                              validityInDays: 1,
-                                                             verifiedInDays: 2);
+                                                             possiblySpoiled: 2,
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
                             .WithMessage("Invalid id. Smaller than zero.");
@@ -38,7 +42,9 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
             Action action = () => new ValidityAlarmTriggered(id: 1,
                                                              eatableId: -1,
                                                              validityInDays: 1,
-                                                             verifiedInDays: 2);
+                                                             possiblySpoiled: 2,
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
                             .WithMessage("Invalid eatable id. Smaller or equal than zero.");
@@ -50,7 +56,9 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
             Action action = () => new ValidityAlarmTriggered(id: 1,
                                                              eatableId: 1,
                                                              validityInDays: 0,
-                                                             verifiedInDays: 2);
+                                                             possiblySpoiled: 2,
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
                             .WithMessage("Invalid validity in days. Smaller or equal than zero.");
@@ -62,10 +70,12 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
             Action action = () => new ValidityAlarmTriggered(id: 1,
                                                              eatableId: 1,
                                                              validityInDays: 1,
-                                                             verifiedInDays: 1);
+                                                             possiblySpoiled: 0,
+                                                             unityId: 1,
+                                                             updated: DateTime.Now);
             action.Should().Throw<Domain.Validation
                             .DomainExceptionValidation>()
-                            .WithMessage("Invalid verified in days. Smaller or equal validity in days.");
+                            .WithMessage("Invalid possibly spoiled. Smaller or equal than zero.");
         }
 
     }

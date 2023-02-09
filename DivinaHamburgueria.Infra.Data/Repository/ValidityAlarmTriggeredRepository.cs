@@ -3,11 +3,8 @@ using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace DivinaHamburgueria.Infra.Data.Repository
 {
@@ -20,7 +17,6 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         {
             _applicationDbContext = context;
         }
-
 
         public async Task<ValidityAlarmTriggered?>  GetByEatableAsync(int eatableId)
         {
@@ -43,11 +39,13 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             return validityAlarmTriggered;
         }
 
-        public async Task<ValidityAlarmTriggered> RemoveAsync(ValidityAlarmTriggered validityAlarmTriggered)
+        public async Task RemoveBeforeDateAsync(DateTime limitDate)
         {
-            _applicationDbContext.Remove(validityAlarmTriggered);
+            var validityAlarmsTriggered = await _applicationDbContext.ValidityAlarmsTriggered!
+                                                                     .Where(v => v.Updated < limitDate)
+                                                                     .ToListAsync();
+            _applicationDbContext.RemoveRange(validityAlarmsTriggered);
             await _applicationDbContext.SaveChangesAsync();
-            return validityAlarmTriggered;
         }
 
     }

@@ -107,6 +107,11 @@ namespace DivinaHamburgueria.Domain.Entities
                 this.PaymentDate = DateTime.Now;
         }
 
+        public void NotifySupervised()
+        {
+            this.Supervised = true;
+        }
+
 
     }
 }

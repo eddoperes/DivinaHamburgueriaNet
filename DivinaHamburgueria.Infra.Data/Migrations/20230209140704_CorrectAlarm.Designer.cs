@@ -4,6 +4,7 @@ using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DivinaHamburgueria.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230209140704_CorrectAlarm")]
+    partial class CorrectAlarm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -611,23 +613,18 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<int>("EatableId")
                         .HasColumnType("int");
 
-                    b.Property<float>("PossiblySpoiled")
-                        .HasColumnType("real");
-
-                    b.Property<int>("UnityId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ValidityInDays")
                         .HasColumnType("int");
 
+                    b.Property<float>("VerifiedInDays")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EatableId");
-
-                    b.HasIndex("UnityId");
 
                     b.ToTable("ValidityAlarmsTriggered");
                 });
@@ -1245,15 +1242,7 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DivinaHamburgueria.Domain.Entities.Unity", "Unity")
-                        .WithMany()
-                        .HasForeignKey("UnityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Eatable");
-
-                    b.Navigation("Unity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

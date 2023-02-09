@@ -3,9 +3,7 @@ using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Infra.Data.Repository
@@ -41,11 +39,13 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             return quantityAlarmTriggered;
         }
 
-        public async Task<QuantityAlarmTriggered> RemoveAsync(QuantityAlarmTriggered quantityAlarmTriggered)
+        public async Task RemoveBeforeDateAsync(DateTime limitDate)
         {
-            _applicationDbContext.Remove(quantityAlarmTriggered);
+            var quantityAlarmsTriggered = await _applicationDbContext.QuantityAlarmsTriggered!
+                                                                     .Where(q => q.Updated < limitDate)
+                                                                     .ToListAsync();
+            _applicationDbContext.RemoveRange(quantityAlarmsTriggered);
             await _applicationDbContext.SaveChangesAsync();
-            return quantityAlarmTriggered;
         }
 
     }

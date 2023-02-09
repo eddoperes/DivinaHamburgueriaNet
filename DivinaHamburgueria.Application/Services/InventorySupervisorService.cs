@@ -12,15 +12,28 @@ namespace DivinaHamburgueria.Application.Services
 
         private readonly IAlarmRepository _alarmRepository;
         private readonly IInventoryRepository _inventoryRepository;
+        private readonly IHallOrderRepository _hallOrderRepository;
+        private readonly IDeliveryOrderRepository _deliveryOrderRepository;
         private readonly IPurchaseOrderRepository _purchaseOrderRepository;
+
+        private readonly IQuantityAlarmTriggeredRepository _quantityAlarmTriggeredRepository;
+        private readonly IValidityAlarmTriggeredRepository _validityAlarmTriggeredRepository;
 
         public InventorySupervisorService(IAlarmRepository alarmRepository,
                                           IInventoryRepository inventoryRepository,
-                                          IPurchaseOrderRepository purchaseOrderRepository)
+                                          IHallOrderRepository hallOrderRepository,                                          
+                                          IDeliveryOrderRepository deliveryOrderRepository,
+                                          IPurchaseOrderRepository purchaseOrderRepository,
+                                          IQuantityAlarmTriggeredRepository quantityAlarmTriggeredRepository,
+                                          IValidityAlarmTriggeredRepository validityAlarmTriggeredRepository)
         {
             _alarmRepository = alarmRepository;
             _inventoryRepository = inventoryRepository;
+            _hallOrderRepository = hallOrderRepository;
+            _deliveryOrderRepository = deliveryOrderRepository;
             _purchaseOrderRepository = purchaseOrderRepository;
+            _quantityAlarmTriggeredRepository = quantityAlarmTriggeredRepository;
+            _validityAlarmTriggeredRepository = validityAlarmTriggeredRepository;
         }
 
         public async Task Execute()
@@ -59,7 +72,7 @@ namespace DivinaHamburgueria.Application.Services
                                 await _inventoryRepository.UpdateAsync(inventory);
                             }
                         }
-                        purchaseOrder.NotifySupurvised();
+                        purchaseOrder.NotifySupervised();
                         await _purchaseOrderRepository.UpdateAsync(purchaseOrder);
                         scope.Complete();
                     }
@@ -75,12 +88,52 @@ namespace DivinaHamburgueria.Application.Services
 
         private async Task SuperviseHallOrders()
         {
-
+            var hallOrders = await _hallOrderRepository.GetByServedNotSupervisedAsync();
+            foreach (var hallOrder in hallOrders)
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    try
+                    {
+                        foreach (var hallOrderMenuItem in hallOrder.HallOrderMenuItems!)
+                        {
+                            await SubtractFromInventory(hallOrderMenuItem.MenuItem!);
+                        }
+                        hallOrder.NotifySupervised();
+                        await _hallOrderRepository.UpdateAsync(hallOrder);
+                        scope.Complete();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+            }
         }
 
         private async Task SuperviseDeliveryOrders()
         {
-
+            var deliveryOrders = await _deliveryOrderRepository.GetByDeliveredNotSupervisedAsync();
+            foreach (var deliveryOrder in deliveryOrders)
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    try
+                    {
+                        foreach (var deliveryOrderMenuItem in deliveryOrder.DeliveryOrderMenuItems!)
+                        {
+                            await SubtractFromInventory(deliveryOrderMenuItem.MenuItem!);
+                        }
+                        deliveryOrder.NotifySupervised();
+                        await _deliveryOrderRepository.UpdateAsync(deliveryOrder);
+                        scope.Complete();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+            }
         }
 
         private async Task TriggerAlarms()
@@ -91,19 +144,106 @@ namespace DivinaHamburgueria.Application.Services
             foreach (var alarm in alarms)
             {
 
+                var updatedDate = DateTime.Now;
 
-                //EatableId
-                //MinimumQuantity
-                //VerifiedQuantity
-                //UnityId
+                var inventories = await _inventoryRepository.GetByEatableAsync(alarm.EatableId);
+                float verifiedQuantity = 0.0f;                
+                foreach (var inventory in inventories)
+                {
+                    var unitConversionFactor = Unity.FindUnitConversionFactor(inventory.InventoryItem!.Unity!.Name, alarm.Unity!.Name);
+                    verifiedQuantity += inventory.Quantity * unitConversionFactor;
+                }
+                if (verifiedQuantity < alarm.MinimumQuantity)
+                {
+                    var quantityAlarmTriggered = await _quantityAlarmTriggeredRepository.GetByEatableAsync(alarm.EatableId);
+                    if (quantityAlarmTriggered == null)
+                    {
+                        quantityAlarmTriggered = new QuantityAlarmTriggered(alarm.EatableId,
+                                                                            alarm.MinimumQuantity, 
+                                                                            verifiedQuantity,
+                                                                            alarm.UnityId,
+                                                                            updatedDate);
+                        await _quantityAlarmTriggeredRepository.CreateAsync(quantityAlarmTriggered);
+                    }
+                    else
+                    {
+                        quantityAlarmTriggered.Update(alarm.MinimumQuantity,
+                                                      verifiedQuantity,
+                                                      alarm.UnityId,
+                                                      updatedDate);
+                        await _quantityAlarmTriggeredRepository.UpdateAsync(quantityAlarmTriggered);
+                    }
+                }
+                await _quantityAlarmTriggeredRepository.RemoveBeforeDateAsync(updatedDate);
 
-                //EatableId
-                //ValidityInDays
-                //VerifiedInDays
-
+                DateTime limitDate = DateTime.Now.AddDays(alarm.ValidityInDays * -1);
+                var purchaseOrders = await _purchaseOrderRepository.GetByArrivedAfterDateAsync(limitDate);
+                float verifiedQuantityAfterDate = 0.0f;
+                foreach (var purchaseOrder in purchaseOrders)
+                {
+                    foreach (var purchaseOrderInventoryItem in purchaseOrder.PurchaseOrderInventoryItems!)
+                    {
+                        if (purchaseOrderInventoryItem.InventoryItem!.EatableId == alarm.EatableId)
+                        {
+                            var unitConversionFactor = Unity.FindUnitConversionFactor(purchaseOrderInventoryItem.InventoryItem!.Unity!.Name, alarm.Unity!.Name);
+                            verifiedQuantityAfterDate += purchaseOrderInventoryItem.Quantity * unitConversionFactor;
+                        }
+                    }
+                }
+                if (verifiedQuantityAfterDate < verifiedQuantity)
+                {
+                    var validityAlarmTriggered = await _validityAlarmTriggeredRepository.GetByEatableAsync(alarm.EatableId);
+                    if (validityAlarmTriggered == null)
+                    {
+                        validityAlarmTriggered = new ValidityAlarmTriggered(alarm.EatableId,
+                                                                            alarm.ValidityInDays,
+                                                                            verifiedQuantity - verifiedQuantityAfterDate,
+                                                                            alarm.UnityId,
+                                                                            updatedDate);
+                        await _validityAlarmTriggeredRepository.CreateAsync(validityAlarmTriggered);
+                    }
+                    else
+                    {
+                        validityAlarmTriggered.Update(alarm.ValidityInDays,
+                                                      verifiedQuantity - verifiedQuantityAfterDate,
+                                                      alarm.UnityId,
+                                                      updatedDate);
+                        await _validityAlarmTriggeredRepository.UpdateAsync(validityAlarmTriggered);
+                    }
+                }
+                await _validityAlarmTriggeredRepository.RemoveBeforeDateAsync(updatedDate);
 
             }
 
+        }
+
+        private async Task SubtractFromInventory(MenuItem menuItem)
+        {
+            if (menuItem.GetType() == typeof(MenuItemRecipe))
+            {
+                MenuItemRecipe menuItemRecipe = (MenuItemRecipe) menuItem;
+                foreach (var ingredient in menuItemRecipe.Ingredients!)
+                {
+                    var inventories = await _inventoryRepository.GetByEatableAsync(ingredient.EatableId);
+                    foreach (var inventory in inventories)
+                    {
+                        var unitConversionFactor = Unity.FindUnitConversionFactor(ingredient.Unity!.Name, inventory.InventoryItem!.Unity!.Name);
+                        inventory.subtractQuantity((float) ingredient.Quantity * unitConversionFactor);
+                        await _inventoryRepository.UpdateAsync(inventory);
+                        break;
+                    }
+                }
+            }
+            else if (menuItem.GetType() == typeof(MenuItemResale))
+            {
+                MenuItemResale menuItemResale = (MenuItemResale) menuItem;
+                Inventory? inventory = await _inventoryRepository.GetByInventoryItemAsync(menuItemResale.InventoryItemId);
+                if (inventory != null)
+                {
+                    inventory.subtractQuantity(1.0f);
+                    await _inventoryRepository.UpdateAsync(inventory);
+                }
+            }
         }
 
     }

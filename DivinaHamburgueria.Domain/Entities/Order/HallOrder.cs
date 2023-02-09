@@ -80,5 +80,10 @@ namespace DivinaHamburgueria.Domain.Entities
                 this.ServedDate = DateTime.Now;
         }
 
+        public void NotifySupervised()
+        {
+            this.Supervised = true;
+        }
+
     }
 }
