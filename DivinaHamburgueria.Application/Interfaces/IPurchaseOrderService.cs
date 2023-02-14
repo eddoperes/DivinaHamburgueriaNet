@@ -1,4 +1,5 @@
 ﻿using DivinaHamburgueria.Application.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace DivinaHamburgueria.Application.Interfaces
 
         Task<IEnumerable<PurchaseOrderDTO>> GetAll();
         Task<IEnumerable<PurchaseOrderDTO>> GetByProvider(int? providerid);
+
         Task<PurchaseOrderDTO?> GetById(int id);
         Task Add(PurchaseOrderDTO purchaseOrderDTO);
         Task Update(PurchaseOrderDTO purchaseOrderDTO);

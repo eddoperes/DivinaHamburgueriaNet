@@ -40,6 +40,9 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAlarmRepository, AlarmRepository>();
 
+            services.AddScoped<IValidityAlarmTriggeredRepository, ValidityAlarmTriggeredRepository>();
+            services.AddScoped<IQuantityAlarmTriggeredRepository, QuantityAlarmTriggeredRepository>();
+
             services.AddScoped<IUnityService, UnityService>();
             services.AddScoped<IInventoryItemService, InventoryItemService>();
             services.AddScoped<IProviderService, ProviderService>();
@@ -54,11 +57,14 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAlarmService, AlarmService>();
 
+            services.AddScoped<IQuantityAlarmTriggeredService, QuantityAlarmTriggeredService>();
+            services.AddScoped<IValidityAlarmTriggeredService, ValidityAlarmTriggeredService>();
+
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
-            services.AddScoped<IInventoryEnterService, InventoryEnterService>();
-          
+            services.AddScoped<IInventorySupervisorService, InventorySupervisorService>();
+
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
             //var myHandlers = AppDomain.CurrentDomain.Load("DivinaHamburgueria.Application");

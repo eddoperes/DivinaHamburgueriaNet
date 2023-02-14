@@ -1,4 +1,5 @@
 ﻿using DivinaHamburgueria.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,10 @@ namespace DivinaHamburgueria.Domain.Interfaces
 
         Task<IEnumerable<PurchaseOrder>> GetAllAsync();
         Task<IEnumerable<PurchaseOrder>> GetByProviderAsync(int? providerid);
-        Task<IEnumerable<PurchaseOrder>> GetByStatusAsync(PurchaseOrder.PurchaseOrderState state);
+        Task<IEnumerable<PurchaseOrder>> GetByArrivedNotSupervisedAsync();
+        Task<IEnumerable<PurchaseOrder>> GetByArrivedAfterDateAsync(DateTime limit);
+
+        
         Task<PurchaseOrder?> GetByIdAsync(int id);       
         Task<PurchaseOrder> CreateAsync(PurchaseOrder purchaseOrder);
         Task<PurchaseOrder> UpdateAsync(PurchaseOrder purchaseOrder);

@@ -455,6 +455,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<DateTime?>("StockedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Supervised")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(10,2)");
 
@@ -482,9 +485,6 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Stocked")
-                        .HasColumnType("bit");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(10,2)");
 
@@ -498,6 +498,38 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.HasIndex("PurchaseOrderId");
 
                     b.ToTable("PurchaseOrdersInventoryItems", (string)null);
+                });
+
+            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.QuantityAlarmTriggered", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EatableId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinimumQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("VerifiedQuantity")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EatableId");
+
+                    b.HasIndex("UnityId");
+
+                    b.ToTable("QuantityAlarmsTriggered");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.Unity", b =>
@@ -566,6 +598,38 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ValidityAlarmTriggered", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EatableId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("PossiblySpoiled")
+                        .HasColumnType("real");
+
+                    b.Property<int>("UnityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ValidityInDays")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EatableId");
+
+                    b.HasIndex("UnityId");
+
+                    b.ToTable("ValidityAlarmsTriggered");
                 });
 
             modelBuilder.Entity("DivinaHamburgueria.Infra.Data.Identity.ApplicationUser", b =>
@@ -794,6 +858,10 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("DeliveryOrder_State");
 
+                    b.Property<bool>("Supervised")
+                        .HasColumnType("bit")
+                        .HasColumnName("DeliveryOrder_Supervised");
+
                     b.HasDiscriminator().HasValue("DeliveryOrder");
                 });
 
@@ -812,6 +880,9 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
 
                     b.Property<int>("State")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Supervised")
+                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("HallOrder");
                 });
@@ -1145,6 +1216,44 @@ namespace DivinaHamburgueria.Infra.Data.Migrations
                         .HasForeignKey("PurchaseOrderId");
 
                     b.Navigation("InventoryItem");
+                });
+
+            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.QuantityAlarmTriggered", b =>
+                {
+                    b.HasOne("DivinaHamburgueria.Domain.Entities.Eatable", "Eatable")
+                        .WithMany()
+                        .HasForeignKey("EatableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DivinaHamburgueria.Domain.Entities.Unity", "Unity")
+                        .WithMany()
+                        .HasForeignKey("UnityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Eatable");
+
+                    b.Navigation("Unity");
+                });
+
+            modelBuilder.Entity("DivinaHamburgueria.Domain.Entities.ValidityAlarmTriggered", b =>
+                {
+                    b.HasOne("DivinaHamburgueria.Domain.Entities.Eatable", "Eatable")
+                        .WithMany()
+                        .HasForeignKey("EatableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DivinaHamburgueria.Domain.Entities.Unity", "Unity")
+                        .WithMany()
+                        .HasForeignKey("UnityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Eatable");
+
+                    b.Navigation("Unity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

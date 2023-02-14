@@ -1,8 +1,4 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using static DivinaHamburgueria.Domain.Entities.PurchaseOrder;
 
 namespace DivinaHamburgueria.Domain.Entities
 {
@@ -39,6 +35,11 @@ namespace DivinaHamburgueria.Domain.Entities
         public void addQuantity(float quantity)
         {
             this.Quantity += quantity;
+        }
+
+        public void subtractQuantity(float quantity)
+        {
+            this.Quantity -= quantity;
         }
 
 

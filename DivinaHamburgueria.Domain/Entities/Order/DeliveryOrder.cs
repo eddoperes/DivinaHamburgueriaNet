@@ -8,33 +8,34 @@ namespace DivinaHamburgueria.Domain.Entities
     {
         public DeliveryOrder(int userId, decimal total,
                              DeliveryOrderState state, DeliveryOrderPayment payment,
-                             int? customerId = null,
+                             bool supervised, int? customerId = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? packagedDate = null, DateTime? deliveredDate = null, DateTime? paymentDate = null,
                              string? observation = null, DateTime? creationDate = null): base(userId, total, customerId,
                                                                                               observation, creationDate)
         {
             //called by entity framework   
-            ValidateDomain(state, payment,
+            ValidateDomain(state, payment, supervised,
                            issuedDate, canceledDate,
                            packagedDate, deliveredDate, paymentDate);
         }
 
         public DeliveryOrder(int id, int userId, decimal total,
                              DeliveryOrderState state, DeliveryOrderPayment payment,
-                             int? customerId = null,
+                             bool supervised, int? customerId = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? packagedDate = null, DateTime? deliveredDate = null, DateTime? paymentDate = null,
                              string? observation = null, DateTime? creationDate = null) : base(id, userId, total, customerId,
                                                                                                observation, creationDate)
         {
             //called by mapper
-            ValidateDomain(state, payment,
+            ValidateDomain(state, payment, supervised,
                            issuedDate, canceledDate,
                            packagedDate, deliveredDate, paymentDate);
         }
 
         private void ValidateDomain(DeliveryOrderState state, DeliveryOrderPayment payment,
+                                    bool supervised,
                                     DateTime? issuedDate = null, DateTime? canceledDate = null,
                                     DateTime? packagedDate = null, DateTime? deliveredDate = null, DateTime? paymentDate = null)
         {
@@ -47,6 +48,7 @@ namespace DivinaHamburgueria.Domain.Entities
             this.PackagedDate = packagedDate;
             this.DeliveredDate = deliveredDate;
             this.PackagedDate = paymentDate;
+            this.Supervised = supervised;
         }
 
 
@@ -78,6 +80,8 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public DateTime? PaymentDate { get; private set; }
 
+        public bool Supervised { get; private set; }
+
         public ICollection<DeliveryOrderMenuItem>? DeliveryOrderMenuItems { get; private set; }
 
         public void RegisterState(DeliveryOrderState state)
@@ -101,6 +105,11 @@ namespace DivinaHamburgueria.Domain.Entities
             this.Payment = payment;
             if (payment == DeliveryOrderPayment.Paid)
                 this.PaymentDate = DateTime.Now;
+        }
+
+        public void NotifySupervised()
+        {
+            this.Supervised = true;
         }
 
 

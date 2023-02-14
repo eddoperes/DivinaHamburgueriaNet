@@ -2,6 +2,7 @@
 using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,13 +43,25 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<PurchaseOrder>> GetByStatusAsync(PurchaseOrder.PurchaseOrderState state)
+        public async Task<IEnumerable<PurchaseOrder>> GetByArrivedNotSupervisedAsync()
         {
             return await _applicationDbContext.PurchaseOrders!
-                                  .Include(i => i.PurchaseOrderInventoryItems)
-                                  .Where(p => p.State == state)
-                                  .OrderByDescending(p => p.Id)
-                                  .ToListAsync();
+                                              .Include(i => i.PurchaseOrderInventoryItems)
+                                              .Where(p => p.State == PurchaseOrder.PurchaseOrderState.Arrived
+                                                       && p.Supervised == false)
+                                              .OrderByDescending(p => p.Id)
+                                              .ToListAsync();
+        }
+
+        public async Task<IEnumerable<PurchaseOrder>> GetByArrivedAfterDateAsync(DateTime limit)
+        {
+            return await _applicationDbContext.PurchaseOrders!
+                                              .Include(i => i.PurchaseOrderInventoryItems!)
+                                                 .ThenInclude(p => p.InventoryItem)
+                                              .Where(p => p.State == PurchaseOrder.PurchaseOrderState.Arrived                                                      
+                                                       && p.ArrivedDate <= limit)
+                                              .OrderByDescending(p => p.Id)
+                                              .ToListAsync();
         }
 
         public async Task<PurchaseOrder?> GetByIdAsync(int id)
@@ -86,7 +99,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<PurchaseOrder> RemoveAsync(PurchaseOrder purchaseOrder)
         {
-            _applicationDbContext.Remove(purchaseOrder);
+            _applicationDbContext.Remove(purchaseOrder);            
             await _applicationDbContext.SaveChangesAsync();
             return purchaseOrder;
         }

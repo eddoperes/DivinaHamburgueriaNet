@@ -5,6 +5,7 @@ using DivinaHamburgueria.Domain.Entities;
 using DivinaHamburgueria.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace DivinaHamburgueria.Application.Services
@@ -56,6 +57,7 @@ namespace DivinaHamburgueria.Application.Services
             var Alarm = await _AlarmRepository.GetByIdAsync(id);
             if (Alarm != null)
                 await _AlarmRepository.RemoveAsync(Alarm);
+
         }
 
     }

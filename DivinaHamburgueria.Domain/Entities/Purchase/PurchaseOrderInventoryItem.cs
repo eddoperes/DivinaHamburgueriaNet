@@ -7,23 +7,23 @@ namespace DivinaHamburgueria.Domain.Entities
     {
 
         public PurchaseOrderInventoryItem(int inventoryItemId, Decimal unitPrice,
-                                          int quantity, decimal totalPrice, bool stocked)
+                                          int quantity, decimal totalPrice)
         {
             //called by entity framework
-            ValidateDomain(inventoryItemId, unitPrice, quantity, totalPrice, stocked);
+            ValidateDomain(inventoryItemId, unitPrice, quantity, totalPrice);
         }
 
         public PurchaseOrderInventoryItem(int id, int inventoryItemId, decimal unitPrice,
-                                          int quantity, decimal totalPrice, bool stocked)
+                                          int quantity, decimal totalPrice)
         {
             //called by mapper
             DomainExceptionValidation.When(id < 0, "Invalid id. Smaller than zero.");
             Id = id;
-            ValidateDomain(inventoryItemId, unitPrice, quantity, totalPrice, stocked);
+            ValidateDomain(inventoryItemId, unitPrice, quantity, totalPrice);
         }
 
         private void ValidateDomain(int inventoryItemId, decimal unitPrice,
-                                    int quantity, decimal totalPrice, bool stocked)
+                                    int quantity, decimal totalPrice)
         {
             DomainExceptionValidation.When(inventoryItemId <= 0, "Invalid inventory item id. Smaller or equal than zero.");
             DomainExceptionValidation.When(unitPrice <= 0, "Invalid unit price. Smaller or equal than zero.");
@@ -33,7 +33,7 @@ namespace DivinaHamburgueria.Domain.Entities
             UnitPrice = unitPrice;
             Quantity = quantity;
             TotalPrice = totalPrice;
-            Stocked = stocked;
+            //Stocked = stocked;
         }
 
         public int InventoryItemId { get; private set; }
@@ -46,12 +46,12 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public decimal TotalPrice { get; private set; }
 
-        public bool Stocked { get; private set; }
+        //public bool Stocked { get; private set; }
 
-        public void RegisterStocked()
-        {
-            Stocked = true;
-        }
+        //public void RegisterStocked()
+        //{
+        //    Stocked = true;
+        //}
 
     }
 }
