@@ -56,7 +56,8 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         public async Task<IEnumerable<PurchaseOrder>> GetByArrivedAfterDateAsync(DateTime limit)
         {
             return await _applicationDbContext.PurchaseOrders!
-                                              .Include(i => i.PurchaseOrderInventoryItems)
+                                              .Include(i => i.PurchaseOrderInventoryItems!)
+                                                 .ThenInclude(p => p.InventoryItem)
                                               .Where(p => p.State == PurchaseOrder.PurchaseOrderState.Arrived                                                      
                                                        && p.ArrivedDate <= limit)
                                               .OrderByDescending(p => p.Id)

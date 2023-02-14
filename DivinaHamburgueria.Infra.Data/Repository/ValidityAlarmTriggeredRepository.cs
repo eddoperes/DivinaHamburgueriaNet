@@ -3,6 +3,7 @@ using DivinaHamburgueria.Domain.Interfaces;
 using DivinaHamburgueria.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,6 +24,11 @@ namespace DivinaHamburgueria.Infra.Data.Repository
             return await _applicationDbContext.ValidityAlarmsTriggered!
                                               .Where(i => i.EatableId == eatableId)
                                               .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ValidityAlarmTriggered>> GetAllAsync()
+        {
+            return await _applicationDbContext.ValidityAlarmsTriggered!.ToListAsync();
         }
 
         public async Task<ValidityAlarmTriggered> CreateAsync(ValidityAlarmTriggered validityAlarmTriggered)

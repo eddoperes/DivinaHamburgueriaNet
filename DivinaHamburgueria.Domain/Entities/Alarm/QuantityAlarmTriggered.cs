@@ -1,6 +1,5 @@
 ﻿using DivinaHamburgueria.Domain.Validation;
 using System;
-using System.Security.Claims;
 
 namespace DivinaHamburgueria.Domain.Entities
 {

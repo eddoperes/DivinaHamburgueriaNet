@@ -55,7 +55,7 @@ namespace DivinaHamburgueria.Domain.Entities
         {
             DomainExceptionValidation.When(providerId <= 0, "Invalid provider id. Smaller or equal than zero.");
             DomainExceptionValidation.When(total <= 0, "Invalid total. Smaller or equal than zero.");
-            DomainExceptionValidation.When(state < PurchaseOrderState.Quotation || state > PurchaseOrderState.Arrived, "Invalid state. Out of range 1 to 5.");
+            DomainExceptionValidation.When(state < PurchaseOrderState.Quotation || state > PurchaseOrderState.Arrived, "Invalid state. Out of range 1 to 4.");
             DomainExceptionValidation.When(payment < PurchaseOrderPayment.Opened || payment > PurchaseOrderPayment.Paid, "Invalid payment. Out of range 1 to 2.");
             this.ProviderId = providerId;
             this.State = state;

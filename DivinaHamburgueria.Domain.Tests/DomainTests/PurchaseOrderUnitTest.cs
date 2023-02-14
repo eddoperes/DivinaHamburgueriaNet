@@ -65,7 +65,7 @@ namespace DivinaHamburgueria.Domain.Tests.DomainTests
                                                     observation: "Comentário");
             action.Should().Throw<Domain.Validation
                                         .DomainExceptionValidation>()
-                                        .WithMessage("Invalid state. Out of range 1 to 5.");
+                                        .WithMessage("Invalid state. Out of range 1 to 4.");
         }
 
         [Fact]

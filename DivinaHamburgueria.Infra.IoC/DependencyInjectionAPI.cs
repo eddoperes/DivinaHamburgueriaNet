@@ -57,6 +57,9 @@ namespace DivinaHamburgueria.Infra.IoC
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAlarmService, AlarmService>();
 
+            services.AddScoped<IQuantityAlarmTriggeredService, QuantityAlarmTriggeredService>();
+            services.AddScoped<IValidityAlarmTriggeredService, ValidityAlarmTriggeredService>();
+
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
