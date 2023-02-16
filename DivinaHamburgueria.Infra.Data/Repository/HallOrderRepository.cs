@@ -44,12 +44,29 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<HallOrder>> GetByServedNotSupervisedAsync()
         {
-            return await _applicationDbContext.HallOrders!
-                                              .Include(h => h.HallOrderMenuItems)  
-                                              .Where(h => h.State == HallOrder.HallOrderState.Served 
-                                                       && h.Supervised == false)
-                                              .OrderByDescending(p => p.Id)
-                                              .ToListAsync();
+            var hallOrders = await _applicationDbContext.HallOrders!
+                                                        .Include(h => h.HallOrderMenuItems)! 
+                                                        .ThenInclude(hm => hm.MenuItem)
+                                                        .Where(h => h.State == HallOrder.HallOrderState.Served 
+                                                                 && h.Supervised == false)
+                                                        .OrderByDescending(p => p.Id)
+                                                        .ToListAsync();
+
+            foreach (var hallOrder in hallOrders)
+            {
+                foreach (var hallOrderMenuItems in hallOrder.HallOrderMenuItems!)
+                {
+                    if (hallOrderMenuItems.MenuItem!.GetType() == typeof(MenuItemRecipe))
+                    {
+                        hallOrderMenuItems.MenuItem = await _applicationDbContext.MenuItemsRecipe!.Include(m => m.Ingredients)!
+                                                                                                  .ThenInclude(i => i.Unity)  
+                                                                                                  .SingleOrDefaultAsync(m => m.Id == hallOrderMenuItems.MenuItem.Id);
+                    }
+                }
+            }
+
+            return hallOrders;
+
         }
 
         public async Task<HallOrder?> GetByIdAsync(int id)

@@ -32,7 +32,7 @@ namespace DivinaHamburgueria.Domain.Entities
 
         public int MenuItemId { get; private set; }
 
-        public MenuItem? MenuItem { get; private set; }
+        public MenuItem? MenuItem { get; set; }
 
         public decimal Price { get; private set; }
 

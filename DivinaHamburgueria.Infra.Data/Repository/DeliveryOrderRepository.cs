@@ -44,12 +44,29 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<DeliveryOrder>> GetByDeliveredNotSupervisedAsync()
         {
-            return await _applicationDbContext.DeliveryOrders!
-                                              .Include(d => d.DeliveryOrderMenuItems)  
-                                              .Where(d => d.State == DeliveryOrder.DeliveryOrderState.Delivered 
-                                                       && d.Supervised == false)
-                                              .OrderByDescending(d => d.Id)
-                                              .ToListAsync();
+            var deliveryOrders = await _applicationDbContext.DeliveryOrders!
+                                                            .Include(d => d.DeliveryOrderMenuItems)!  
+                                                            .ThenInclude(dm => dm.MenuItem)
+                                                            .Where(d => d.State == DeliveryOrder.DeliveryOrderState.Delivered 
+                                                                    && d.Supervised == false)
+                                                            .OrderByDescending(d => d.Id)
+                                                            .ToListAsync();
+
+            foreach (var deliveryOrder in deliveryOrders)
+            {
+                foreach (var deliveryOrderMenuItems in deliveryOrder.DeliveryOrderMenuItems!)
+                {
+                    if (deliveryOrderMenuItems.MenuItem!.GetType() == typeof(MenuItemRecipe))
+                    {
+                        deliveryOrderMenuItems.MenuItem = await _applicationDbContext.MenuItemsRecipe!.Include(m => m.Ingredients)!
+                                                                                                      .ThenInclude(i => i.Unity)
+                                                                                                      .SingleOrDefaultAsync(m => m.Id == deliveryOrderMenuItems.MenuItem.Id);
+                    }
+                }
+            }
+
+            return deliveryOrders;
+
         }
 
         public async Task<DeliveryOrder?> GetByIdAsync(int id)
