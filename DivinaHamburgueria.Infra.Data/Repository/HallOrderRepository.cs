@@ -45,6 +45,7 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         public async Task<IEnumerable<HallOrder>> GetByServedNotSupervisedAsync()
         {
             return await _applicationDbContext.HallOrders!
+                                              .Include(h => h.HallOrderMenuItems)  
                                               .Where(h => h.State == HallOrder.HallOrderState.Served 
                                                        && h.Supervised == false)
                                               .OrderByDescending(p => p.Id)

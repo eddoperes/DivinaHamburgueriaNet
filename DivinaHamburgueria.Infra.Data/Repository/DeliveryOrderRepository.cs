@@ -45,9 +45,10 @@ namespace DivinaHamburgueria.Infra.Data.Repository
         public async Task<IEnumerable<DeliveryOrder>> GetByDeliveredNotSupervisedAsync()
         {
             return await _applicationDbContext.DeliveryOrders!
-                                              .Where(h => h.State == DeliveryOrder.DeliveryOrderState.Delivered 
-                                                       && h.Supervised == false)
-                                              .OrderByDescending(p => p.Id)
+                                              .Include(d => d.DeliveryOrderMenuItems)  
+                                              .Where(d => d.State == DeliveryOrder.DeliveryOrderState.Delivered 
+                                                       && d.Supervised == false)
+                                              .OrderByDescending(d => d.Id)
                                               .ToListAsync();
         }
 
