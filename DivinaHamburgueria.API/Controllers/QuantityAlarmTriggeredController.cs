@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace DivinaHamburgueria.API.Controllers
 {
 
+    [ApiVersion("1")]
     [ApiController]   
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class QuantityAlarmsTriggeredController : Controller
     {
 

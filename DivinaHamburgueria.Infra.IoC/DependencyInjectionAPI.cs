@@ -25,6 +25,8 @@ namespace DivinaHamburgueria.Infra.IoC
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
+            services.AddApiVersioning();
+
             services.AddScoped<IUnityRepository, UnityRepository>();
             services.AddScoped<IEatableRepository, EatableRepository>();
             services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();

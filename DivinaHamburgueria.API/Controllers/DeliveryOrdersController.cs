@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace DivinaHamburgueria.API.Controllers
 {
 
+    [ApiVersion("1")]
     [ApiController]
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class DeliveryOrdersController : Controller
     {
 

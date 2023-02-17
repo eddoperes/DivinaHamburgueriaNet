@@ -9,7 +9,9 @@ using DivinaHamburgueria.API.Models;
 
 namespace DivinaHamburgueria.API.Controllers
 {
-    [Route("api/[controller]")]
+
+    [ApiVersion("1")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     [ApiController]
     public class TokensController : ControllerBase
     {

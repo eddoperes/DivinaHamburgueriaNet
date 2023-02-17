@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace DivinaHamburgueria.API.Controllers
 {
 
+    [ApiVersion("1")]
     [Authorize]
     [ApiController]    
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class MenuItemsRecipeController : Controller
     {
 
