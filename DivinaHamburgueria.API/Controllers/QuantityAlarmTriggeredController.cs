@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<QuantityAlarmTriggeredDTO>>> Get()
         {
             var quantityAlarmTriggeredDTOs = await _quantityAlarmTriggeredService.GetAll();

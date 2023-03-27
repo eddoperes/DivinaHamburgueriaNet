@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<MenuDTO>>> Get()
         {
             var menuDTOs = await _MenuService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByName")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<MenuDTO>>> GetByName([FromQuery] string? name)
         {
             var menuDTOs = await _MenuService.GetByName(name);
@@ -35,6 +38,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetMenu")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuDTO>> Get(int id)
         {
             var menuDTO = await _MenuService.GetById(id);
@@ -44,6 +48,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuDTO>> Post([FromBody] MenuDTO menuDTO)
         {
             try
@@ -60,6 +65,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuDTO>> Put(int id, [FromBody] MenuDTO menuDTO)
         {
             try
@@ -78,6 +84,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuDTO>> Delete(int id)
         {
             var menuDTO = await _MenuService.GetById(id);

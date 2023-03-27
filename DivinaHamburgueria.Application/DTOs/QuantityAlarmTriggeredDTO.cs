@@ -1,11 +1,10 @@
-﻿using DivinaHamburgueria.Domain.Entities;
-using System;
+﻿using DivinaHamburgueria.Application.Hypermedia;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class QuantityAlarmTriggeredDTO
+    public class QuantityAlarmTriggeredDTO: ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -17,6 +16,8 @@ namespace DivinaHamburgueria.Application.DTOs
         public float VerifiedQuantity { get; set; }
 
         public int UnityId { get; set; }
+
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }

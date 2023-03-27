@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using DivinaHamburgueria.Application.Hypermedia;
+using System.Collections.Generic;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class MenuItemResaleDTO
+    public class MenuItemResaleDTO: ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -24,6 +27,8 @@ namespace DivinaHamburgueria.Application.DTOs
 
         [DisplayName("InventoryItemId")]
         public int InventoryItemId { get; set; }
+
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }

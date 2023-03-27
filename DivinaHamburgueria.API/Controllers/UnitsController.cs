@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<UnityDTO>>> Get()
         {
             var unidades = await _unityService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetUnity")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<UnityDTO>> Get(int id)
         {
             var unity = await _unityService.GetById(id);
@@ -37,6 +40,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<UnityDTO>> Post([FromBody] UnityDTO unityDTO)
         {
             if (unityDTO == null)
@@ -46,6 +50,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<UnityDTO>> Put(int id, [FromBody] UnityDTO unityDTO)
         {
             if (unityDTO == null)
@@ -57,6 +62,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<UnityDTO>> Delete(int id)
         {
             var unityDTO = await _unityService.GetById(id);

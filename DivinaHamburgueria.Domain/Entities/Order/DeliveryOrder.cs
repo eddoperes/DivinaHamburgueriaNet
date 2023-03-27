@@ -11,8 +11,8 @@ namespace DivinaHamburgueria.Domain.Entities
                              bool supervised, int? customerId = null,
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? packagedDate = null, DateTime? deliveredDate = null, DateTime? paymentDate = null,
-                             string? observation = null, DateTime? creationDate = null): base(userId, total, customerId,
-                                                                                              observation, creationDate)
+                             string? observation = null, DateTime? creationDate = null) : base(userId, total, customerId,
+                                                                                                       observation, creationDate)
         {
             //called by entity framework   
             ValidateDomain(state, payment, supervised,
@@ -26,7 +26,7 @@ namespace DivinaHamburgueria.Domain.Entities
                              DateTime? issuedDate = null, DateTime? canceledDate = null,
                              DateTime? packagedDate = null, DateTime? deliveredDate = null, DateTime? paymentDate = null,
                              string? observation = null, DateTime? creationDate = null) : base(id, userId, total, customerId,
-                                                                                               observation, creationDate)
+                                                                                                       observation, creationDate)
         {
             //called by mapper
             ValidateDomain(state, payment, supervised,
@@ -50,7 +50,6 @@ namespace DivinaHamburgueria.Domain.Entities
             this.PackagedDate = paymentDate;
             this.Supervised = supervised;
         }
-
 
         public enum DeliveryOrderState
         {

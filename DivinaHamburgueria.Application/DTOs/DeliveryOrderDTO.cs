@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using DivinaHamburgueria.Application.Hypermedia;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class DeliveryOrderDTO
+    public class DeliveryOrderDTO : ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -26,6 +28,7 @@ namespace DivinaHamburgueria.Application.DTOs
 
         public ICollection<DeliveryOrderMenuItemDTO>? DeliveryOrderMenuItems { get; set; }
 
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }

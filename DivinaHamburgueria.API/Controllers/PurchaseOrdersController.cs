@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using DivinaHamburgueria.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<PurchaseOrderDTO>>> Get()
         {
             var purchaseOrder = await _purchaseOrderService.GetAll();
@@ -29,6 +31,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByProvider")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByProvider([FromQuery] int? providerid)
         {
             var purchaseOrder = await _purchaseOrderService.GetByProvider(providerid);
@@ -36,6 +39,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPurchaseOrder")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<PurchaseOrderDTO>> Get(int id)
         {
             var purchaseOrder = await _purchaseOrderService.GetById(id);
@@ -45,6 +49,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<PurchaseOrderDTO>> Post([FromBody] PurchaseOrderDTO purchaseOrderDTO)
         {
             try { 
@@ -60,6 +65,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<PurchaseOrderDTO>> Put(int id, [FromBody] PurchaseOrderDTO purchaseOrderDTO)
         {
             if (purchaseOrderDTO == null)
@@ -71,6 +77,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPatch("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<PurchaseOrderDTO>> ChangeState(int id, [FromBody] PurchaseOrderPatchDTO purchaseOrderPatchDTO)
         {
             if (purchaseOrderPatchDTO == null)
@@ -84,6 +91,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<PurchaseOrderDTO>> Delete(int id)
         {
             var purchaseOrderDTO = await _purchaseOrderService.GetById(id);

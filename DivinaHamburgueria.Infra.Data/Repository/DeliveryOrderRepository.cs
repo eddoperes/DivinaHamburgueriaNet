@@ -58,9 +58,10 @@ namespace DivinaHamburgueria.Infra.Data.Repository
                 {
                     if (deliveryOrderMenuItems.MenuItem!.GetType() == typeof(MenuItemRecipe))
                     {
-                        deliveryOrderMenuItems.MenuItem = await _applicationDbContext.MenuItemsRecipe!.Include(m => m.Ingredients)!
-                                                                                                      .ThenInclude(i => i.Unity)
-                                                                                                      .SingleOrDefaultAsync(m => m.Id == deliveryOrderMenuItems.MenuItem.Id);
+                        var menuItem = await _applicationDbContext.MenuItemsRecipe!.Include(m => m.Ingredients)!
+                                                                                                  .ThenInclude(i => i.Unity)
+                                                                                                  .SingleOrDefaultAsync(m => m.Id == deliveryOrderMenuItems.MenuItem.Id);
+                        deliveryOrderMenuItems.NotifyMenuItem(menuItem!);
                     }
                 }
             }

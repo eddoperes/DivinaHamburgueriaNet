@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using DivinaHamburgueria.Application.Hypermedia;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class HallOrderDTO
+    public class HallOrderDTO: ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -22,6 +24,8 @@ namespace DivinaHamburgueria.Application.DTOs
         public bool Supervised { get; set; }
 
         public ICollection<HallOrderMenuItemDTO>? HallOrderMenuItems { get; set; }
+
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }

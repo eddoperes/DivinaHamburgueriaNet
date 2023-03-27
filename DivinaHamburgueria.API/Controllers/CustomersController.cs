@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<CustomerDTO>>> Get()
         {
             var customerDTOs = await _customerService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByName")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetByName([FromQuery] string? name)
         {
             var customerDTOs = await _customerService.GetByName(name);
@@ -35,6 +38,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetCustomer")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<CustomerDTO>> Get(int id)
         {
             var customerDTO = await _customerService.GetById(id);
@@ -44,6 +48,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<CustomerDTO>> Post([FromBody] CustomerDTO customerDTO)
         {
             try
@@ -60,6 +65,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<CustomerDTO>> Put(int id, [FromBody] CustomerDTO customerDTO)
         {
             try
@@ -78,6 +84,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<CustomerDTO>> Delete(int id)
         {
             var customerDTO = await _customerService.GetById(id);

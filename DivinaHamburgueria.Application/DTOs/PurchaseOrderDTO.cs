@@ -1,10 +1,12 @@
-﻿using System;
+﻿using DivinaHamburgueria.Application.Hypermedia;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class PurchaseOrderDTO
+    public class PurchaseOrderDTO : ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -29,7 +31,7 @@ namespace DivinaHamburgueria.Application.DTOs
         [DisplayName("PurchaseOrderInventoryItems")]
         public ICollection<PurchaseOrderInventoryItemDTO>? PurchaseOrderInventoryItems { get; set; }
 
-
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }

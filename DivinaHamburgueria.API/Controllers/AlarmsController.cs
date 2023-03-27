@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<AlarmDTO>>> Get()
         {
             var AlarmDTOs = await _AlarmService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByEatable")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<AlarmDTO>>> GetByEatable([FromQuery] int? eatableId)
         {
             var AlarmDTOs = await _AlarmService.GetByEatable(eatableId);
@@ -35,6 +38,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetAlarm")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<AlarmDTO>> Get(int id)
         {
             var AlarmDTO = await _AlarmService.GetById(id);
@@ -44,6 +48,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<AlarmDTO>> Post([FromBody] AlarmDTO AlarmDTO)
         {
             try
@@ -60,6 +65,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<AlarmDTO>> Put(int id, [FromBody] AlarmDTO AlarmDTO)
         {
             try
@@ -78,6 +84,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<AlarmDTO>> Delete(int id)
         {
             var AlarmDTO = await _AlarmService.GetById(id);
