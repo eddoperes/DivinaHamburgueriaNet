@@ -20,7 +20,9 @@ namespace DivinaHamburgueria.Infra.Data.Repository
 
         public async Task<IEnumerable<Alarm>> GetAllAsync()
         {
-            return await _applicationDbContext.Alarms!.ToListAsync();
+            return await _applicationDbContext.Alarms!
+                                              .Include(a => a.Unity)
+                                              .ToListAsync();
         }
 
         public async Task<IEnumerable<Alarm>> GetByEatableAsync(int? eatableId)
