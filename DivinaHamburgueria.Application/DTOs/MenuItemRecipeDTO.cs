@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.Text;
-using DivinaHamburgueria.Domain.Entities;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using DivinaHamburgueria.Application.Hypermedia;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class MenuItemRecipeDTO
+    public class MenuItemRecipeDTO: ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -26,6 +26,8 @@ namespace DivinaHamburgueria.Application.DTOs
         public string Photo { get; set; } = String.Empty;
 
         public ICollection<IngredientDTO>? Ingredients { get; set; }
+
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }

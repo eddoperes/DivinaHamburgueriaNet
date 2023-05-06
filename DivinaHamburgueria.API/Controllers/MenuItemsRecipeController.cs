@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<MenuItemRecipeDTO>>> Get()
         {
             var menuItemsRecipe = await _menuItemRecipeService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByName")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<MenuItemRecipeDTO>>> GetByName([FromQuery] string? name)
         {
             var menuItemsRecipe = await _menuItemRecipeService.GetByName(name);
@@ -35,6 +38,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetMenuItemRecipe")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuItemRecipeDTO>> Get(int id)
         {
             var menuItemRecipe = await _menuItemRecipeService.GetById(id);
@@ -44,6 +48,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuItemRecipeDTO>> Post([FromBody] MenuItemRecipeDTO menuItemRecipeDTO)
         {
             try
@@ -60,6 +65,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuItemRecipeDTO>> Put(int id, [FromBody] MenuItemRecipeDTO menuItemRecipeDTO)
         {
             if (menuItemRecipeDTO == null)
@@ -71,6 +77,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<MenuItemRecipeDTO>> Delete(int id)
         {
             var menuItemRecipeDTO = await _menuItemRecipeService.GetById(id);

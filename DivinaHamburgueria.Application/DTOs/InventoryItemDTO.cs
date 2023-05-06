@@ -1,10 +1,13 @@
-﻿using System;
+﻿using DivinaHamburgueria.Application.Hypermedia;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
-    public class InventoryItemDTO
+    public class InventoryItemDTO: ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -27,6 +30,8 @@ namespace DivinaHamburgueria.Application.DTOs
 
         [DisplayName("Type")]
         public int Type { get; set; }
+
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }

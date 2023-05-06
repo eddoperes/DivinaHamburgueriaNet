@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DivinaHamburgueria.Application.Hypermedia;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,7 +29,7 @@ namespace DivinaHamburgueria.Application.DTOs
 
         public string AccessToken { get; set; }
 
-        public string RefreshToken { get; set; }
+        public string RefreshToken { get; set; }        
 
     }
 }

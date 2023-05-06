@@ -1,9 +1,28 @@
 using DivinaHamburgueria.API.HostedServices;
+using DivinaHamburgueria.API.Hypermedia.Enricher;
+using DivinaHamburgueria.API.Hypermedia.Filters;
 using DivinaHamburgueria.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var filterOptions = new HypermediaFilterOptions();
+filterOptions.ContentResponseEnricherList.Add(new AlarmEnricher());
+filterOptions.ContentResponseEnricherList.Add(new CustomerEnricher());
+filterOptions.ContentResponseEnricherList.Add(new DeliveryOrderEnricher());
+filterOptions.ContentResponseEnricherList.Add(new HallOrderEnricher());
+filterOptions.ContentResponseEnricherList.Add(new InventoryEnricher());
+filterOptions.ContentResponseEnricherList.Add(new InventoryItemEnricher());
+filterOptions.ContentResponseEnricherList.Add(new MenuItemRecipeEnricher());
+filterOptions.ContentResponseEnricherList.Add(new MenuItemResaleEnricher());
+filterOptions.ContentResponseEnricherList.Add(new MenuEnricher());
+filterOptions.ContentResponseEnricherList.Add(new ProviderEnricher());
+filterOptions.ContentResponseEnricherList.Add(new PurchaseOrderEnricher());
+filterOptions.ContentResponseEnricherList.Add(new QuantityAlarmTriggeredEnricher());
+filterOptions.ContentResponseEnricherList.Add(new UnityEnricher());
+builder.Services.AddSingleton(filterOptions);
+
 builder.Services.AddInfrastructureAPI(builder.Configuration);
 builder.Services.AddInfrastructureJWT(builder.Configuration);
 
@@ -40,5 +59,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapControllerRoute("DefaultApi", "{controller=value}/{id?}");
 
 app.Run();

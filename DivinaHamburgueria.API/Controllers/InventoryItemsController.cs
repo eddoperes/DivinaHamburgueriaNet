@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> Get()
         {
             var inventoryItem = await _inventoryItemService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetDistinctNames")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<EatableDTO>>> GetDistinctNames()
         {
             var eatables = await _inventoryItemService.GetDistinctNames();
@@ -35,6 +38,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByNameAndOrType")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByNameAndOrType([FromQuery] string? name, [FromQuery] string? type)
         {
             var inventoryItem = await _inventoryItemService.GetByNameAndOrType(name, type);
@@ -42,6 +46,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetInventoryItem")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryItemDTO>> Get(int id)
         {
             var inventoryItem = await _inventoryItemService.GetById(id);
@@ -51,6 +56,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryItemDTO>> Post([FromBody] InventoryItemDTO inventoryItemDTO)
         {
             try
@@ -67,6 +73,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryItemDTO>> Put(int id, [FromBody] InventoryItemDTO inventoryItemDTO)
         {
             if (inventoryItemDTO == null)
@@ -78,6 +85,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryItemDTO>> Delete(int id)
         {
             var inventoryItemDTO = await _inventoryItemService.GetById(id);

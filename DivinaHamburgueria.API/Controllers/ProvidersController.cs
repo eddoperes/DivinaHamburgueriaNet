@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using DivinaHamburgueria.Application.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> Get()
         {
             var provider = await _providerService.GetAll();
@@ -29,6 +31,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByName")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetByName([FromQuery] string? name)
         {
             var providerDTOs = await _providerService.GetByName(name);
@@ -36,6 +39,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetProvider")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryItemDTO>> Get(int id)
         {
             var provider = await _providerService.GetById(id);
@@ -45,6 +49,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<ProviderDTO>> Post([FromBody] ProviderDTO providerDTO)
         {
             if (providerDTO == null)
@@ -54,6 +59,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<ProviderDTO>> Put(int id, [FromBody] ProviderDTO providerDTO)
         {
             if (providerDTO == null)
@@ -65,6 +71,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryItemDTO>> Delete(int id)
         {
             var providerDTO = await _providerService.GetById(id);

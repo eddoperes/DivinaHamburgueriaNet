@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using DivinaHamburgueria.Application.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<HallOrderDTO>>> Get()
         {
             var hallOrders = await _hallOrderService.GetAll();
@@ -29,6 +31,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByCode")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<HallOrderDTO>>> GetByCode([FromQuery] int? code)
         {
             var hallOrders = await _hallOrderService.GetByCode(code);
@@ -36,6 +39,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetHallOrder")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<HallOrderDTO>> Get(int id)
         {
             var hallOrder = await _hallOrderService.GetById(id);
@@ -45,6 +49,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<HallOrderDTO>> Post([FromBody] HallOrderDTO hallOrderDTO)
         {
             try
@@ -60,6 +65,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<HallOrderDTO>> Put(int id, [FromBody] HallOrderDTO hallOrderDTO)
         {
             if (hallOrderDTO == null)
@@ -71,6 +77,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPatch("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<HallOrderDTO>> ChangeState(int id, [FromBody] HallOrderPatchDTO hallOrderPatchDTO)
         {
             if (hallOrderPatchDTO == null)
@@ -84,6 +91,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<HallOrderDTO>> Delete(int id)
         {
             var hallOrderDTO = await _hallOrderService.GetById(id);

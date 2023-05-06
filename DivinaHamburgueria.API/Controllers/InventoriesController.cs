@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> Get()
         {
             var inventory = await _inventoryService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByEatable")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<InventoryItemDTO>>> GetByEatable([FromQuery] int? eatableid)
         {
             var inventory = await _inventoryService.GetByEatable(eatableid);
@@ -36,6 +39,7 @@ namespace DivinaHamburgueria.API.Controllers
 
 
         [HttpGet("{id}", Name = "GetInventory")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryDTO>> Get(int id)
         {
             var inventory = await _inventoryService.GetById(id);
@@ -45,6 +49,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryItemDTO>> Post([FromBody] InventoryDTO inventoryDTO)
         {
             try
@@ -61,6 +66,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryDTO>> Put(int id, [FromBody] InventoryDTO inventoryDTO)
         {
             if (inventoryDTO == null)
@@ -72,6 +78,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<InventoryDTO>> Delete(int id)
         {
             var inventoryDTO = await _inventoryService.GetById(id);

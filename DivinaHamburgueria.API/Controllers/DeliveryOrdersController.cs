@@ -1,4 +1,5 @@
-﻿using DivinaHamburgueria.Application.DTOs;
+﻿using DivinaHamburgueria.API.Hypermedia.Filters;
+using DivinaHamburgueria.Application.DTOs;
 using DivinaHamburgueria.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<DeliveryOrderDTO>>> Get()
         {
             var deliveryOrder = await _deliveryOrderService.GetAll();
@@ -28,6 +30,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("GetByCode")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<IEnumerable<DeliveryOrderDTO>>> GetByCode([FromQuery] int? code)
         {
             var deliveryOrders = await _deliveryOrderService.GetByCode(code);
@@ -35,6 +38,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetDeliveryOrder")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<HallOrderDTO>> Get(int id)
         {
             var deliveryOrder = await _deliveryOrderService.GetById(id);
@@ -44,6 +48,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<DeliveryOrderDTO>> Post([FromBody] DeliveryOrderDTO deliveryOrderDTO)
         {
             try
@@ -60,6 +65,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<DeliveryOrderDTO>> Put(int id, [FromBody] DeliveryOrderDTO deliveryOrderDTO)
         {
             if (deliveryOrderDTO == null)
@@ -71,6 +77,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpPatch("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<DeliveryOrderDTO>> ChangeState(int id, [FromBody] DeliveryOrderPatchDTO deliveryOrderPatchDTO)
         {
             if (deliveryOrderPatchDTO == null)
@@ -84,6 +91,7 @@ namespace DivinaHamburgueria.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public async Task<ActionResult<DeliveryOrderDTO>> Delete(int id)
         {
             var deliveryOrderDTO = await _deliveryOrderService.GetById(id);

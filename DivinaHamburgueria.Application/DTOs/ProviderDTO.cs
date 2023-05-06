@@ -1,12 +1,13 @@
-﻿using System;
+﻿using DivinaHamburgueria.Application.Hypermedia;
+using DivinaHamburgueria.Application.Hypermedia.Abstract;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 
 namespace DivinaHamburgueria.Application.DTOs
 {
 
-    public class ProviderDTO
+    public class ProviderDTO: ISupportsHypermedia
     {
 
         public int Id { get; set; }
@@ -22,6 +23,8 @@ namespace DivinaHamburgueria.Application.DTOs
         public AddressDTO? Address { get; set; }
 
         public PhoneDTO? Phone { get; set; }
+
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
 
     }
 }
